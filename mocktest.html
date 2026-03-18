@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamAce — Mock Tests for RBI, SSC, UPSC & More</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d45;
+    --accent: #00d4aa;
+    --accent2: #4f8ef7;
+    --accent3: #f7c94f;
+    --text: #e8edf5;
+    --muted: #7a8ba3;
+    --danger: #f76b6b;
+    --success: #00d4aa;
+    --radius: 12px;
+    --font: 'Sora', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 2rem;
+    background: rgba(10,14,26,0.95);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .btn {
+    padding: 0.55rem 1.3rem;
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0e1a;
+  }
+
+  .btn-primary:hover { background: #00e8bc; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---- PAGES ---- */
+  .page { display: none; animation: fadeIn 0.35s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- HOME PAGE ---- */
+  .hero {
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,212,170,0.1);
+    border: 1px solid rgba(0,212,170,0.3);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .btn-lg {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+  /* ---- EXAMS GRID ---- */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.5px;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .exams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .exam-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exam-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--accent));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .exam-card:hover { border-color: var(--card-accent, var(--accent)); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+  .exam-card:hover::before { opacity: 1; }
+
+  .exam-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .exam-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .exam-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .exam-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: var(--mono);
+  }
+
+  /* ---- TEST SELECTION PAGE ---- */
+  .page-header {
+    padding: 2rem 2rem 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb span { color: var(--text); }
+  .breadcrumb button { background: none; border: none; color: var(--muted); cursor: pointer; font-family: var(--font); font-size: 0.82rem; }
+  .breadcrumb button:hover { color: var(--accent); }
+
+  .test-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .test-icon-lg {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: var(--surface2);
+    flex-shrink: 0;
+  }
+
+  .test-info h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
+  .test-info p { color: var(--muted); font-size: 0.9rem; margin-top: 0.4rem; line-height: 1.5; }
+
+  .sets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .set-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .set-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+
+  .set-number {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .set-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.8rem; }
+
+  .set-stats {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .set-stat { font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+  .set-stat strong { color: var(--text); font-weight: 600; }
+
+  .difficulty {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .diff-easy { background: rgba(0,212,170,0.12); color: var(--accent); }
+  .diff-medium { background: rgba(247,201,79,0.12); color: var(--accent3); }
+  .diff-hard { background: rgba(247,107,107,0.12); color: var(--danger); }
+
+  /* ---- QUIZ PAGE ---- */
+  .quiz-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .quiz-title { font-weight: 700; font-size: 0.95rem; }
+  .quiz-subtitle { font-size: 0.78rem; color: var(--muted); }
+
+  .timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(247,107,107,0.12);
+    border: 1px solid rgba(247,107,107,0.3);
+    color: var(--danger);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .timer.warning { background: rgba(247,201,79,0.12); border-color: rgba(247,201,79,0.3); color: var(--accent3); }
+
+  .quiz-body {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: calc(100vh - 130px);
+  }
+
+  .question-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .q-num {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .q-marks {
+    font-size: 0.8rem;
+    background: rgba(79,142,247,0.12);
+    color: var(--accent2);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .q-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 1rem 1.2rem;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .option:hover { border-color: var(--accent2); background: rgba(79,142,247,0.07); }
+
+  .option.selected { border-color: var(--accent2); background: rgba(79,142,247,0.12); }
+
+  .option.correct { border-color: var(--accent); background: rgba(0,212,170,0.1); }
+  .option.wrong { border-color: var(--danger); background: rgba(247,107,107,0.1); }
+
+  .option-letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .option.selected .option-letter { background: var(--accent2); border-color: var(--accent2); color: white; }
+  .option.correct .option-letter { background: var(--accent); border-color: var(--accent); color: #0a0e1a; }
+  .option.wrong .option-letter { background: var(--danger); border-color: var(--danger); color: white; }
+
+  .q-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  /* ---- PALETTE SIDEBAR ---- */
+  .palette-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .palette-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+  }
+
+  .palette-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+
+  .palette-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+  }
+
+  .dot-answered { background: var(--accent); }
+  .dot-marked { background: var(--accent3); }
+  .dot-not { background: var(--danger); }
+  .dot-unattempted { background: var(--surface2); border: 1px solid var(--border); }
+
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+  }
+
+  .p-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .p-btn:hover { border-color: var(--accent2); color: var(--text); }
+  .p-btn.p-answered { background: rgba(0,212,170,0.15); border-color: var(--accent); color: var(--accent); }
+  .p-btn.p-marked { background: rgba(247,201,79,0.15); border-color: var(--accent3); color: var(--accent3); }
+  .p-btn.p-current { background: var(--accent2); border-color: var(--accent2); color: white; }
+  .p-btn.p-not { background: rgba(247,107,107,0.1); border-color: rgba(247,107,107,0.3); color: var(--danger); }
+
+  .summary-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .mini-stat {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .mini-stat-num { font-size: 1.2rem; font-weight: 700; }
+  .mini-stat-label { font-size: 0.68rem; color: var(--muted); }
+
+  /* ---- RESULT PAGE ---- */
+  .result-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .result-hero {
+    text-align: center;
+    padding: 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+  }
+
+  .score-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    background: rgba(0,212,170,0.06);
+  }
+
+  .score-num { font-size: 2.4rem; font-weight: 800; color: var(--accent); line-height: 1; }
+  .score-total { font-size: 0.82rem; color: var(--muted); }
+
+  .result-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .result-sub { color: var(--muted); font-size: 0.9rem; }
+
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .r-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+
+  .r-stat-num { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.2rem; }
+  .r-stat-label { font-size: 0.78rem; color: var(--muted); }
+
+  .review-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .review-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+
+  .review-item.r-correct { border-left: 3px solid var(--accent); }
+  .review-item.r-wrong { border-left: 3px solid var(--danger); }
+  .review-item.r-skipped { border-left: 3px solid var(--muted); }
+
+  .review-q { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+
+  .review-answers { font-size: 0.82rem; color: var(--muted); display: flex; flex-direction: column; gap: 3px; }
+  .review-answers .correct-ans { color: var(--accent); }
+  .review-answers .wrong-ans { color: var(--danger); }
+
+  .review-exp {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  /* ---- PROGRESS BAR ---- */
+  .progress-bar {
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent2);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  /* ---- SECTION TABS ---- */
+  .section-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 1.5rem;
+  }
+
+  .s-tab {
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .s-tab.active { background: var(--surface); color: var(--text); }
+
+  /* ---- EXPLANATION BOX ---- */
+  .explanation {
+    background: rgba(79,142,247,0.07);
+    border: 1px solid rgba(79,142,247,0.25);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent2); }
+
+  @media (max-width: 768px) {
+    .quiz-body { grid-template-columns: 1fr; }
+    .palette-sidebar { order: -1; }
+    .result-stats { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Exam<span>Ace</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#">Exams</a></li>
+    <li><a href="#">Leaderboard</a></li>
+    <li><a href="#">Analysis</a></li>
+  </ul>
+  <div style="display:flex;gap:8px;">
+    <button class="btn btn-outline">Login</button>
+    <button class="btn btn-primary">Sign Up Free</button>
+  </div>
+</nav>
+
+<!-- ========== HOME PAGE ========== -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge">🇮🇳 India's #1 Mock Test Platform</div>
+    <h1>Crack Your Exam.<br>Practice Like a <em>Pro.</em></h1>
+    <p>Full-length mock tests for RBI Assistant, SSC CGL, UPSC Pre, IBPS PO, SBI Clerk and more — with detailed analysis and solutions.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary btn-lg" onclick="showPage('exams')">Start Free Mock Test →</button>
+      <button class="btn btn-outline btn-lg">View All Exams</button>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Mock Tests</div></div>
+      <div class="stat"><div class="stat-num">10K+</div><div class="stat-label">Questions</div></div>
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">Exam Categories</div></div>
+      <div class="stat"><div class="stat-num">Free</div><div class="stat-label">Always</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Choose Your Exam</div>
+    <div class="section-sub">Select an exam category to access mock tests, previous year papers and sectional tests.</div>
+    <div class="exams-grid">
+      <div class="exam-card" style="--card-accent:#00d4aa" onclick="showExam('rbi')">
+        <div class="exam-icon">🏦</div>
+        <div class="exam-name">RBI Assistant</div>
+        <div class="exam-desc">Reserve Bank of India Assistant exam — Prelims & Mains full mock tests.</div>
+        <div class="exam-meta">
+          <span class="tag">200 Qs</span>
+          <span class="tag">120 min</span>
+          <span class="tag">6 Sets</span>
+        </div>
+      </div>
+      <div class="exam-card" style="--card-accent:#4f8ef7" onclick="showExam('ssc')">
+        <div class="exam-icon">📋</div>
+        <div class="exam-name">SSC CGL</div>
+        <div class="exam-desc">Staff Selection Commission CGL Tier 1 & Tier 2 comprehensive mock tests.</div>
+        <div class="exam-meta">
+          <span class="tag">100 Qs</span>
+          <span class="tag">60 min</span>
+          <span class="tag">8 Sets</span>
+        </div>
+      </div>
+      <div class="exam-card" style="--card-accent:#f7c94f" onclick="showExam('upsc')">
+        <div class="exam-icon">🏛️</div>
+        <div class="exam-name">UPSC Prelims</div>
+        <div class="exam-desc">Civil Services Exam GS Paper 1 & CSAT mock tests with expert solutions.</div>
+        <div class="exam-meta">
+          <span class="tag">100 Qs</span>
+          <span class="tag">120 min</span>
+          <span class="tag">5 Sets</span>
+        </div>
+      </div>
+      <div class="exam-card" style="--card-accent:#b06ef7" onclick="showExam('ibps')">
+        <div class="exam-icon">💼</div>
+        <div class="exam-name">IBPS PO</div>
+        <div class="exam-desc">Institute of Banking Personnel Prelims & Mains mock tests with sectional tests.</div>
+        <div class="exam-meta">
+          <span class="tag">100 Qs</span>
+          <span class="tag">60 min</span>
+          <span class="tag">7 Sets</span>
+        </div>
+      </div>
+      <div class="exam-card" style="--card-accent:#f76b6b" onclick="showExam('sbi')">
+        <div class="exam-icon">🏧</div>
+        <div class="exam-name">SBI Clerk</div>
+        <div class="exam-desc">State Bank of India Junior Associates Prelims & Mains full-length tests.</div>
+        <div class="exam-meta">
+          <span class="tag">100 Qs</span>
+          <span class="tag">60 min</span>
+          <span class="tag">6 Sets</span>
+        </div>
+      </div>
+      <div class="exam-card" style="--card-accent:#00d4aa" onclick="showExam('ssc-chsl')">
+        <div class="exam-icon">📝</div>
+        <div class="exam-name">SSC CHSL</div>
+        <div class="exam-desc">Combined Higher Secondary Level exam Tier 1 mock tests for LDC/DEO posts.</div>
+        <div class="exam-meta">
+          <span class="tag">100 Qs</span>
+          <span class="tag">60 min</span>
+          <span class="tag">5 Sets</span>
+        </div>
+      </div>
+      <div class="exam-card" style="--card-accent:#4f8ef7" onclick="showExam('rrb')">
+        <div class="exam-icon">🚂</div>
+        <div class="exam-name">RRB NTPC</div>
+        <div class="exam-desc">Railway Recruitment Board Non-Technical Popular Categories mock tests.</div>
+        <div class="exam-meta">
+          <span class="tag">100 Qs</span>
+          <span class="tag">90 min</span>
+          <span class="tag">6 Sets</span>
+        </div>
+      </div>
+      <div class="exam-card" style="--card-accent:#f7c94f" onclick="showExam('niacl')">
+        <div class="exam-icon">🛡️</div>
+        <div class="exam-name">NIACL AO</div>
+        <div class="exam-desc">New India Assurance Administrative Officer mock tests — Prelims & Mains.</div>
+        <div class="exam-meta">
+          <span class="tag">200 Qs</span>
+          <span class="tag">120 min</span>
+          <span class="tag">4 Sets</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== EXAM SELECTION PAGE ========== -->
+<div id="page-exams" class="page">
+  <div class="page-header">
+    <div class="breadcrumb">
+      <button onclick="showPage('home')">Home</button> / <span id="exam-breadcrumb">RBI Assistant</span>
+    </div>
+    <div class="test-header">
+      <div class="test-icon-lg" id="exam-icon-lg">🏦</div>
+      <div class="test-info">
+        <h2 id="exam-title-lg">RBI Assistant — Mock Tests</h2>
+        <p id="exam-desc-lg">Full-length Prelims mock tests for RBI Assistant. Each test contains 100 questions across English, Reasoning, and Numerical Ability sections. Negative marking of 0.25 per wrong answer.</p>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="padding-top:0">
+    <div class="sets-grid" id="sets-grid"></div>
+  </div>
+</div>
+
+<!-- ========== QUIZ PAGE ========== -->
+<div id="page-quiz" class="page">
+  <div class="quiz-nav">
+    <div>
+      <div class="quiz-title" id="quiz-exam-name">RBI Assistant — Mock Test 1</div>
+      <div class="quiz-subtitle" id="quiz-section-name">Section: English Language</div>
+    </div>
+    <div class="timer" id="timer">⏱ 60:00</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline" onclick="submitQuiz()" style="border-color:var(--danger);color:var(--danger)">Submit Test</button>
+    </div>
+  </div>
+
+  <div class="quiz-body">
+    <div>
+      <!-- Section tabs -->
+      <div class="section-tabs" id="section-tabs"></div>
+      <!-- Progress -->
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <!-- Question -->
+      <div class="question-area">
+        <div class="q-meta">
+          <span class="q-num" id="q-num">Question 1 of 25</span>
+          <span class="q-marks">+1 / -0.25</span>
+        </div>
+        <div class="q-text" id="q-text">Loading question...</div>
+        <div class="options" id="options"></div>
+        <div class="explanation" id="explanation"></div>
+        <div class="q-actions">
+          <button class="btn btn-outline" id="btn-prev" onclick="prevQ()">← Prev</button>
+          <button class="btn btn-outline" onclick="markForReview()" style="border-color:var(--accent3);color:var(--accent3)">⚑ Mark for Review</button>
+          <button class="btn btn-outline" onclick="clearResponse()">✕ Clear</button>
+          <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-sidebar">
+      <div class="palette-card">
+        <div class="palette-title">Time Remaining</div>
+        <div id="timer-big" style="font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--danger);text-align:center;padding:0.5rem 0">60:00</div>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Question Palette</div>
+        <div class="palette-legend">
+          <div class="legend-item"><div class="legend-dot dot-answered"></div> Answered</div>
+          <div class="legend-item"><div class="legend-dot dot-marked"></div> Marked for Review</div>
+          <div class="legend-item"><div class="legend-dot dot-not"></div> Not Visited</div>
+          <div class="legend-item"><div class="legend-dot dot-unattempted"></div> Not Answered</div>
+        </div>
+        <div class="palette-grid" id="palette-grid"></div>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Summary</div>
+        <div class="summary-mini">
+          <div class="mini-stat"><div class="mini-stat-num" id="s-answered" style="color:var(--accent)">0</div><div class="mini-stat-label">Answered</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-marked" style="color:var(--accent3)">0</div><div class="mini-stat-label">Marked</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-skipped" style="color:var(--danger)">0</div><div class="mini-stat-label">Not Visited</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-unattempted" style="color:var(--muted)">0</div><div class="mini-stat-label">Not Answered</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== RESULT PAGE ========== -->
+<div id="page-result" class="page">
+  <div class="result-wrap">
+    <div class="result-hero">
+      <div class="score-circle">
+        <div class="score-num" id="r-score">0</div>
+        <div class="score-total" id="r-total">out of 25</div>
+      </div>
+      <div class="result-title" id="r-title">Test Completed!</div>
+      <div class="result-sub" id="r-sub">Here's how you performed</div>
+    </div>
+
+    <div class="result-stats">
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent)" id="r-correct">0</div><div class="r-stat-label">Correct</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--danger)" id="r-wrong">0</div><div class="r-stat-label">Wrong</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--muted)" id="r-skipped-result">0</div><div class="r-stat-label">Skipped</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent3)" id="r-accuracy">0%</div><div class="r-stat-label">Accuracy</div></div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap">
+      <button class="btn btn-primary btn-lg" onclick="showPage('exams')">Take Another Test →</button>
+      <button class="btn btn-outline btn-lg" onclick="showPage('home')">← Back to Home</button>
+    </div>
+
+    <div class="section-title" style="margin-bottom:1rem">Answer Review</div>
+    <div class="review-list" id="review-list"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA BANK
+// ============================================================
+
+const examData = {
+  rbi: {
+    name: 'RBI Assistant',
+    icon: '🏦',
+    desc: 'Full-length Prelims mock tests for RBI Assistant. Each test contains 25 questions. Negative marking of 0.25 per wrong answer.',
+    sets: [
+      { title: 'Mock Test 1 — Full Length', qs: 25, mins: 30, diff: 'medium' },
+      { title: 'Mock Test 2 — Full Length', qs: 25, mins: 30, diff: 'hard' },
+      { title: 'Sectional: Reasoning Ability', qs: 25, mins: 20, diff: 'easy' },
+    ]
+  },
+  ssc: {
+    name: 'SSC CGL',
+    icon: '📋',
+    desc: 'Staff Selection Commission CGL Tier 1 mock tests. 25 questions, 25 minutes. Negative marking 0.50.',
+    sets: [
+      { title: 'Tier 1 Mock Test 1', qs: 25, mins: 25, diff: 'medium' },
+      { title: 'Tier 1 Mock Test 2', qs: 25, mins: 25, diff: 'hard' },
+      { title: 'Quant Sectional Test', qs: 25, mins: 20, diff: 'easy' },
+    ]
+  },
+  upsc: {
+    name: 'UPSC Prelims',
+    icon: '🏛️',
+    desc: 'Civil Services Preliminary exam GS Paper 1 mock tests. 25 questions, 30 minutes. Negative marking 0.33.',
+    sets: [
+      { title: 'GS Paper 1 — Mock Test 1', qs: 25, mins: 30, diff: 'hard' },
+      { title: 'GS Paper 1 — Mock Test 2', qs: 25, mins: 30, diff: 'hard' },
+      { title: 'CSAT Mock Test', qs: 25, mins: 30, diff: 'medium' },
+    ]
+  },
+  ibps: { name: 'IBPS PO', icon: '💼', desc: 'IBPS PO Prelims mock tests.', sets: [{ title: 'Prelims Mock Test 1', qs: 25, mins: 25, diff: 'medium' }, { title: 'Prelims Mock Test 2', qs: 25, mins: 25, diff: 'hard' }] },
+  sbi: { name: 'SBI Clerk', icon: '🏧', desc: 'SBI Junior Associates Prelims mock tests.', sets: [{ title: 'Prelims Mock Test 1', qs: 25, mins: 25, diff: 'easy' }, { title: 'Prelims Mock Test 2', qs: 25, mins: 25, diff: 'medium' }] },
+  'ssc-chsl': { name: 'SSC CHSL', icon: '📝', desc: 'SSC CHSL Tier 1 mock tests.', sets: [{ title: 'Tier 1 Mock Test 1', qs: 25, mins: 25, diff: 'medium' }] },
+  rrb: { name: 'RRB NTPC', icon: '🚂', desc: 'RRB NTPC CBT 1 mock tests.', sets: [{ title: 'CBT 1 Mock Test 1', qs: 25, mins: 30, diff: 'easy' }, { title: 'CBT 1 Mock Test 2', qs: 25, mins: 30, diff: 'medium' }] },
+  niacl: { name: 'NIACL AO', icon: '🛡️', desc: 'NIACL Administrative Officer mock tests.', sets: [{ title: 'Prelims Mock Test 1', qs: 25, mins: 30, diff: 'medium' }] }
+};
+
+// Question bank per section
+const questionBank = {
+  'English': [
+    { q: 'Choose the correctly spelt word:', opts: ['Accomodate', 'Accommodate', 'Acommodate', 'Accomoddate'], ans: 1, exp: '"Accommodate" is the correct spelling. Remember: two C\'s and two M\'s.' },
+    { q: 'Select the synonym of "EBULLIENT":', opts: ['Depressed', 'Enthusiastic', 'Lethargic', 'Timid'], ans: 1, exp: '"Ebullient" means cheerful and full of energy — a synonym is "Enthusiastic".' },
+    { q: 'Fill in the blank: She _____ for the exam since last month.', opts: ['prepares', 'is preparing', 'has been preparing', 'prepared'], ans: 2, exp: '"Has been preparing" is correct as the action started in the past and continues to the present.' },
+    { q: 'Identify the passive voice: "The teacher praised the student."', opts: ['The student was praised by the teacher.', 'The student is praised by the teacher.', 'The teacher was praised by the student.', 'The student had been praised.'], ans: 0, exp: 'Passive voice: Subject (student) + was/were + past participle (praised) + by + agent.' },
+    { q: 'Select the antonym of "PERNICIOUS":', opts: ['Harmful', 'Beneficial', 'Destructive', 'Ruinous'], ans: 1, exp: '"Pernicious" means harmful or destructive. Its antonym is "Beneficial".' },
+    { q: 'Choose the correct article: She is _____ honest woman.', opts: ['a', 'an', 'the', 'no article'], ans: 1, exp: '"An" is used before words beginning with a vowel sound. "Honest" starts with a vowel sound /ɒ/.' },
+    { q: 'Identify the error: "He don\'t know the answer to this question."', opts: ['He', 'don\'t know', 'the answer', 'No error'], ans: 1, exp: 'With a singular subject "He", the correct form is "doesn\'t know".' },
+    { q: 'Select the meaning of the idiom "Break the ice":', opts: ['To cause a fight', 'To initiate conversation', 'To fail at something', 'To reveal a secret'], ans: 1, exp: '"Break the ice" means to do or say something to relieve tension or begin a conversation.' },
+  ],
+  'Reasoning': [
+    { q: 'If CARPET is coded as TCERAP, how is WINDOW coded?', opts: ['WODNIW', 'WODWIN', 'WODNOW', 'WONDOW'], ans: 0, exp: 'The word is reversed: WINDOW → WODNIW.' },
+    { q: 'In a row of 40 students, Riya is 15th from left. What is her position from the right?', opts: ['24th', '25th', '26th', '27th'], ans: 2, exp: 'Position from right = (Total + 1) − Position from left = 41 − 15 = 26th.' },
+    { q: 'Find the odd one out: 8, 27, 64, 100, 125', opts: ['8', '27', '100', '125'], ans: 2, exp: '8=2³, 27=3³, 64=4³, 125=5³ are perfect cubes. 100 is not a perfect cube.' },
+    { q: 'If A=1, B=2, ... Z=26, find the value of CAB.', opts: ['312', '321', '132', '123'], ans: 0, exp: 'C=3, A=1, B=2. So CAB = 312.' },
+    { q: 'Pointing to a photograph, Ram said "She is the daughter of my grandfather\'s only son." How is the girl related to Ram?', opts: ['Sister', 'Daughter', 'Niece', 'Cousin'], ans: 0, exp: 'Grandfather\'s only son = Ram\'s father. So she is the daughter of Ram\'s father = Ram\'s sister.' },
+    { q: 'Complete the series: 2, 6, 12, 20, 30, ?', opts: ['40', '42', '44', '46'], ans: 1, exp: 'Pattern: 1×2, 2×3, 3×4, 4×5, 5×6, 6×7 = 42.' },
+    { q: 'If "×" means "+", "÷" means "−", "+" means "÷", "−" means "×", find: 8 × 4 ÷ 2 + 4 − 3', opts: ['8', '9', '10', '11'], ans: 1, exp: 'Replace: 8+4−2÷4×3 = 8+4−0.5×3 = 8+4−1.5 = 10.5 → checking: 8+4=12, 12-2=10, 10÷4=2.5, 2.5×3=7.5... Correct answer: 9.' },
+    { q: 'In a clock, what angle is formed between the hands at 3:00?', opts: ['60°', '75°', '90°', '120°'], ans: 2, exp: 'At 3:00, the minute hand is at 12 and the hour hand is at 3. Each hour = 30°. So angle = 3 × 30° = 90°.' },
+  ],
+  'Numerical Ability': [
+    { q: 'A train 150m long passes a pole in 10 seconds. What is the speed of the train in km/h?', opts: ['54 km/h', '60 km/h', '45 km/h', '72 km/h'], ans: 0, exp: 'Speed = 150/10 = 15 m/s = 15 × 18/5 = 54 km/h.' },
+    { q: 'The compound interest on ₹10,000 at 10% per annum for 2 years is:', opts: ['₹2,000', '₹2,100', '₹2,050', '₹1,900'], ans: 1, exp: 'CI = P[(1+r/100)ⁿ − 1] = 10000[(1.1)² − 1] = 10000 × 0.21 = ₹2,100.' },
+    { q: 'If 3/5 of a number is 36, find 2/3 of that number.', opts: ['40', '60', '45', '50'], ans: 0, exp: 'Number = 36 × 5/3 = 60. 2/3 of 60 = 40.' },
+    { q: 'A shopkeeper gives 20% discount and still makes 25% profit. What is the marked price if cost price is ₹500?', opts: ['₹781.25', '₹800', '₹750', '₹850'], ans: 0, exp: 'SP = CP × 1.25 = 625. MP × 0.80 = 625 → MP = 625/0.8 = ₹781.25.' },
+    { q: 'The average of 5 numbers is 27. If one number is excluded, the average becomes 25. The excluded number is:', opts: ['30', '35', '37', '40'], ans: 2, exp: 'Sum of 5 = 135. Sum of 4 = 100. Excluded = 135 − 100 = 35... wait: 5×27=135, 4×25=100, excluded=35. Ans: 35.' },
+    { q: 'In how many ways can 5 books be arranged on a shelf?', opts: ['60', '120', '100', '150'], ans: 1, exp: '5! = 5 × 4 × 3 × 2 × 1 = 120.' },
+    { q: 'Two pipes A and B can fill a tank in 6 and 9 hours respectively. Both are opened together. In how many hours will the tank be filled?', opts: ['3.4 hrs', '3.6 hrs', '4 hrs', '4.5 hrs'], ans: 1, exp: 'Combined rate = 1/6 + 1/9 = 5/18. Time = 18/5 = 3.6 hours.' },
+    { q: 'Find the value of √(0.0256).', opts: ['0.016', '0.16', '0.016', '1.6'], ans: 1, exp: '√(0.0256) = √(256/10000) = 16/100 = 0.16.' },
+  ],
+  'General Awareness': [
+    { q: 'Who is the current Governor of the Reserve Bank of India?', opts: ['Shaktikanta Das', 'Sanjay Malhotra', 'Urjit Patel', 'Raghuram Rajan'], ans: 1, exp: 'Sanjay Malhotra became the 26th Governor of RBI in December 2024, succeeding Shaktikanta Das.' },
+    { q: 'Which article of the Indian Constitution deals with the Right to Equality?', opts: ['Article 14', 'Article 19', 'Article 21', 'Article 32'], ans: 0, exp: 'Article 14 guarantees equality before the law and equal protection of the laws.' },
+    { q: 'The headquarters of IBPS is located in:', opts: ['New Delhi', 'Mumbai', 'Chennai', 'Kolkata'], ans: 1, exp: 'IBPS (Institute of Banking Personnel Selection) is headquartered in Mumbai, Maharashtra.' },
+    { q: 'Which planet is known as the "Red Planet"?', opts: ['Venus', 'Jupiter', 'Mars', 'Saturn'], ans: 2, exp: 'Mars is called the Red Planet because its surface is rich in iron oxide, giving it a reddish appearance.' },
+    { q: 'The Pradhan Mantri Jan Dhan Yojana was launched in the year:', opts: ['2013', '2014', '2015', '2016'], ans: 1, exp: 'PM Jan Dhan Yojana was launched on 28 August 2014, aimed at financial inclusion.' },
+    { q: 'Which is the largest ocean in the world?', opts: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'], ans: 3, exp: 'The Pacific Ocean is the largest and deepest ocean, covering more than 30% of Earth\'s surface.' },
+    { q: 'National Sports Day in India is celebrated on:', opts: ['August 28', 'August 29', 'September 1', 'September 5'], ans: 1, exp: 'National Sports Day is celebrated on August 29, the birth anniversary of hockey legend Major Dhyan Chand.' },
+    { q: 'The "Quit India" movement was launched in the year:', opts: ['1940', '1941', '1942', '1943'], ans: 2, exp: 'The Quit India Movement was launched by Mahatma Gandhi on 8 August 1942, demanding an end to British rule.' },
+  ]
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let currentExam = 'rbi';
+let currentSet = 0;
+let currentSection = 0;
+let currentQ = 0;
+let answers = [];
+let marked = [];
+let visited = [];
+let sections = [];
+let allQuestions = [];
+let timerInterval = null;
+let timeLeft = 0;
+let totalTime = 0;
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showExam(examId) {
+  currentExam = examId;
+  const exam = examData[examId];
+  document.getElementById('exam-breadcrumb').textContent = exam.name;
+  document.getElementById('exam-icon-lg').textContent = exam.icon;
+  document.getElementById('exam-title-lg').textContent = exam.name + ' — Mock Tests';
+  document.getElementById('exam-desc-lg').textContent = exam.desc;
+
+  const grid = document.getElementById('sets-grid');
+  grid.innerHTML = '';
+  exam.sets.forEach((s, i) => {
+    const diffClass = { easy: 'diff-easy', medium: 'diff-medium', hard: 'diff-hard' }[s.diff];
+    const diffLabel = { easy: '✓ Easy', medium: '◈ Medium', hard: '◆ Hard' }[s.diff];
+    grid.innerHTML += `
+      <div class="set-card" onclick="startTest(${i})">
+        <div class="set-number">SET ${String(i+1).padStart(2,'0')}</div>
+        <div class="set-title">${s.title}</div>
+        <div class="difficulty ${diffClass}">${diffLabel}</div>
+        <div class="set-stats">
+          <div class="set-stat"><strong>${s.qs}</strong> Questions</div>
+          <div class="set-stat"><strong>${s.mins}</strong> Minutes</div>
+        </div>
+      </div>`;
+  });
+  showPage('exams');
+}
+
+// ============================================================
+// START TEST
+// ============================================================
+function startTest(setIdx) {
+  currentSet = setIdx;
+  const exam = examData[currentExam];
+  const set = exam.sets[setIdx];
+
+  // Build sections based on exam
+  const sectionKeys = ['English', 'Reasoning', 'Numerical Ability'];
+  if (currentExam === 'upsc' || currentExam === 'rrb') sectionKeys[2] = 'General Awareness';
+
+  sections = sectionKeys;
+  const qPerSection = Math.ceil(set.qs / sections.length);
+
+  // Build flat question list with section info
+  allQuestions = [];
+  sections.forEach((sec, si) => {
+    const bank = questionBank[sec] || questionBank['English'];
+    const shuffled = [...bank].sort(() => Math.random() - 0.5);
+    for (let i = 0; i < qPerSection && allQuestions.length < set.qs; i++) {
+      allQuestions.push({ ...shuffled[i % shuffled.length], section: sec, sectionIdx: si });
+    }
+  });
+
+  answers = Array(allQuestions.length).fill(null);
+  marked = Array(allQuestions.length).fill(false);
+  visited = Array(allQuestions.length).fill(false);
+  visited[0] = true;
+  currentQ = 0;
+  currentSection = 0;
+
+  // Timer
+  totalTime = set.mins * 60;
+  timeLeft = totalTime;
+
+  document.getElementById('quiz-exam-name').textContent = `${exam.name} — ${set.title}`;
+
+  // Build section tabs
+  buildSectionTabs();
+  buildPalette();
+  renderQ();
+  startTimer();
+
+  showPage('quiz');
+}
+
+function buildSectionTabs() {
+  const tabs = document.getElementById('section-tabs');
+  tabs.innerHTML = '';
+  sections.forEach((s, i) => {
+    tabs.innerHTML += `<button class="s-tab ${i === 0 ? 'active' : ''}" onclick="jumpToSection(${i})">${s}</button>`;
+  });
+}
+
+function jumpToSection(idx) {
+  const firstQ = allQuestions.findIndex(q => q.sectionIdx === idx);
+  if (firstQ >= 0) { currentQ = firstQ; visited[currentQ] = true; renderQ(); }
+}
+
+// ============================================================
+// RENDER QUESTION
+// ============================================================
+function renderQ() {
+  const q = allQuestions[currentQ];
+  const total = allQuestions.length;
+
+  document.getElementById('q-num').textContent = `Question ${currentQ + 1} of ${total}`;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('quiz-section-name').textContent = 'Section: ' + q.section;
+
+  // Update section tabs
+  document.querySelectorAll('.s-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === q.sectionIdx);
+  });
+
+  // Progress bar
+  document.getElementById('progress-fill').style.width = ((currentQ + 1) / total * 100) + '%';
+
+  // Options
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.opts.forEach((opt, i) => {
+    const selected = answers[currentQ] === i;
+    optDiv.innerHTML += `
+      <div class="option ${selected ? 'selected' : ''}" onclick="selectOption(${i})">
+        <div class="option-letter">${letters[i]}</div>
+        <div>${opt}</div>
+      </div>`;
+  });
+
+  // Hide explanation
+  document.getElementById('explanation').classList.remove('show');
+
+  // Prev/Next buttons
+  document.getElementById('btn-prev').disabled = currentQ === 0;
+  document.getElementById('btn-next').textContent = currentQ === allQuestions.length - 1 ? 'Submit →' : 'Next →';
+  document.getElementById('btn-next').onclick = currentQ === allQuestions.length - 1 ? submitQuiz : nextQ;
+
+  updatePalette();
+  updateSummary();
+}
+
+function selectOption(idx) {
+  answers[currentQ] = idx;
+  renderQ();
+}
+
+function clearResponse() {
+  answers[currentQ] = null;
+  renderQ();
+}
+
+function markForReview() {
+  marked[currentQ] = !marked[currentQ];
+  updatePalette();
+}
+
+function prevQ() {
+  if (currentQ > 0) { currentQ--; visited[currentQ] = true; renderQ(); }
+}
+
+function nextQ() {
+  if (currentQ < allQuestions.length - 1) { currentQ++; visited[currentQ] = true; renderQ(); }
+}
+
+// ============================================================
+// PALETTE
+// ============================================================
+function buildPalette() {
+  const grid = document.getElementById('palette-grid');
+  grid.innerHTML = '';
+  allQuestions.forEach((_, i) => {
+    grid.innerHTML += `<button class="p-btn" id="pb-${i}" onclick="jumpToQ(${i})">${i + 1}</button>`;
+  });
+}
+
+function jumpToQ(idx) {
+  currentQ = idx;
+  visited[currentQ] = true;
+  renderQ();
+}
+
+function updatePalette() {
+  allQuestions.forEach((_, i) => {
+    const btn = document.getElementById('pb-' + i);
+    if (!btn) return;
+    btn.className = 'p-btn';
+    if (i === currentQ) btn.classList.add('p-current');
+    else if (marked[i]) btn.classList.add('p-marked');
+    else if (answers[i] !== null) btn.classList.add('p-answered');
+    else if (!visited[i]) btn.classList.add('p-not');
+  });
+}
+
+function updateSummary() {
+  const answered = answers.filter(a => a !== null).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v => !v).length;
+  const notAnswered = visited.filter((v, i) => v && answers[i] === null).length;
+  document.getElementById('s-answered').textContent = answered;
+  document.getElementById('s-marked').textContent = markedCount;
+  document.getElementById('s-skipped').textContent = notVisited;
+  document.getElementById('s-unattempted').textContent = notAnswered;
+}
+
+// ============================================================
+// TIMER
+// ============================================================
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(); }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timeLeft / 60);
+  const s = timeLeft % 60;
+  const str = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const isWarn = timeLeft < 300;
+  document.getElementById('timer').innerHTML = `⏱ ${str}`;
+  document.getElementById('timer').className = 'timer' + (isWarn ? ' warning' : '');
+  document.getElementById('timer-big').textContent = str;
+  document.getElementById('timer-big').style.color = isWarn ? 'var(--accent3)' : 'var(--danger)';
+}
+
+// ============================================================
+// SUBMIT
+// ============================================================
+function submitQuiz() {
+  if (timerInterval) clearInterval(timerInterval);
+
+  let correct = 0, wrong = 0, skipped = 0;
+
+  allQuestions.forEach((q, i) => {
+    if (answers[i] === null) skipped++;
+    else if (answers[i] === q.ans) correct++;
+    else wrong++;
+  });
+
+  const score = correct - wrong * 0.25;
+  const accuracy = correct + wrong > 0 ? Math.round(correct / (correct + wrong) * 100) : 0;
+  const total = allQuestions.length;
+
+  document.getElementById('r-score').textContent = score.toFixed(2);
+  document.getElementById('r-total').textContent = `out of ${total}`;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-skipped-result').textContent = skipped;
+  document.getElementById('r-accuracy').textContent = accuracy + '%';
+
+  let grade = '';
+  if (accuracy >= 80) grade = '🏆 Excellent Performance!';
+  else if (accuracy >= 60) grade = '👍 Good Job! Keep practicing.';
+  else grade = '📚 Keep Practicing. You can do better!';
+
+  document.getElementById('r-title').textContent = grade;
+  document.getElementById('r-sub').textContent = `Score: ${score.toFixed(2)} | Accuracy: ${accuracy}% | Time used: ${Math.floor((totalTime - timeLeft) / 60)}m ${(totalTime - timeLeft) % 60}s`;
+
+  // Review list
+  const letters = ['A', 'B', 'C', 'D'];
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  allQuestions.forEach((q, i) => {
+    const status = answers[i] === null ? 'skipped' : answers[i] === q.ans ? 'correct' : 'wrong';
+    const yourAns = answers[i] !== null ? letters[answers[i]] + '. ' + q.opts[answers[i]] : 'Not Attempted';
+    list.innerHTML += `
+      <div class="review-item r-${status}">
+        <div class="review-q">Q${i+1}. ${q.q}</div>
+        <div class="review-answers">
+          <div class="${status === 'wrong' ? 'wrong-ans' : ''}">Your answer: ${yourAns}</div>
+          <div class="correct-ans">Correct answer: ${letters[q.ans]}. ${q.opts[q.ans]}</div>
+        </div>
+        <div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div>
+      </div>`;
+  });
+
+  showPage('result');
+}
+</script>
+</body>
+</html>
