@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSC CGL — Quant Sectional Test | ExamAce</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --border: #1e2d45;
+    --accent: #00d4aa; --accent2: #4f8ef7; --accent3: #f7c94f;
+    --text: #e8edf5; --muted: #7a8ba3; --danger: #f76b6b;
+    --radius: 12px; --font: 'Sora', sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem;
+    background:rgba(10,14,26,0.95); border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:100; backdrop-filter:blur(12px); }
+  .logo { font-size:1.3rem; font-weight:800; color:var(--text); text-decoration:none; }
+  .logo span { color:var(--accent); }
+  .btn { padding:.55rem 1.3rem; border-radius:8px; font-family:var(--font); font-size:.88rem;
+    font-weight:600; cursor:pointer; border:none; transition:all .2s; text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px; }
+  .btn-primary { background:var(--accent); color:#0a0e1a; }
+  .btn-primary:hover { background:#00e8bc; transform:translateY(-1px); }
+  .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+  .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+  .quiz-nav { display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2rem; background:var(--surface); border-bottom:1px solid var(--border); flex-wrap:wrap; gap:.5rem; }
+  .quiz-title { font-weight:700; font-size:.95rem; }
+  .quiz-subtitle { font-size:.78rem; color:var(--muted); }
+  .timer { display:flex; align-items:center; gap:8px; background:rgba(247,107,107,.12);
+    border:1px solid rgba(247,107,107,.3); color:var(--danger); padding:.5rem 1rem;
+    border-radius:8px; font-family:var(--mono); font-size:1.1rem; font-weight:600; }
+  .timer.warning { background:rgba(247,201,79,.12); border-color:rgba(247,201,79,.3); color:var(--accent3); }
+  .quiz-body { display:grid; grid-template-columns:1fr 280px; gap:1.5rem;
+    max-width:1100px; margin:0 auto; padding:2rem; }
+  .question-area { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:2rem; }
+  .q-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
+  .q-num { font-family:var(--mono); font-size:.8rem; color:var(--muted); }
+  .q-marks { font-size:.8rem; background:rgba(79,142,247,.12); color:var(--accent2);
+    padding:3px 10px; border-radius:4px; font-weight:600; }
+  .q-text { font-size:1.1rem; line-height:1.7; margin-bottom:2rem; font-weight:500; }
+  .options { display:flex; flex-direction:column; gap:.75rem; }
+  .option { display:flex; align-items:flex-start; gap:12px; padding:1rem 1.2rem;
+    background:var(--surface2); border:1.5px solid var(--border); border-radius:10px;
+    cursor:pointer; transition:all .18s; font-size:.95rem; line-height:1.5; }
+  .option:hover { border-color:var(--accent2); background:rgba(79,142,247,.07); }
+  .option.selected { border-color:var(--accent2); background:rgba(79,142,247,.12); }
+  .option.correct { border-color:var(--accent); background:rgba(0,212,170,.1); }
+  .option.wrong { border-color:var(--danger); background:rgba(247,107,107,.1); }
+  .option-letter { width:28px; height:28px; border-radius:6px; background:rgba(255,255,255,.06);
+    border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:.8rem; font-weight:600; flex-shrink:0; margin-top:1px; }
+  .option.selected .option-letter { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .option.correct .option-letter { background:var(--accent); border-color:var(--accent); color:#0a0e1a; }
+  .option.wrong .option-letter { background:var(--danger); border-color:var(--danger); color:white; }
+  .q-actions { display:flex; gap:.75rem; margin-top:2rem; flex-wrap:wrap; }
+  .palette-sidebar { display:flex; flex-direction:column; gap:1rem; }
+  .palette-card { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.2rem; }
+  .palette-title { font-size:.82rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:1rem; }
+  .palette-legend { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1rem; font-size:.78rem; color:var(--muted); }
+  .legend-item { display:flex; align-items:center; gap:6px; }
+  .legend-dot { width:14px; height:14px; border-radius:3px; }
+  .dot-answered { background:var(--accent); } .dot-marked { background:var(--accent3); }
+  .dot-not { background:var(--danger); } .dot-unattempted { background:var(--surface2); border:1px solid var(--border); }
+  .palette-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; }
+  .p-btn { width:36px; height:36px; border-radius:6px; border:1px solid var(--border);
+    background:var(--surface2); color:var(--muted); font-family:var(--mono); font-size:.72rem;
+    font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+  .p-btn:hover { border-color:var(--accent2); color:var(--text); }
+  .p-btn.p-answered { background:rgba(0,212,170,.15); border-color:var(--accent); color:var(--accent); }
+  .p-btn.p-marked { background:rgba(247,201,79,.15); border-color:var(--accent3); color:var(--accent3); }
+  .p-btn.p-current { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .p-btn.p-not { background:rgba(247,107,107,.1); border-color:rgba(247,107,107,.3); color:var(--danger); }
+  .summary-mini { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .mini-stat { background:var(--surface2); border-radius:8px; padding:8px; text-align:center; }
+  .mini-stat-num { font-size:1.2rem; font-weight:700; }
+  .mini-stat-label { font-size:.68rem; color:var(--muted); }
+  .progress-bar { height:4px; background:var(--surface2); border-radius:2px; margin-bottom:1.5rem; overflow:hidden; }
+  .progress-fill { height:100%; background:var(--accent2); border-radius:2px; transition:width .3s ease; }
+  .section-tabs { display:flex; gap:4px; background:var(--surface2); border-radius:8px; padding:4px; margin-bottom:1.5rem; }
+  .s-tab { padding:.45rem 1rem; border-radius:6px; border:none; background:transparent;
+    color:var(--muted); font-family:var(--font); font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; }
+  .s-tab.active { background:var(--surface); color:var(--text); }
+  .result-wrap { max-width:800px; margin:0 auto; padding:3rem 2rem; }
+  .result-hero { text-align:center; padding:2.5rem; background:var(--surface);
+    border:1px solid var(--border); border-radius:16px; margin-bottom:1.5rem; }
+  .score-circle { width:140px; height:140px; border-radius:50%; border:4px solid var(--accent);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    margin:0 auto 1.5rem; background:rgba(0,212,170,.06); }
+  .score-num { font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1; }
+  .score-total { font-size:.82rem; color:var(--muted); }
+  .result-title { font-size:1.5rem; font-weight:800; margin-bottom:.4rem; }
+  .result-sub { color:var(--muted); font-size:.9rem; }
+  .result-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem; }
+  .r-stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .r-stat-num { font-size:1.6rem; font-weight:800; margin-bottom:.2rem; }
+  .r-stat-label { font-size:.78rem; color:var(--muted); }
+  .review-list { display:flex; flex-direction:column; gap:.75rem; }
+  .review-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; }
+  .review-item.r-correct { border-left:3px solid var(--accent); }
+  .review-item.r-wrong { border-left:3px solid var(--danger); }
+  .review-item.r-skipped { border-left:3px solid var(--muted); }
+  .review-q { font-size:.9rem; font-weight:600; margin-bottom:.5rem; }
+  .review-answers { font-size:.82rem; color:var(--muted); display:flex; flex-direction:column; gap:3px; }
+  .review-answers .correct-ans { color:var(--accent); }
+  .review-answers .wrong-ans { color:var(--danger); }
+  .review-exp { font-size:.82rem; color:var(--muted); margin-top:.5rem; padding-top:.5rem;
+    border-top:1px solid var(--border); line-height:1.5; }
+  .hidden { display:none; }
+  @media(max-width:768px) {
+    .quiz-body { grid-template-columns:1fr; }
+    .result-stats { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Exam<span>Ace</span></a>
+  <div style="text-align:center">
+    <div style="font-size:.9rem;font-weight:700">📋 SSC CGL</div>
+    <div style="font-size:.75rem;color:var(--muted)">Quant Sectional Test</div>
+  </div>
+  <div id="timer" class="timer">⏱ 20:00</div>
+</nav>
+
+<!-- QUIZ VIEW -->
+<div id="quiz-view">
+  <div class="quiz-body">
+    <div>
+      <div class="section-tabs" id="section-tabs"></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="question-area">
+        <div class="q-meta">
+          <span class="q-num" id="q-num">Question 1 of 12</span>
+          <span class="q-marks">+2 / -0.5</span>
+        </div>
+        <div class="q-text" id="q-text"></div>
+        <div class="options" id="options"></div>
+        <div class="q-actions">
+          <button class="btn btn-outline" id="btn-prev" onclick="prevQ()">← Prev</button>
+          <button class="btn btn-outline" onclick="markForReview()" style="border-color:var(--accent3);color:var(--accent3)">⚑ Mark</button>
+          <button class="btn btn-outline" onclick="clearResponse()">✕ Clear</button>
+          <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+        </div>
+      </div>
+    </div>
+    <div class="palette-sidebar">
+      <div class="palette-card">
+        <div class="palette-title">Time Left</div>
+        <div id="timer-big" style="font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--danger);text-align:center;padding:.5rem 0">20:00</div>
+        <button class="btn btn-outline" onclick="submitQuiz()" style="width:100%;border-color:var(--danger);color:var(--danger);margin-top:.5rem">Submit Test</button>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Question Palette</div>
+        <div class="palette-legend">
+          <div class="legend-item"><div class="legend-dot dot-answered"></div>Answered</div>
+          <div class="legend-item"><div class="legend-dot dot-marked"></div>Marked</div>
+          <div class="legend-item"><div class="legend-dot dot-not"></div>Not Visited</div>
+          <div class="legend-item"><div class="legend-dot dot-unattempted"></div>Not Answered</div>
+        </div>
+        <div class="palette-grid" id="palette-grid"></div>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Summary</div>
+        <div class="summary-mini">
+          <div class="mini-stat"><div class="mini-stat-num" id="s-ans" style="color:var(--accent)">0</div><div class="mini-stat-label">Answered</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-mrk" style="color:var(--accent3)">0</div><div class="mini-stat-label">Marked</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-nv" style="color:var(--danger)">0</div><div class="mini-stat-label">Not Visited</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-na" style="color:var(--muted)">0</div><div class="mini-stat-label">Unattempted</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT VIEW -->
+<div id="result-view" class="hidden">
+  <div class="result-wrap">
+    <div class="result-hero">
+      <div class="score-circle">
+        <div class="score-num" id="r-score">0</div>
+        <div class="score-total">out of 24</div>
+      </div>
+      <div class="result-title" id="r-title">Test Completed!</div>
+      <div class="result-sub" id="r-sub"></div>
+    </div>
+    <div class="result-stats">
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent)" id="r-correct">0</div><div class="r-stat-label">Correct</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--danger)" id="r-wrong">0</div><div class="r-stat-label">Wrong</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--muted)" id="r-skip">0</div><div class="r-stat-label">Skipped</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent3)" id="r-acc">0%</div><div class="r-stat-label">Accuracy</div></div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <a href="index.html" class="btn btn-primary btn-lg" style="padding:.85rem 2rem;font-size:1rem;border-radius:10px">← Back to All Tests</a>
+    </div>
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Answer Review</div>
+    <div class="review-list" id="review-list"></div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"q": "A train 150m long passes a pole in 10 seconds. Speed in km/h:", "opts": ["54", "60", "45", "72"], "ans": 0, "exp": "Speed = 150/10 = 15 m/s = 15 \u00d7 18/5 = 54 km/h.", "section": "Numerical Ability"}, {"q": "Compound interest on \u20b910,000 at 10% per annum for 2 years:", "opts": ["\u20b92,000", "\u20b92,100", "\u20b92,050", "\u20b91,900"], "ans": 1, "exp": "CI = 10000[(1.1)\u00b2 \u2212 1] = 10000 \u00d7 0.21 = \u20b92,100.", "section": "Numerical Ability"}, {"q": "If 3/5 of a number is 36, find 2/3 of that number.", "opts": ["40", "60", "45", "50"], "ans": 0, "exp": "Number = 36 \u00d7 5/3 = 60. 2/3 of 60 = 40.", "section": "Numerical Ability"}, {"q": "Shopkeeper gives 20% discount and earns 25% profit. If CP = \u20b9500, find MP:", "opts": ["\u20b9781.25", "\u20b9800", "\u20b9750", "\u20b9850"], "ans": 0, "exp": "SP = 500\u00d71.25 = 625. MP \u00d7 0.80 = 625 \u2192 MP = \u20b9781.25.", "section": "Numerical Ability"}, {"q": "Average of 5 numbers is 27. One excluded \u2192 average becomes 25. Excluded number:", "opts": ["30", "35", "37", "40"], "ans": 1, "exp": "Sum of 5 = 135. Sum of 4 = 100. Excluded = 135 \u2212 100 = 35.", "section": "Numerical Ability"}, {"q": "In how many ways can 5 books be arranged on a shelf?", "opts": ["60", "120", "100", "150"], "ans": 1, "exp": "5! = 5\u00d74\u00d73\u00d72\u00d71 = 120.", "section": "Numerical Ability"}, {"q": "Two pipes A and B fill a tank in 6 and 9 hours. Time if both opened together:", "opts": ["3.4 hrs", "3.6 hrs", "4 hrs", "4.5 hrs"], "ans": 1, "exp": "Combined rate = 1/6+1/9 = 5/18. Time = 18/5 = 3.6 hours.", "section": "Numerical Ability"}, {"q": "Find the value of \u221a0.0256:", "opts": ["0.016", "0.16", "1.6", "0.0016"], "ans": 1, "exp": "\u221a(256/10000) = 16/100 = 0.16.", "section": "Numerical Ability"}, {"q": "A man buys an article for \u20b9800 and sells it for \u20b91,000. Profit %:", "opts": ["20%", "25%", "15%", "30%"], "ans": 1, "exp": "Profit = 200. Profit % = (200/800) \u00d7 100 = 25%.", "section": "Numerical Ability"}, {"q": "LCM of 12, 18, and 24:", "opts": ["36", "48", "72", "96"], "ans": 2, "exp": "12=2\u00b2\u00d73, 18=2\u00d73\u00b2, 24=2\u00b3\u00d73. LCM = 2\u00b3\u00d73\u00b2 = 72.", "section": "Numerical Ability"}, {"q": "A boat goes 30 km upstream in 6 hours and 30 km downstream in 3 hours. Speed in still water:", "opts": ["5 km/h", "7.5 km/h", "10 km/h", "12.5 km/h"], "ans": 1, "exp": "Upstream speed = 5, Downstream = 10. Speed in still water = (5+10)/2 = 7.5 km/h.", "section": "Numerical Ability"}, {"q": "The HCF of 36, 48 and 60 is:", "opts": ["6", "12", "18", "24"], "ans": 1, "exp": "36=2\u00b2\u00d73\u00b2, 48=2\u2074\u00d73, 60=2\u00b2\u00d73\u00d75. HCF = 2\u00b2\u00d73 = 12.", "section": "Numerical Ability"}];
+const SECTIONS = ["Numerical Ability"];
+const TOTAL = 12;
+const MINS = 20;
+const NEG = 0.5;
+const MARKS = 2;
+
+let answers = Array(TOTAL).fill(null);
+let marked = Array(TOTAL).fill(false);
+let visited = Array(TOTAL).fill(false);
+let currentQ = 0;
+let timeLeft = MINS * 60;
+let timerInt = null;
+visited[0] = true;
+
+// Build palette
+function buildPalette() {
+  const g = document.getElementById('palette-grid');
+  g.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    g.innerHTML += `<button class="p-btn" id="pb-${i}" onclick="jumpQ(${i})">${i+1}</button>`;
+  }
+}
+
+// Build section tabs
+function buildTabs() {
+  const t = document.getElementById('section-tabs');
+  t.innerHTML = '';
+  SECTIONS.forEach((s, i) => {
+    t.innerHTML += `<button class="s-tab" id="st-${i}" onclick="jumpSection(${i})">${s}</button>`;
+  });
+}
+
+function jumpSection(idx) {
+  const first = QUESTIONS.findIndex(q => q.section === SECTIONS[idx]);
+  if (first >= 0) { currentQ = first; visited[currentQ] = true; render(); }
+}
+
+function render() {
+  const q = QUESTIONS[currentQ];
+  document.getElementById('q-num').textContent = `Question ${currentQ+1} of ${TOTAL}`;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('progress-fill').style.width = ((currentQ+1)/TOTAL*100)+'%';
+
+  // section tabs
+  SECTIONS.forEach((s, i) => {
+    const btn = document.getElementById('st-'+i);
+    if (btn) btn.className = 's-tab' + (q.section === s ? ' active' : '');
+  });
+
+  const letters = ['A','B','C','D'];
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const sel = answers[currentQ] === i;
+    opts.innerHTML += `<div class="option ${sel?'selected':''}" onclick="selectOpt(${i})"><div class="option-letter">${letters[i]}</div><div>${opt}</div></div>`;
+  });
+
+  document.getElementById('btn-prev').disabled = currentQ === 0;
+  const nextBtn = document.getElementById('btn-next');
+  if (currentQ === TOTAL-1) { nextBtn.textContent = 'Submit →'; nextBtn.onclick = submitQuiz; }
+  else { nextBtn.textContent = 'Next →'; nextBtn.onclick = nextQ; }
+
+  updatePalette(); updateSummary();
+}
+
+function selectOpt(i) { answers[currentQ] = i; render(); }
+function clearResponse() { answers[currentQ] = null; render(); }
+function markForReview() { marked[currentQ] = !marked[currentQ]; updatePalette(); }
+function prevQ() { if (currentQ > 0) { currentQ--; visited[currentQ]=true; render(); } }
+function nextQ() { if (currentQ < TOTAL-1) { currentQ++; visited[currentQ]=true; render(); } }
+function jumpQ(i) { currentQ = i; visited[i]=true; render(); }
+
+function updatePalette() {
+  for (let i = 0; i < TOTAL; i++) {
+    const b = document.getElementById('pb-'+i);
+    if (!b) continue;
+    b.className = 'p-btn';
+    if (i === currentQ) b.classList.add('p-current');
+    else if (marked[i]) b.classList.add('p-marked');
+    else if (answers[i] !== null) b.classList.add('p-answered');
+    else if (!visited[i]) b.classList.add('p-not');
+  }
+}
+
+function updateSummary() {
+  document.getElementById('s-ans').textContent = answers.filter(a=>a!==null).length;
+  document.getElementById('s-mrk').textContent = marked.filter(Boolean).length;
+  document.getElementById('s-nv').textContent = visited.filter(v=>!v).length;
+  const notAns = visited.filter((v,i)=>v && answers[i]===null).length;
+  document.getElementById('s-na').textContent = notAns;
+}
+
+function startTimer() {
+  timerInt = setInterval(()=>{
+    timeLeft--;
+    const m = Math.floor(timeLeft/60), s = timeLeft%60;
+    const str = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    document.getElementById('timer').innerHTML = '⏱ '+str;
+    document.getElementById('timer-big').textContent = str;
+    const warn = timeLeft < 300;
+    document.getElementById('timer').className = 'timer'+(warn?' warning':'');
+    document.getElementById('timer-big').style.color = warn ? 'var(--accent3)':'var(--danger)';
+    if (timeLeft <= 0) { clearInterval(timerInt); submitQuiz(); }
+  }, 1000);
+}
+
+function submitQuiz() {
+  if (timerInt) clearInterval(timerInt);
+  let correct=0, wrong=0, skip=0;
+  QUESTIONS.forEach((q,i)=>{
+    if (answers[i]===null) skip++;
+    else if (answers[i]===q.ans) correct++;
+    else wrong++;
+  });
+  const score = (correct*MARKS - wrong*NEG).toFixed(2);
+  const acc = (correct+wrong)>0 ? Math.round(correct/(correct+wrong)*100) : 0;
+  const used = MINS*60 - timeLeft;
+  const um = Math.floor(used/60), us = used%60;
+
+  document.getElementById('r-score').textContent = score;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-skip').textContent = skip;
+  document.getElementById('r-acc').textContent = acc+'%';
+
+  let grade = acc>=80 ? '🏆 Excellent Performance!' : acc>=60 ? '👍 Good Job! Keep practicing.' : '📚 Keep Practicing!';
+  document.getElementById('r-title').textContent = grade;
+  document.getElementById('r-sub').textContent = `Score: ${score} | Accuracy: ${acc}% | Time: ${um}m ${us}s`;
+
+  const letters = ['A','B','C','D'];
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  QUESTIONS.forEach((q,i)=>{
+    const status = answers[i]===null?'skipped':answers[i]===q.ans?'correct':'wrong';
+    const your = answers[i]!==null ? letters[answers[i]]+'. '+q.opts[answers[i]] : 'Not Attempted';
+    list.innerHTML += `<div class="review-item r-${status}">
+      <div class="review-q">Q${i+1}. ${q.q}</div>
+      <div class="review-answers">
+        <div class="${status==='wrong'?'wrong-ans':''}">Your answer: ${your}</div>
+        <div class="correct-ans">Correct: ${letters[q.ans]}. ${q.opts[q.ans]}</div>
+      </div>
+      <div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div>
+    </div>`;
+  });
+
+  document.getElementById('quiz-view').classList.add('hidden');
+  document.getElementById('result-view').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+buildTabs(); buildPalette(); render(); startTimer();
+</script>
+</body>
+</html>
