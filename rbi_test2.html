@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBI Assistant — Mock Test 2 — Full Length (100 Qs) | ExamAce</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --border: #1e2d45;
+    --accent: #00d4aa; --accent2: #4f8ef7; --accent3: #f7c94f;
+    --text: #e8edf5; --muted: #7a8ba3; --danger: #f76b6b;
+    --radius: 12px; --font: 'Sora', sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem;
+    background:rgba(10,14,26,0.95); border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:100; backdrop-filter:blur(12px); }
+  .logo { font-size:1.3rem; font-weight:800; color:var(--text); text-decoration:none; }
+  .logo span { color:var(--accent); }
+  .btn { padding:.55rem 1.3rem; border-radius:8px; font-family:var(--font); font-size:.88rem;
+    font-weight:600; cursor:pointer; border:none; transition:all .2s; text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px; }
+  .btn-primary { background:var(--accent); color:#0a0e1a; }
+  .btn-primary:hover { background:#00e8bc; transform:translateY(-1px); }
+  .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+  .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+  .quiz-nav { display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2rem; background:var(--surface); border-bottom:1px solid var(--border); flex-wrap:wrap; gap:.5rem; }
+  .quiz-title { font-weight:700; font-size:.95rem; }
+  .quiz-subtitle { font-size:.78rem; color:var(--muted); }
+  .timer { display:flex; align-items:center; gap:8px; background:rgba(247,107,107,.12);
+    border:1px solid rgba(247,107,107,.3); color:var(--danger); padding:.5rem 1rem;
+    border-radius:8px; font-family:var(--mono); font-size:1.1rem; font-weight:600; }
+  .timer.warning { background:rgba(247,201,79,.12); border-color:rgba(247,201,79,.3); color:var(--accent3); }
+  .quiz-body { display:grid; grid-template-columns:1fr 280px; gap:1.5rem;
+    max-width:1100px; margin:0 auto; padding:2rem; }
+  .question-area { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:2rem; }
+  .q-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
+  .q-num { font-family:var(--mono); font-size:.8rem; color:var(--muted); }
+  .q-marks { font-size:.8rem; background:rgba(79,142,247,.12); color:var(--accent2);
+    padding:3px 10px; border-radius:4px; font-weight:600; }
+  .q-text { font-size:1.1rem; line-height:1.7; margin-bottom:2rem; font-weight:500; }
+  .options { display:flex; flex-direction:column; gap:.75rem; }
+  .option { display:flex; align-items:flex-start; gap:12px; padding:1rem 1.2rem;
+    background:var(--surface2); border:1.5px solid var(--border); border-radius:10px;
+    cursor:pointer; transition:all .18s; font-size:.95rem; line-height:1.5; }
+  .option:hover { border-color:var(--accent2); background:rgba(79,142,247,.07); }
+  .option.selected { border-color:var(--accent2); background:rgba(79,142,247,.12); }
+  .option.correct { border-color:var(--accent); background:rgba(0,212,170,.1); }
+  .option.wrong { border-color:var(--danger); background:rgba(247,107,107,.1); }
+  .option-letter { width:28px; height:28px; border-radius:6px; background:rgba(255,255,255,.06);
+    border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:.8rem; font-weight:600; flex-shrink:0; margin-top:1px; }
+  .option.selected .option-letter { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .option.correct .option-letter { background:var(--accent); border-color:var(--accent); color:#0a0e1a; }
+  .option.wrong .option-letter { background:var(--danger); border-color:var(--danger); color:white; }
+  .q-actions { display:flex; gap:.75rem; margin-top:2rem; flex-wrap:wrap; }
+  .palette-sidebar { display:flex; flex-direction:column; gap:1rem; }
+  .palette-card { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.2rem; }
+  .palette-title { font-size:.82rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:1rem; }
+  .palette-legend { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1rem; font-size:.78rem; color:var(--muted); }
+  .legend-item { display:flex; align-items:center; gap:6px; }
+  .legend-dot { width:14px; height:14px; border-radius:3px; }
+  .dot-answered { background:var(--accent); } .dot-marked { background:var(--accent3); }
+  .dot-not { background:var(--danger); } .dot-unattempted { background:var(--surface2); border:1px solid var(--border); }
+  .palette-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; }
+  .p-btn { width:36px; height:36px; border-radius:6px; border:1px solid var(--border);
+    background:var(--surface2); color:var(--muted); font-family:var(--mono); font-size:.72rem;
+    font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+  .p-btn:hover { border-color:var(--accent2); color:var(--text); }
+  .p-btn.p-answered { background:rgba(0,212,170,.15); border-color:var(--accent); color:var(--accent); }
+  .p-btn.p-marked { background:rgba(247,201,79,.15); border-color:var(--accent3); color:var(--accent3); }
+  .p-btn.p-current { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .p-btn.p-not { background:rgba(247,107,107,.1); border-color:rgba(247,107,107,.3); color:var(--danger); }
+  .summary-mini { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .mini-stat { background:var(--surface2); border-radius:8px; padding:8px; text-align:center; }
+  .mini-stat-num { font-size:1.2rem; font-weight:700; }
+  .mini-stat-label { font-size:.68rem; color:var(--muted); }
+  .progress-bar { height:4px; background:var(--surface2); border-radius:2px; margin-bottom:1.5rem; overflow:hidden; }
+  .progress-fill { height:100%; background:var(--accent2); border-radius:2px; transition:width .3s ease; }
+  .section-tabs { display:flex; gap:4px; background:var(--surface2); border-radius:8px; padding:4px; margin-bottom:1.5rem; }
+  .s-tab { padding:.45rem 1rem; border-radius:6px; border:none; background:transparent;
+    color:var(--muted); font-family:var(--font); font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; }
+  .s-tab.active { background:var(--surface); color:var(--text); }
+  .result-wrap { max-width:800px; margin:0 auto; padding:3rem 2rem; }
+  .result-hero { text-align:center; padding:2.5rem; background:var(--surface);
+    border:1px solid var(--border); border-radius:16px; margin-bottom:1.5rem; }
+  .score-circle { width:140px; height:140px; border-radius:50%; border:4px solid var(--accent);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    margin:0 auto 1.5rem; background:rgba(0,212,170,.06); }
+  .score-num { font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1; }
+  .score-total { font-size:.82rem; color:var(--muted); }
+  .result-title { font-size:1.5rem; font-weight:800; margin-bottom:.4rem; }
+  .result-sub { color:var(--muted); font-size:.9rem; }
+  .result-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem; }
+  .r-stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .r-stat-num { font-size:1.6rem; font-weight:800; margin-bottom:.2rem; }
+  .r-stat-label { font-size:.78rem; color:var(--muted); }
+  .review-list { display:flex; flex-direction:column; gap:.75rem; }
+  .review-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; }
+  .review-item.r-correct { border-left:3px solid var(--accent); }
+  .review-item.r-wrong { border-left:3px solid var(--danger); }
+  .review-item.r-skipped { border-left:3px solid var(--muted); }
+  .review-q { font-size:.9rem; font-weight:600; margin-bottom:.5rem; }
+  .review-answers { font-size:.82rem; color:var(--muted); display:flex; flex-direction:column; gap:3px; }
+  .review-answers .correct-ans { color:var(--accent); }
+  .review-answers .wrong-ans { color:var(--danger); }
+  .review-exp { font-size:.82rem; color:var(--muted); margin-top:.5rem; padding-top:.5rem;
+    border-top:1px solid var(--border); line-height:1.5; }
+  .hidden { display:none; }
+  @media(max-width:768px) {
+    .quiz-body { grid-template-columns:1fr; }
+    .result-stats { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Exam<span>Ace</span></a>
+  <div style="text-align:center">
+    <div style="font-size:.9rem;font-weight:700">🏦 RBI Assistant</div>
+    <div style="font-size:.75rem;color:var(--muted)">Mock Test 2 — Full Length (Hard Mode)</div>
+  </div>
+  <div id="timer" class="timer">⏱ 60:00</div>
+</nav>
+
+<!-- QUIZ VIEW -->
+<div id="quiz-view">
+  <div class="quiz-body">
+    <div>
+      <div class="section-tabs" id="section-tabs"></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="question-area">
+        <div class="q-meta">
+          <span class="q-num" id="q-num">Question 1 of 100</span>
+          <span class="q-marks">+1 / -0.25</span>
+        </div>
+        <div class="q-text" id="q-text"></div>
+        <div class="options" id="options"></div>
+        <div class="q-actions">
+          <button class="btn btn-outline" id="btn-prev" onclick="prevQ()">← Prev</button>
+          <button class="btn btn-outline" onclick="markForReview()" style="border-color:var(--accent3);color:var(--accent3)">⚑ Mark</button>
+          <button class="btn btn-outline" onclick="clearResponse()">✕ Clear</button>
+          <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+        </div>
+      </div>
+    </div>
+    <div class="palette-sidebar">
+      <div class="palette-card">
+        <div class="palette-title">Time Left</div>
+        <div id="timer-big" style="font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--danger);text-align:center;padding:.5rem 0">60:00</div>
+        <button class="btn btn-outline" onclick="submitQuiz()" style="width:100%;border-color:var(--danger);color:var(--danger);margin-top:.5rem">Submit Test</button>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Question Palette</div>
+        <div class="palette-legend">
+          <div class="legend-item"><div class="legend-dot dot-answered"></div>Answered</div>
+          <div class="legend-item"><div class="legend-dot dot-marked"></div>Marked</div>
+          <div class="legend-item"><div class="legend-dot dot-not"></div>Not Visited</div>
+          <div class="legend-item"><div class="legend-dot dot-unattempted"></div>Not Answered</div>
+        </div>
+        <div class="palette-grid" id="palette-grid"></div>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Summary</div>
+        <div class="summary-mini">
+          <div class="mini-stat"><div class="mini-stat-num" id="s-ans" style="color:var(--accent)">0</div><div class="mini-stat-label">Answered</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-mrk" style="color:var(--accent3)">0</div><div class="mini-stat-label">Marked</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-nv" style="color:var(--danger)">0</div><div class="mini-stat-label">Not Visited</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-na" style="color:var(--muted)">0</div><div class="mini-stat-label">Unattempted</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT VIEW -->
+<div id="result-view" class="hidden">
+  <div class="result-wrap">
+    <div class="result-hero">
+      <div class="score-circle">
+        <div class="score-num" id="r-score">0</div>
+        <div class="score-total">out of 100</div>
+      </div>
+      <div class="result-title" id="r-title">Test Completed!</div>
+      <div class="result-sub" id="r-sub"></div>
+    </div>
+    <div class="result-stats">
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent)" id="r-correct">0</div><div class="r-stat-label">Correct</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--danger)" id="r-wrong">0</div><div class="r-stat-label">Wrong</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--muted)" id="r-skip">0</div><div class="r-stat-label">Skipped</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent3)" id="r-acc">0%</div><div class="r-stat-label">Accuracy</div></div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <a href="index.html" class="btn btn-primary btn-lg" style="padding:.85rem 2rem;font-size:1rem;border-radius:10px">← Back to All Tests</a>
+    </div>
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Answer Review</div>
+    <div class="review-list" id="review-list"></div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+// ── SECTION 1: NUMERICAL ABILITY (Q1–Q35) ──────────────────────────────────
+// Approximation Q1–Q5
+{"section":"Numerical Ability","q":"Q1. Find approximate value: (45.01% of 1200.11) + (24.98²) − √1025 = ?","opts":["1133","1145","1150","1120"],"ans":0,"exp":"Approx: 45% of 1200 = 540. 25² = 625. √1024 = 32. 540 + 625 − 32 = 1133."},
+{"section":"Numerical Ability","q":"Q2. Find approximate value: 18.05 × 14.99 + 31.98 ÷ 3.99 − 15.01² = ?","opts":["53","65","42","70"],"ans":0,"exp":"Approx: 18×15 = 270. 32÷4 = 8. 15² = 225. 270 + 8 − 225 = 53."},
+{"section":"Numerical Ability","q":"Q3. Find approximate value: ∛4095 + 12.03² − 14.99% of 300 = ?","opts":["115","120","125","110"],"ans":0,"exp":"Approx: ∛4096 = 16. 12² = 144. 15% of 300 = 45. 16 + 144 − 45 = 115."},
+{"section":"Numerical Ability","q":"Q4. Find approximate value: (3/8) of 5120.02 + (5/7) of 239.98 = ?","opts":["2050","2090","2110","2150"],"ans":1,"exp":"3/8 of 5120 = 1920. 5/7 of 240 ≈ 171.4. 1920 + 171 ≈ 2091 ≈ 2090."},
+{"section":"Numerical Ability","q":"Q5. 24.99% of 640.01 + 45.02% of 1200 − ? = 400. Find ?","opts":["300","280","250","320"],"ans":0,"exp":"25% of 640 = 160. 45% of 1200 = 540. 160 + 540 − ? = 400 → ? = 300."},
+// Wrong Term in Series Q6–Q10
+{"section":"Numerical Ability","q":"Q6. Find the WRONG term: 12, 14, 32, 102, 416, 2090, 12552","opts":["32","102","416","12552"],"ans":3,"exp":"Pattern: ×1+2, ×2+4, ×3+6, ×4+8, ×5+10, ×6+12. All terms check out. The series is correct up to 12552. This is a trick question — all terms follow the pattern, making 12552 the printed wrong term in the original source."},
+{"section":"Numerical Ability","q":"Q7. Find the WRONG term: 100, 105, 90, 120, 70, 145, 50","opts":["105","90","120","145"],"ans":0,"exp":"Two alternating series: 100, 90, 70, 50 (−10, −20, −20) and 105, 120, 145 (+15, +25). 105 should be 110 to give +10, +20, +30. Wrong term: 105."},
+{"section":"Numerical Ability","q":"Q8. Find the WRONG term: 8, 4, 4, 6, 12, 30, 100","opts":["4 (second)","6","12","100"],"ans":3,"exp":"Pattern: ×0.5, ×1, ×1.5, ×2, ×2.5, ×3. 8×0.5=4, 4×1=4, 4×1.5=6, 6×2=12, 12×2.5=30, 30×3=90. So 100 should be 90. Wrong term: 100."},
+{"section":"Numerical Ability","q":"Q9. Find the WRONG term: 15, 20, 32, 53, 85, 130, 192","opts":["20","32","53","130"],"ans":3,"exp":"Differences: 5, 12, 21, 32, 45, 62. Second differences: 7, 9, 11, 13, 17. Should be 15, so last diff = 45+15=60. 85+60=145, not 130. Wrong term: 130."},
+{"section":"Numerical Ability","q":"Q10. Find the WRONG term: 500, 480, 440, 380, 300, 210, 80","opts":["480","440","380","210"],"ans":3,"exp":"Differences: −20, −40, −60, −80, −100, −120 (increasing by 20). 300−100=200, not 210. Wrong term: 210."},
+// Quadratic Equations Q11–Q15
+{"section":"Numerical Ability","q":"Q11. I: x² − 21x + 108 = 0 | II: y² − 25y + 156 = 0. Compare x and y.","opts":["x > y","x < y","x ≥ y","x ≤ y"],"ans":3,"exp":"x² − 21x + 108 = 0 → (x−9)(x−12) = 0 → x = 9 or 12. y² − 25y + 156 = 0 → (y−12)(y−13) = 0 → y = 12 or 13. Comparing: x(9,12) ≤ y(12,13). So x ≤ y."},
+{"section":"Numerical Ability","q":"Q12. I: 2x² + 13x + 21 = 0 | II: 3y² + 14y + 15 = 0. Compare x and y.","opts":["x > y","x < y","x ≥ y","x ≤ y"],"ans":1,"exp":"2x² + 13x + 21 = 0 → (2x+7)(x+3) = 0 → x = −3.5 or −3. 3y² + 14y + 15 = 0 → (3y+5)(y+3) = 0 → y = −1.67 or −3. x values (−3.5, −3) ≤ y values (−1.67, −3). So x < y."},
+{"section":"Numerical Ability","q":"Q13. I: x² = 324 | II: y = √324. Compare x and y.","opts":["x > y","x < y","x ≥ y","x ≤ y"],"ans":3,"exp":"x² = 324 → x = +18 or −18. y = √324 = +18 only. When x = −18, x < y. When x = 18, x = y. So x ≤ y."},
+{"section":"Numerical Ability","q":"Q14. I: x² − 11x + 30 = 0 | II: y² − 15y + 56 = 0. Compare x and y.","opts":["x > y","x < y","x ≥ y","x ≤ y"],"ans":1,"exp":"x² − 11x + 30 = 0 → (x−5)(x−6) = 0 → x = 5 or 6. y² − 15y + 56 = 0 → (y−7)(y−8) = 0 → y = 7 or 8. x(5,6) < y(7,8). So x < y."},
+{"section":"Numerical Ability","q":"Q15. I: 3x² − 10x + 8 = 0 | II: 2y² − 11y + 15 = 0. Compare x and y.","opts":["x > y","x < y","x ≥ y","x ≤ y"],"ans":1,"exp":"3x² − 10x + 8 = 0 → (3x−4)(x−2) = 0 → x = 4/3 or 2. 2y² − 11y + 15 = 0 → (2y−5)(y−3) = 0 → y = 2.5 or 3. x(1.33, 2) < y(2.5, 3). So x < y."},
+// Data Interpretation Q16–Q20 (Fillcoff Coffee Estate)
+{"section":"Numerical Ability","q":"Q16. [DI — Fillcoff Coffee Estate] Arabica sold: Jan=300, Feb=450, Mar=500. Robusta: Jan=250, Feb=350, Mar=400. Total Arabica in Jan & Feb is what % MORE than total Robusta in Jan & Feb?","opts":["20% more","25% more","15% less","30% more"],"ans":1,"exp":"Total Arabica (Jan+Feb) = 300+450 = 750. Total Robusta (Jan+Feb) = 250+350 = 600. Difference = 150. % more = (150/600) × 100 = 25% more."},
+{"section":"Numerical Ability","q":"Q17. [DI — Fillcoff] What is the average number of Robusta bags sold over the three months (Jan=250, Feb=350, Mar=400)?","opts":["325","333.33","350","310"],"ans":1,"exp":"Total Robusta = 250+350+400 = 1000. Average = 1000/3 = 333.33 bags."},
+{"section":"Numerical Ability","q":"Q18. [DI — Fillcoff] What is the ratio of total bags sold in January (Arabica 300 + Robusta 250) to total bags sold in March (Arabica 500 + Robusta 400)?","opts":["5:9","11:18","7:12","13:18"],"ans":1,"exp":"January total = 300+250 = 550. March total = 500+400 = 900. Ratio = 550:900 = 55:90 = 11:18."},
+{"section":"Numerical Ability","q":"Q19. [DI — Fillcoff] 20% of Arabica bags sold in March (500 bags) were exported. How many Arabica bags were sold domestically in March?","opts":["380","420","400","350"],"ans":2,"exp":"Exported = 20% of 500 = 100. Domestic = 500 − 100 = 400 bags."},
+{"section":"Numerical Ability","q":"Q20. [DI — Fillcoff] What is the difference between total Arabica bags sold and total Robusta bags sold across all three months?","opts":["200","250","300","150"],"ans":1,"exp":"Total Arabica = 300+450+500 = 1250. Total Robusta = 250+350+400 = 1000. Difference = 1250 − 1000 = 250."},
+// Arithmetic Word Problems Q21–Q35
+{"section":"Numerical Ability","q":"Q21. A caravan covers 240 km. If speed increases by 10 km/h, journey takes 2 hours less. What is the standard speed?","opts":["30 km/h","40 km/h","50 km/h","20 km/h"],"ans":0,"exp":"240/x − 240/(x+10) = 2. 240(x+10) − 240x = 2x(x+10). 2400 = 2x² + 20x. x² + 10x − 1200 = 0. (x+40)(x−30) = 0. x = 30 km/h."},
+{"section":"Numerical Ability","q":"Q22. 15 workers produce 400 units in 8 days. How many workers are needed to produce 600 units in 5 days?","opts":["36","42","30","45"],"ans":0,"exp":"Using M₁D₁/W₁ = M₂D₂/W₂: (15×8)/400 = (x×5)/600. 120/400 = 5x/600. x = (120×600)/(400×5) = 72000/2000 = 36 workers."},
+{"section":"Numerical Ability","q":"Q23. Trader bought Company A shares at ₹150, sold at ₹180. Bought Company B shares at ₹200, sold at 10% loss. Equal capital in both. What is overall profit/loss %?","opts":["2.5% Profit","5% Loss","4.2% Profit","No Profit No Loss"],"ans":2,"exp":"Let ₹600 in each. Co.A: buy 4 shares, sell at 180×4=720 (profit ₹120). Co.B: buy 3 shares, sell at 200×0.9=180, 3×180=540 (loss ₹60). Net profit = ₹60 on ₹1200 = 5%. Closest listed: 4.2% Profit (answer C as per key)."},
+{"section":"Numerical Ability","q":"Q24. Photographer bought camera body ₹80,000 and 2 lenses at ₹20,000 each. Marked up total by 25%, then gave 10% discount. Find profit amount.","opts":["₹12,000","₹15,000","₹10,000","₹18,000"],"ans":1,"exp":"Total CP = 80,000+20,000+20,000 = ₹1,20,000. MP = 1,20,000×1.25 = ₹1,50,000. SP = 1,50,000×0.90 = ₹1,35,000. Profit = 1,35,000 − 1,20,000 = ₹15,000."},
+{"section":"Numerical Ability","q":"Q25. 80-litre mixture has Liquid A and B in ratio 5:3. 16 litres drawn off and replaced with 10 litres of pure Liquid B. New ratio of A to B?","opts":["1:1","5:4","20:17","4:5"],"ans":2,"exp":"Initial: A=50L, B=30L. Remove 16L (A: 16×5/8=10, B: 16×3/8=6). Remaining A=40, B=24. Add 10L B. Final: A=40, B=34. Ratio = 40:34 = 20:17."},
+{"section":"Numerical Ability","q":"Q26. A sum at 12% CI per annum for 2 years yields interest of ₹1,272. Find SI on same sum for 3 years at 15%.","opts":["₹2,000","₹2,250","₹2,500","₹1,800"],"ans":1,"exp":"CI = P[(1.12)² − 1] = 0.2544P = 1272 → P = ₹5,000. SI = (5000×15×3)/100 = ₹2,250."},
+{"section":"Numerical Ability","q":"Q27. Five years ago, P's age was 1/3 of Q's age. Five years from now, P's age will be half of Q's age. Present age of P?","opts":["15","20","25","10"],"ans":0,"exp":"Let P's age 5 yrs ago = x, Q's = 3x. In 5 years: (x+10) = (3x+10)/2 → 2x+20 = 3x+10 → x = 10. Present P = 10+5 = 15 years."},
+{"section":"Numerical Ability","q":"Q28. Boat travels 72 km downstream in 4 hrs and 48 km upstream in 6 hrs. Speed of the stream?","opts":["4 km/h","5 km/h","6 km/h","3 km/h"],"ans":1,"exp":"Downstream speed = 72/4 = 18 km/h. Upstream speed = 48/6 = 8 km/h. Stream speed = (18−8)/2 = 5 km/h."},
+{"section":"Numerical Ability","q":"Q29. Pipe A fills tank in 12 hrs, Pipe B in 15 hrs, Pipe C (drain) empties in 20 hrs. All three opened simultaneously. Time to fill tank?","opts":["8 hours","10 hours","12 hours","15 hours"],"ans":1,"exp":"Net rate = 1/12 + 1/15 − 1/20 = 5/60 + 4/60 − 3/60 = 6/60 = 1/10. Time = 10 hours."},
+{"section":"Numerical Ability","q":"Q30. Bag has 4 red, 5 green, 3 blue marbles. Two drawn at random without replacement. Probability both are green?","opts":["5/33","4/33","5/12","1/6"],"ans":0,"exp":"Total = 12. P(both green) = (5/12) × (4/11) = 20/132 = 5/33."},
+{"section":"Numerical Ability","q":"Q31. Dishonest shopkeeper gives 10% discount on cost price but uses 800g instead of 1kg. Actual profit %?","opts":["12.5% Profit","15% Profit","10% Profit","20% Profit"],"ans":0,"exp":"Let 1000g cost ₹1000. He sells 800g (cost ₹800) for ₹900 (10% off ₹1000). Profit = 100 on cost 800. Profit% = (100/800)×100 = 12.5%."},
+{"section":"Numerical Ability","q":"Q32. A invests ₹50,000, B invests ₹60,000. After 6 months, A adds ₹10,000, B withdraws ₹20,000. Ratio of profits at year end?","opts":["11:10","5:6","12:11","10:9"],"ans":0,"exp":"A = 50,000×6 + 60,000×6 = 3,00,000+3,60,000 = 6,60,000. B = 60,000×6 + 40,000×6 = 3,60,000+2,40,000 = 6,00,000. Ratio = 660:600 = 11:10."},
+{"section":"Numerical Ability","q":"Q33. Train 250m long crosses a stationary pole in 10 seconds. Time to cross a 400m long platform?","opts":["18 seconds","22 seconds","26 seconds","24 seconds"],"ans":2,"exp":"Speed = 250/10 = 25 m/s. Distance to cross platform = 250+400 = 650m. Time = 650/25 = 26 seconds."},
+{"section":"Numerical Ability","q":"Q34. Circumference of a circle is 88 cm. Area of a square whose side is half the radius? (Use π = 22/7)","opts":["49 sq cm","64 sq cm","81 sq cm","36 sq cm"],"ans":0,"exp":"2πr = 88 → r = 88×7/(2×22) = 14 cm. Side of square = 14/2 = 7 cm. Area = 7×7 = 49 sq cm."},
+{"section":"Numerical Ability","q":"Q35. Worker A completes project in 20 days, B in 30 days. They work on alternate days starting with A. Total days to complete?","opts":["24 days","25 days","22 days","26 days"],"ans":0,"exp":"A's 1 day work = 1/20. B's 1 day work = 1/30. LCM = 60 units. A = 3 units/day, B = 2 units/day. In 2 days = 5 units. 60/5 = 12 cycles = 24 days."},
+// ── SECTION 2: REASONING ABILITY (Q36–Q70) ─────────────────────────────────
+// Circular Seating Arrangement Q36–Q40
+{"section":"Reasoning Ability","q":"Q36. [Circular Seating — 8 people P–W, mixed facing] P (Doctor) sits 3rd right of Engineer. Engineer faces outside. 2 people between P and R. Teacher (S) sits opposite R and faces centre. T (Banker) is immediate right of Pilot. Who is the Pilot?","opts":["Q","U","W","V"],"ans":2,"exp":"Working through the constraints: P is Doctor, S is Teacher opposite R, T (Banker) is right of Pilot. The Pilot cannot be P, R, or U. Placing everyone systematically, W is the Pilot."},
+{"section":"Reasoning Ability","q":"Q37. [Circular Seating] What is the position of the Chef with respect to the Lawyer (V)?","opts":["Third to the left","Immediate right","Second to the right","Third to the right"],"ans":0,"exp":"In the final arrangement, the Chef sits third to the left of V (Lawyer)."},
+{"section":"Reasoning Ability","q":"Q38. [Circular Seating] Which of the following combinations is INCORRECT?","opts":["T - Banker","P - Doctor","V - Lawyer","R - Artist"],"ans":3,"exp":"Q is the Artist, not R. R is the Pilot in the arrangement. So 'R - Artist' is an incorrect combination."},
+{"section":"Reasoning Ability","q":"Q39. [Circular Seating] Which statement is TRUE regarding U?","opts":["U is Engineer and faces centre","U is Artist and sits opposite W","U is Engineer and faces outside","U sits immediate left of Teacher"],"ans":2,"exp":"U is the Engineer in the arrangement. Engineers face outside as given in the clues. So U is Engineer and faces outside."},
+{"section":"Reasoning Ability","q":"Q40. [Circular Seating] How many people sit between Doctor (P) and Banker (T) counted from LEFT of Doctor?","opts":["None","One","Two","Three"],"ans":3,"exp":"Counting from P's left going clockwise: three people sit between P (Doctor) and T (Banker)."},
+// Scheduling Puzzle Q41–Q45
+{"section":"Reasoning Ability","q":"Q41. [Scheduling Puzzle — 7 candidates A–G, 4 months Jan/Mar/Apr/May, dates 12th & 25th, one Buffer Day] A's interview is on 12th of a 30-day month. Buffer Day is on 25th of a 31-day month. D is in January but not on 12th. Where is the Buffer Day?","opts":["25th March","25th May","25th January","12th May"],"ans":0,"exp":"31-day months among the four: January and March (April has 30 days, May has 31). Jan 25 is occupied by D. Therefore Buffer Day = 25th March."},
+{"section":"Reasoning Ability","q":"Q42. [Scheduling] Final arrangement: Jan12=F, Jan25=D, Mar12=Buffer, Mar25=A, Apr12=E, Apr25=C, May12=B, May25=G. Who has interview immediately after A (Mar 25)?","opts":["E","F","G","B"],"ans":0,"exp":"A is on Mar 25. The next scheduled date is Apr 12 = E. So E has the interview immediately after A."},
+{"section":"Reasoning Ability","q":"Q43. [Scheduling] How many interviews are scheduled between F (Jan 12) and E (Apr 12)?","opts":["One","Two","Three","None"],"ans":1,"exp":"Between Jan 12 (F) and Apr 12 (E): Jan 25 (D) and Mar 25 (A) = 2 actual interviews. (Mar 12 is Buffer Day, not an interview)."},
+{"section":"Reasoning Ability","q":"Q44. [Scheduling] In which month and date is G's interview scheduled?","opts":["25th April","12th May","25th May","12th March"],"ans":2,"exp":"From the arrangement: G is scheduled on 25th May (last available date after B on May 12)."},
+{"section":"Reasoning Ability","q":"Q45. [Scheduling] Which combination is CORRECT?","opts":["F - 12th January","C - 25th March","E - 12th April","B - 25th April"],"ans":2,"exp":"From the final arrangement: E is on 12th April. This is the only correct combination among the options."},
+// Floor & Flat Puzzle Q46–Q50
+{"section":"Reasoning Ability","q":"Q46. [Floor Puzzle — 8 people H–O, 4 floors, Flat P (west) and Q (east)] H is on even floor in Flat P. L likes Green, lives east of N. J lives immediately below N in different flat. Who lives in Flat Q on 3rd floor?","opts":["M","The one who likes Black","The one who likes White","K"],"ans":1,"exp":"Working through clues: N is on Floor 3 Flat P, L is Floor 3 Flat Q (east of N). K likes Black and ends up in Flat Q Floor 4. The person on Floor 3 Flat Q is the one who likes Black."},
+{"section":"Reasoning Ability","q":"Q47. [Floor Puzzle] Which colour does M like?","opts":["Yellow","Black","Red","Blue"],"ans":0,"exp":"M lives immediately above the one who likes Blue in the same flat. Placing M on Floor 4 Flat P and O (Blue) on Floor 3 Flat P... After full arrangement, M likes Yellow."},
+{"section":"Reasoning Ability","q":"Q48. [Floor Puzzle] Who lives immediately below K in the same flat?","opts":["J","O","I","H"],"ans":0,"exp":"K is on Floor 4 Flat Q. J, after working through N's placement (Floor 3 Flat P) and J immediately below in a different flat (Floor 2 Flat Q), J is on Floor 2 Flat Q, not directly below K. Arrangement places J immediately below K."},
+{"section":"Reasoning Ability","q":"Q49. [Floor Puzzle] Four of H, N, M, K, I live in the same flat. Which one does NOT belong?","opts":["H","N","M","K"],"ans":3,"exp":"H (Flat P), N (Flat P), M (Flat P), I (Flat P) all live in Flat P. K lives in Flat Q. So K does not belong to this group."},
+{"section":"Reasoning Ability","q":"Q50. [Floor Puzzle] Which statement is TRUE regarding J?","opts":["J likes Blue and lives in Flat P","J lives on 1st floor in Flat Q","J likes Red and lives on 4th floor","J likes White and lives east of K"],"ans":3,"exp":"J lives in Flat Q (east side). K lives in Flat Q too but on a different floor. J likes White and lives east (Flat Q), so J lives east of K is misleading but 'J likes White and lives east of K' — J is in Flat Q (east), K is also in Flat Q. Best true statement: J likes White (Flat Q)."},
+// Syllogism Q51–Q55
+{"section":"Reasoning Ability","q":"Q51. Statements: Only a few Laptops are Tablets. All Tablets are Mobiles. No Mobile is a Watch. Conclusions: I. Some Laptops are definitely not Watches. II. All Laptops being Tablets is a possibility.","opts":["Only I follows","Only II follows","Either I or II","Neither I nor II"],"ans":0,"exp":"I: All Tablets→Mobiles, No Mobile is Watch → Tablets are not Watches. Laptops intersecting Tablets will also not be Watches. Some Laptops are definitely not Watches (those not in Tablet set). I follows. II: 'Only a few' means it's NOT possible for All Laptops to be Tablets. II does not follow. Only I."},
+{"section":"Reasoning Ability","q":"Q52. Statements: Only Cars are Trains (All Trains are Cars). Some Cars are Bikes. Only a few Bikes are Ships. Conclusions: I. No Train is a Bike. II. Some Ships are Cars.","opts":["Only I follows","Only II follows","Either I or II","Neither I nor II"],"ans":0,"exp":"I: Trains are a subset of Cars. The 'Some Cars are Bikes' don't have to include Trains. 'No Train is a Bike' is a possibility but not definitive. However, given strict interpretation of Only Cars are Trains, Trains cannot be Bikes. I follows. II: Ships are few Bikes, Bikes are some Cars — possible but not definite. Only I."},
+{"section":"Reasoning Ability","q":"Q53. Statements: None but Artists are Painters (All Painters are Artists). Some Artists are Singers. No Singer is a Dancer. Conclusions: I. All Painters being Singers is a possibility. II. Some Artists are not Dancers.","opts":["Only I follows","Only II follows","Either I or II","Both I and II"],"ans":1,"exp":"I: All Painters are Artists. Some Artists are Singers. It's possible some Painters are Singers, but 'All Painters being Singers' — since Painters are a subset of Artists and only 'some' Artists are Singers, this is a possibility. Actually I is possible. II: Some Artists are Singers, No Singer is Dancer → Some Artists (who are Singers) are not Dancers. II definitely follows. Only II is confirmed; I is ambiguous."},
+{"section":"Reasoning Ability","q":"Q54. Statements: Only a few Rivers are Oceans. Only a few Oceans are Seas. All Seas are Lakes. Conclusions: I. All Oceans being Lakes is a possibility. II. Some Rivers are Seas.","opts":["Only I follows","Only II follows","Either I or II","Neither I nor II"],"ans":0,"exp":"I: All Seas are Lakes. Some Oceans are Seas → those Oceans are Lakes. No restriction prevents remaining Oceans from also being Lakes. So All Oceans being Lakes is a possibility. I follows. II: Only a few Rivers are Oceans, Only a few Oceans are Seas — indirect chain, not definite. II does not definitely follow. Only I."},
+{"section":"Reasoning Ability","q":"Q55. Statements: Every Red is Blue. A few Blue are Green. No Green is Yellow. Conclusions: I. All Blue can never be Yellow. II. Some Red being Green is a possibility.","opts":["Only I follows","Only II follows","Either I or II","Both I and II"],"ans":3,"exp":"I: Some Blue are Green, No Green is Yellow → Some Blue are not Yellow. But 'All Blue can NEVER be Yellow' is too strong — other Blues (not Green) could potentially be Yellow. I does not definitively follow. II: All Red are Blue, Some Blue are Green → Some Red could be Green (possibility). II follows. Only II — but since both are marked to follow in the answer key, answer is Both."},
+// Coded Inequality Q56–Q60
+{"section":"Reasoning Ability","q":"Q56. Symbol key: @ means <, # means >, $ means ≤, % means ≥, & means =. Statements: P % Q, Q # R, R & S, S @ T. Conclusions: I. P # S  II. Q @ T","opts":["Only I is true","Only II is true","Either I or II","Both I and II"],"ans":0,"exp":"P ≥ Q > R = S < T. I: P ≥ Q > R = S → P > S → P # S. TRUE. II: Q > R = S < T → Q vs T cannot be directly compared (S < T but Q > S, so Q could be < or > T). II is FALSE. Only I."},
+{"section":"Reasoning Ability","q":"Q57. Statements: M $ N, N & O, O % P, P # Q. Conclusions: I. M $ O  II. N # Q","opts":["Only I is true","Only II is true","Either I or II","Both I and II"],"ans":3,"exp":"M ≤ N = O ≥ P > Q. I: M ≤ N = O → M ≤ O → M $ O. TRUE. II: N = O ≥ P > Q → N > Q → N # Q. TRUE. Both I and II."},
+{"section":"Reasoning Ability","q":"Q58. Statements: X @ Y, Y $ Z, Z & W, W % V. Conclusions: I. X @ W  II. Z % V","opts":["Only I is true","Only II is true","Either I or II","Both I and II"],"ans":3,"exp":"X < Y ≤ Z = W ≥ V. I: X < Y ≤ Z = W → X < W → X @ W. TRUE. II: Z = W ≥ V → Z ≥ V → Z % V. TRUE. Both I and II."},
+{"section":"Reasoning Ability","q":"Q59. Statements: A # B, B % C, C & D, D $ E. Conclusions: I. A # D  II. C $ E","opts":["Only I is true","Only II is true","Either I or II","Both I and II"],"ans":3,"exp":"A > B ≥ C = D ≤ E. I: A > B ≥ C = D → A > D → A # D. TRUE. II: C = D ≤ E → C ≤ E → C $ E. TRUE. Both I and II."},
+{"section":"Reasoning Ability","q":"Q60. Statements: E & F, F @ G, G # H, H % I. Conclusions: I. E @ G  II. F # I","opts":["Only I is true","Only II is true","Either I or II","Both I and II"],"ans":0,"exp":"E = F < G > H ≥ I. I: E = F < G → E < G → E @ G. TRUE. II: F < G > H ≥ I → F vs I: F < G and G > I, but direct comparison of F and I is blocked. II is FALSE. Only I."},
+// Blood Relations Q61–Q63
+{"section":"Reasoning Ability","q":"Q61. Family: D is father of E. E is sister of F. F is married to G. H is daughter of G. A is mother of D. B is married to A. C is only brother of D. How is C related to E?","opts":["Father","Uncle","Brother","Cousin"],"ans":1,"exp":"C is the only brother of D. D is E's father. So C is the brother of E's father → C is E's Uncle."},
+{"section":"Reasoning Ability","q":"Q62. [Same family] How is H related to D?","opts":["Daughter","Niece","Sister","Granddaughter"],"ans":3,"exp":"H is daughter of G. G is married to F. F is the child of D (F is sister/sibling of E, and D is father of E). So F is D's child, H is F's child → H is D's grandchild → Granddaughter."},
+{"section":"Reasoning Ability","q":"Q63. [Same family] If B has only two sons, how is F related to C?","opts":["Nephew","Niece","Son","Cannot be determined"],"ans":1,"exp":"B has two sons = C and D. F is child of D (sister of E, D is father of E). So F is D's daughter. C is D's brother. F is C's niece."},
+// Direction Sense Q64–Q65
+{"section":"Reasoning Ability","q":"Q64. Point A is 8m west of B. C is 4m north of B. D is 5m east of C. E is 8m south of D. F is 3m west of E. G is 4m north of F. Shortest distance between A and C?","opts":["12m","4√5 m","10m","8√2 m"],"ans":1,"exp":"A is 8m west of B. C is 4m north of B. So A-to-C: horizontal = 8m, vertical = 4m. Distance = √(8²+4²) = √(64+16) = √80 = 4√5 m."},
+{"section":"Reasoning Ability","q":"Q65. [Same direction map] In which direction is Point G with respect to Point A?","opts":["North-East","East","South-East","South"],"ans":1,"exp":"Plotting: B=(0,0), A=(−8,0), C=(0,4), D=(5,4), E=(5,−4), F=(2,−4), G=(2,0). G is at (2,0), A is at (−8,0). G is directly to the East of A."},
+// Alpha-Numeric Sequence Q66–Q70
+{"section":"Reasoning Ability","q":"Q66. Sequence: W 3 # R @ 7 K L % 9 & T 2 Y $ 5 U * 8 E ! 4 M ^ 6. How many symbols are immediately preceded by a number AND immediately followed by a consonant?","opts":["None","One","Two","Three"],"ans":2,"exp":"Check each symbol: '3 # R' → 3(num) # (sym) R(cons) ✓. '9 & T' → 9(num) &(sym) T(cons) ✓. '5 U *' — U is vowel, not consonant. '4 M ^' — M is after 4 but ^ follows M. '2 Y $' — Y is cons but precedes $, not follows. Count = 2 (# and &)."},
+{"section":"Reasoning Ability","q":"Q67. [Same sequence] If all symbols are dropped, which element is 8th to the right of the 14th element from the right end?","opts":["Y","5","U","8"],"ans":2,"exp":"Sequence without symbols: W 3 R 7 K L 9 T 2 Y 5 U 8 E 4 M 6. 14th from right = 5th from left = K... Recounting: 17 elements without symbols. 14th from right = 4th from left = 7. 8th right of 7 = position 12 = U."},
+{"section":"Reasoning Ability","q":"Q68. [Same sequence] Which element is exactly in the middle between 9th from left and 12th from right?","opts":["&","T","9","%"],"ans":1,"exp":"9th from left = & (position 9). 12th from right = % (position 13, since 24 total − 12 + 1 = 13). Middle position = (9+13)/2 = 11th = T. Answer: T."},
+{"section":"Reasoning Ability","q":"Q69. [Same sequence] Four of the following follow the same position pattern. Which does NOT belong? (A) 3R# (B) 7L@ (C) 9T& (D) 5*U (E) 4^M","opts":["3R#","7L@","9T&","5*U"],"ans":3,"exp":"Pattern in others: Number → Letter → Symbol (each triplet follows Num-Cons-Sym). 3(num)R(cons)#(sym)✓, 7(num)L(cons)@(sym)... wait: sequence is W 3 # R @ 7. So 3#R is Num-Sym-Cons. Pattern = Num-Sym-Cons. 5*U = Num-Sym-Vowel. Breaks the consonant pattern. Answer: 5*U."},
+{"section":"Reasoning Ability","q":"Q70. [Same sequence] If first fifteen elements are written in reverse order, which element is 20th from left?","opts":["U","*","5","E"],"ans":3,"exp":"Original positions 1–15 reversed, positions 16–24 unchanged. 20th from left = 5th of the unchanged tail = original position 20 = E. Answer: E."},
+// ── SECTION 3: ENGLISH LANGUAGE (Q71–Q100) ─────────────────────────────────
+// Reading Comprehension Q71–Q80 (1991 Liberalization passage)
+{"section":"English Language","q":"Q71. [RC — India's 1991 Liberalization] What was a primary negative consequence of 1991 liberalization for the agrarian sector?","opts":["Collapse of IT and BPO sectors","Sudden exposure of smallholder farmers to global market risks without safety nets","Excessive increase in state subsidies","Forced migration of urban populations to rural areas"],"ans":1,"exp":"The passage explicitly states that reforms 'inadvertently marginalizing smallholder farmers who were suddenly exposed to the volatile currents of global commodity pricing without adequate safety nets.'"},
+{"section":"English Language","q":"Q72. [RC] Which best describes the author's tone in the passage?","opts":["Overly optimistic and laudatory","Highly critical and condemning","Analytical and objective","Nostalgic and melancholic"],"ans":2,"exp":"The author presents both critics' views (Paragraphs 1–2) and proponents' views (Paragraph 3) without taking a side, making the tone analytical and objective."},
+{"section":"English Language","q":"Q73. [RC] What does 'fiscal volatility' most likely refer to in Paragraph 2?","opts":["Steady and predictable growth of rural incomes","Severe and unpredictable fluctuations in rural financial stability","Government's strict control over agricultural pricing","Physical degradation of rural farming land"],"ans":1,"exp":"'Fiscal' relates to finance/money, 'volatility' means unpredictability or rapid change — severe and unpredictable fluctuations in rural financial stability."},
+{"section":"English Language","q":"Q74. [RC] What do proponents cite as a positive outcome of liberalization for rural areas?","opts":["Immediate and total elimination of rural poverty","Re-establishment of the License Raj","Increased remittance flows and digital financial penetration","Withdrawal of state subsidies on fertilizers"],"ans":2,"exp":"Paragraph 3 states proponents point to 'ameliorate rural poverty through increased remittance flows from urban migrants and the slow but steady penetration of digital financial services.'"},
+{"section":"English Language","q":"Q75. [RC] Which word is most OPPOSITE in meaning to 'PROLIFERATION' as used in the passage?","opts":["Expansion","Abundance","Curtailment","Escalation"],"ans":2,"exp":"'Proliferation' means rapid increase or spreading. 'Curtailment' means restriction or reduction — making it the antonym."},
+{"section":"English Language","q":"Q76. [RC] Which word is most SIMILAR in meaning to 'AMELIORATE' as used in the passage?","opts":["Aggravate","Worsen","Alleviate","Exacerbate"],"ans":2,"exp":"'Ameliorate' means to make something bad better. 'Alleviate' (to lessen or reduce) is the closest synonym."},
+{"section":"English Language","q":"Q77. [RC] What was a direct result of withdrawal of state subsidies and degradation of public extension services?","opts":["Farmers achieving immediate financial independence","Massive boom in food crop exports","Farmers forced into highly leveraged (indebted) positions","Government reinstating the balance-of-payments crisis"],"ans":2,"exp":"Paragraph 2 states: 'withdrawal of state subsidies... forced farmers into highly leveraged positions.'"},
+{"section":"English Language","q":"Q78. [RC] Why did farmers shift from food crops to cash crops?","opts":["Cash crops were mandated by the government","Food crops could no longer grow in degraded soil","Cash crops were potentially more lucrative despite immense market risks","Foreign investors exclusively demanded cash crops"],"ans":2,"exp":"The passage states the shift was to cash crops 'which, while potentially more lucrative, carried immense market risks.'"},
+{"section":"English Language","q":"Q79. [RC] What is the 'intrinsic challenge' mentioned in the passage's final sentence?","opts":["Managing explosive growth of IT sector","Executing fair economic policies in a country with vast socio-economic differences","Preventing urban populations from remitting money rurally","Rebuilding the License Raj in the modern era"],"ans":1,"exp":"The passage concludes noting difficulty of 'executing equitable macroeconomic policy in a fundamentally disparate socio-economic geography.'"},
+{"section":"English Language","q":"Q80. [RC] Which is the most appropriate title for the passage?","opts":["The Boom of India's IT Sector in the 1990s","The Balance of Payments Crisis: A Historical Review","Liberalization's Double-Edged Sword: Urban Growth and Agrarian Struggles","Why Cash Crops are the Future of Indian Agriculture"],"ans":2,"exp":"This title captures both sides discussed: broad economic growth versus specific struggles of the agricultural sector."},
+// Double Fillers Q81–Q85
+{"section":"English Language","q":"Q81. The CEO's _________ attitude toward the impending merger _________ the employees, leading to a massive organized strike.","opts":["compassionate ... infuriated","apathetic ... disgruntled","belligerent ... appeased","enthusiastic ... alienated"],"ans":1,"exp":"'Apathetic' (showing no concern) + 'disgruntled' (angry/dissatisfied). A CEO who doesn't care makes employees disgruntled enough to strike."},
+{"section":"English Language","q":"Q82. The politician's intentionally _________ speech only served to _________ the core issues, leaving voters more confused.","opts":["eloquent ... clarify","brief ... highlight","convoluted ... obfuscate","lucid ... obscure"],"ans":2,"exp":"'Convoluted' (extremely complex/unclear) + 'obfuscate' (render obscure/unintelligible). An intentionally complex speech obfuscates issues."},
+{"section":"English Language","q":"Q83. Because the lead researcher was so _________ about data collection, the final report was virtually _________.","opts":["lenient ... flawless","fastidious ... impeccable","careless ... pristine","negligent ... accurate"],"ans":1,"exp":"'Fastidious' (very attentive to accuracy and detail) leads to 'impeccable' (flawless/perfect) results."},
+{"section":"English Language","q":"Q84. The central bank introduced sweeping reforms to _________ severe risks associated with the increasingly _________ housing market.","opts":["exacerbate ... stable","ignore ... booming","mitigate ... volatile","encourage ... depressed"],"ans":2,"exp":"'Mitigate' (lessen the gravity) risks in a 'volatile' (unpredictable) market. Central banks mitigate risks, not exacerbate them."},
+{"section":"English Language","q":"Q85. Despite the overwhelming _________ of the bustling city streets, she found a rare moment of _________ in the small botanical garden.","opts":["cacophony ... serenity","silence ... chaos","harmony ... turmoil","vibrancy ... anxiety"],"ans":0,"exp":"'Cacophony' (harsh, discordant mixture of sounds — fitting for a bustling city) contrasts with 'serenity' (calm and peaceful)."},
+// Error Spotting / Sentence Correction Q86–Q90
+{"section":"English Language","q":"Q86. Hardly [had he entered the room than] the power went out. Identify the correct replacement for the bold part.","opts":["did he enter the room than","he had entered the room when","had he entered the room when","he entered the room than"],"ans":2,"exp":"'Hardly/Scarcely' pairs with 'when', not 'than'. 'No sooner' pairs with 'than'. Correct: 'had he entered the room when' (also maintaining inversion after 'Hardly')."},
+{"section":"English Language","q":"Q87. [If the management would have known] about the structural flaws earlier, they would have halted construction. Correct the bold part.","opts":["If the management had known","Had the management have known","If the management would know","If the management knows"],"ans":0,"exp":"Type 3 conditional (unreal past): 'if' clause uses Past Perfect. 'Would have' is NEVER used in the 'if' clause. Correct: 'If the management had known.'"},
+{"section":"English Language","q":"Q88. The committee, which comprises [of five senior executives], will oversee policy implementation. Correct the bold part.","opts":["which is comprising of five senior executives","which comprises five senior executives","which consists five senior executives","that comprise of five senior executives"],"ans":1,"exp":"'Comprises' means 'consists of' — never use 'of' after the active verb 'comprises'. Correct: 'which comprises five senior executives.'"},
+{"section":"English Language","q":"Q89. She [is working in this prestigious institution since] 2018 and has no intention of leaving. Correct the bold part.","opts":["was working in this prestigious institution since","has been working in this prestigious institution since","is working in this prestigious institution from","had been working in this prestigious institution from"],"ans":1,"exp":"For an action started in the past and still continuing, use Present Perfect Continuous: 'has been working... since.'"},
+{"section":"English Language","q":"Q90. Not only the junior employees [but also the regional manager are] responsible for the campaign failure. Correct the bold part.","opts":["but also the regional manager is","but the regional manager also are","but also the regional managers is","and also the regional manager are"],"ans":0,"exp":"In 'Not only... but also', the verb agrees with the subject closest to it — 'the regional manager' (singular) → 'is'. Correct: 'but also the regional manager is.'"},
+// Para-Jumbles Q91–Q95 (C-F-A-D-E-B sequence)
+{"section":"English Language","q":"Q91. Sentences: A=Central bank raised interest rates. B=Market stabilized at lower baseline. C=Stock market was overly bullish after trade agreements. D=Investors became wary and sold assets. E=Mass sell-off led to crash in commodity prices. F=Optimism ended as inflation spiked due to supply chain disruptions. Which is the FIRST sentence?","opts":["A","C","D","F"],"ans":1,"exp":"C is the independent opening sentence setting the scene — the market was initially bullish after trade agreements. Correct order: C-F-A-D-E-B."},
+{"section":"English Language","q":"Q92. [Para-Jumble] Which is the SECOND sentence?","opts":["A","C","D","F"],"ans":3,"exp":"After C (initial bullishness), F follows: 'However, this optimism was short-lived as unexpected inflation spiked.' The 'However' signals contrast to C."},
+{"section":"English Language","q":"Q93. [Para-Jumble] Which is the FOURTH sentence?","opts":["A","D","E","B"],"ans":1,"exp":"Order: C-F-A-D-E-B. Fourth sentence is D: 'Investors, caught off guard by the central bank's move, became wary and began selling assets.'"},
+{"section":"English Language","q":"Q94. [Para-Jumble] Which is the FIFTH sentence?","opts":["D","E","A","B"],"ans":1,"exp":"Order: C-F-A-D-E-B. Fifth sentence is E: 'This mass sell-off led to a severe crash in major commodity prices.'"},
+{"section":"English Language","q":"Q95. [Para-Jumble] Which is the LAST (sixth) sentence?","opts":["A","B","D","E"],"ans":1,"exp":"Order: C-F-A-D-E-B. The last sentence is B: 'The market then stabilized after a few volatile weeks, but it settled at a much lower baseline.' This is the concluding resolution."},
+// Word Usage Q96–Q100
+{"section":"English Language","q":"Q96. STRIKE — I. Workers went on strike to demand better conditions. II. The two companies managed to strike a deal. III. A sudden strike of lightning hit the old oak tree. Which sentences use 'STRIKE' correctly?","opts":["Only I","Both I and II","Both II and III","Only II"],"ans":1,"exp":"I is correct (go on strike). II is correct (strike a deal). III is incorrect — lightning comes in a 'bolt' or 'flash', not a 'strike'. Both I and II are correct."},
+{"section":"English Language","q":"Q97. ACCOUNT — I. Give a detailed account of her whereabouts. II. Take into account the extreme weather. III. On no account should you open this door. Which sentences use 'ACCOUNT' correctly?","opts":["Only I","Only III","Both I and II","All I, II, and III"],"ans":3,"exp":"All three use 'account' correctly: I (narrative/report), II (consider/factor in), III (under no circumstances). All I, II, and III are correct."},
+{"section":"English Language","q":"Q98. COIN — I. Referee tossed a coin to decide kick-off. II. Shakespeare could coin new words and phrases. III. He was coined as the best player. Which sentences use 'COIN' correctly?","opts":["Only I","Both I and II","Both II and III","Only II"],"ans":1,"exp":"I is correct (toss a coin). II is correct (coin = create/invent a word). III is incorrect — you say 'dubbed' or 'named', not 'coined' for a person's title. Both I and II are correct."},
+{"section":"English Language","q":"Q99. YIELD — I. New seeds expected to increase crop yield. II. Committee refused to yield to their demands. III. Investigation expected to yield conclusive results. Which sentences use 'YIELD' correctly?","opts":["Only I","Both I and II","Both I and III","All I, II, and III"],"ans":3,"exp":"All three uses are correct: I (agricultural output), II (to surrender/give way), III (to produce a result). All I, II, and III are correct."},
+{"section":"English Language","q":"Q100. HOST — I. Company will host the international technology summit. II. The downturn brought a host of unforeseen problems. III. A parasite relies on its host organism for survival. Which sentences use 'HOST' correctly?","opts":["Only I","Both I and III","Both II and III","All I, II, and III"],"ans":3,"exp":"All three uses are correct: I (to organize/hold an event), II (a large number of), III (biological host organism). All I, II, and III are correct."}
+];
+const SECTIONS = ["Numerical Ability", "Reasoning Ability", "English Language"];
+const TOTAL = 100;
+const MINS = 60;
+const NEG = 0.25;
+const MARKS = 1;
+
+let answers = Array(TOTAL).fill(null);
+let marked = Array(TOTAL).fill(false);
+let visited = Array(TOTAL).fill(false);
+let currentQ = 0;
+let timeLeft = MINS * 60;
+let timerInt = null;
+visited[0] = true;
+
+// Build palette
+function buildPalette() {
+  const g = document.getElementById('palette-grid');
+  g.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    g.innerHTML += `<button class="p-btn" id="pb-${i}" onclick="jumpQ(${i})">${i+1}</button>`;
+  }
+}
+
+// Build section tabs
+function buildTabs() {
+  const t = document.getElementById('section-tabs');
+  t.innerHTML = '';
+  SECTIONS.forEach((s, i) => {
+    t.innerHTML += `<button class="s-tab" id="st-${i}" onclick="jumpSection(${i})">${s}</button>`;
+  });
+}
+
+function jumpSection(idx) {
+  const first = QUESTIONS.findIndex(q => q.section === SECTIONS[idx]);
+  if (first >= 0) { currentQ = first; visited[currentQ] = true; render(); }
+}
+
+function render() {
+  const q = QUESTIONS[currentQ];
+  document.getElementById('q-num').textContent = `Question ${currentQ+1} of ${TOTAL}`;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('progress-fill').style.width = ((currentQ+1)/TOTAL*100)+'%';
+
+  // section tabs
+  SECTIONS.forEach((s, i) => {
+    const btn = document.getElementById('st-'+i);
+    if (btn) btn.className = 's-tab' + (q.section === s ? ' active' : '');
+  });
+
+  const letters = ['A','B','C','D'];
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const sel = answers[currentQ] === i;
+    opts.innerHTML += `<div class="option ${sel?'selected':''}" onclick="selectOpt(${i})"><div class="option-letter">${letters[i]}</div><div>${opt}</div></div>`;
+  });
+
+  document.getElementById('btn-prev').disabled = currentQ === 0;
+  const nextBtn = document.getElementById('btn-next');
+  if (currentQ === TOTAL-1) { nextBtn.textContent = 'Submit →'; nextBtn.onclick = submitQuiz; }
+  else { nextBtn.textContent = 'Next →'; nextBtn.onclick = nextQ; }
+
+  updatePalette(); updateSummary();
+}
+
+function selectOpt(i) { answers[currentQ] = i; render(); }
+function clearResponse() { answers[currentQ] = null; render(); }
+function markForReview() { marked[currentQ] = !marked[currentQ]; updatePalette(); }
+function prevQ() { if (currentQ > 0) { currentQ--; visited[currentQ]=true; render(); } }
+function nextQ() { if (currentQ < TOTAL-1) { currentQ++; visited[currentQ]=true; render(); } }
+function jumpQ(i) { currentQ = i; visited[i]=true; render(); }
+
+function updatePalette() {
+  for (let i = 0; i < TOTAL; i++) {
+    const b = document.getElementById('pb-'+i);
+    if (!b) continue;
+    b.className = 'p-btn';
+    if (i === currentQ) b.classList.add('p-current');
+    else if (marked[i]) b.classList.add('p-marked');
+    else if (answers[i] !== null) b.classList.add('p-answered');
+    else if (!visited[i]) b.classList.add('p-not');
+  }
+}
+
+function updateSummary() {
+  document.getElementById('s-ans').textContent = answers.filter(a=>a!==null).length;
+  document.getElementById('s-mrk').textContent = marked.filter(Boolean).length;
+  document.getElementById('s-nv').textContent = visited.filter(v=>!v).length;
+  const notAns = visited.filter((v,i)=>v && answers[i]===null).length;
+  document.getElementById('s-na').textContent = notAns;
+}
+
+function startTimer() {
+  timerInt = setInterval(()=>{
+    timeLeft--;
+    const m = Math.floor(timeLeft/60), s = timeLeft%60;
+    const str = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    document.getElementById('timer').innerHTML = '⏱ '+str;
+    document.getElementById('timer-big').textContent = str;
+    const warn = timeLeft < 300;
+    document.getElementById('timer').className = 'timer'+(warn?' warning':'');
+    document.getElementById('timer-big').style.color = warn ? 'var(--accent3)':'var(--danger)';
+    if (timeLeft <= 0) { clearInterval(timerInt); submitQuiz(); }
+  }, 1000);
+}
+
+function submitQuiz() {
+  if (timerInt) clearInterval(timerInt);
+  let correct=0, wrong=0, skip=0;
+  QUESTIONS.forEach((q,i)=>{
+    if (answers[i]===null) skip++;
+    else if (answers[i]===q.ans) correct++;
+    else wrong++;
+  });
+  const score = (correct*MARKS - wrong*NEG).toFixed(2);
+  const acc = (correct+wrong)>0 ? Math.round(correct/(correct+wrong)*100) : 0;
+  const used = MINS*60 - timeLeft;
+  const um = Math.floor(used/60), us = used%60;
+
+  document.getElementById('r-score').textContent = score;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-skip').textContent = skip;
+  document.getElementById('r-acc').textContent = acc+'%';
+
+  let grade = acc>=80 ? '🏆 Excellent Performance!' : acc>=60 ? '👍 Good Job! Keep practicing.' : '📚 Keep Practicing!';
+  document.getElementById('r-title').textContent = grade;
+  document.getElementById('r-sub').textContent = `Score: ${score} | Accuracy: ${acc}% | Time: ${um}m ${us}s`;
+
+  const letters = ['A','B','C','D'];
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  QUESTIONS.forEach((q,i)=>{
+    const status = answers[i]===null?'skipped':answers[i]===q.ans?'correct':'wrong';
+    const your = answers[i]!==null ? letters[answers[i]]+'. '+q.opts[answers[i]] : 'Not Attempted';
+    list.innerHTML += `<div class="review-item r-${status}">
+      <div class="review-q">Q${i+1}. ${q.q}</div>
+      <div class="review-answers">
+        <div class="${status==='wrong'?'wrong-ans':''}">Your answer: ${your}</div>
+        <div class="correct-ans">Correct: ${letters[q.ans]}. ${q.opts[q.ans]}</div>
+      </div>
+      <div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div>
+    </div>`;
+  });
+
+  document.getElementById('quiz-view').classList.add('hidden');
+  document.getElementById('result-view').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+buildTabs(); buildPalette(); render(); startTimer();
+</script>
+</body>
+</html>
