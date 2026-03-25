@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bihar Police SI Excise Main — Solved Paper — 31 Aug 2025 (1st Shift) | ExamAce</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --border: #1e2d45;
+    --accent: #00d4aa; --accent2: #4f8ef7; --accent3: #f7c94f;
+    --text: #e8edf5; --muted: #7a8ba3; --danger: #f76b6b;
+    --radius: 12px; --font: 'Sora', sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem;
+    background:rgba(10,14,26,0.95); border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:100; backdrop-filter:blur(12px); }
+  .logo { font-size:1.3rem; font-weight:800; color:var(--text); text-decoration:none; }
+  .logo span { color:var(--accent); }
+  .btn { padding:.55rem 1.3rem; border-radius:8px; font-family:var(--font); font-size:.88rem;
+    font-weight:600; cursor:pointer; border:none; transition:all .2s; text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px; }
+  .btn-primary { background:var(--accent); color:#0a0e1a; }
+  .btn-primary:hover { background:#00e8bc; transform:translateY(-1px); }
+  .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+  .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+  .quiz-nav { display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2rem; background:var(--surface); border-bottom:1px solid var(--border); flex-wrap:wrap; gap:.5rem; }
+  .quiz-title { font-weight:700; font-size:.95rem; }
+  .quiz-subtitle { font-size:.78rem; color:var(--muted); }
+  .timer { display:flex; align-items:center; gap:8px; background:rgba(247,107,107,.12);
+    border:1px solid rgba(247,107,107,.3); color:var(--danger); padding:.5rem 1rem;
+    border-radius:8px; font-family:var(--mono); font-size:1.1rem; font-weight:600; }
+  .timer.warning { background:rgba(247,201,79,.12); border-color:rgba(247,201,79,.3); color:var(--accent3); }
+  .quiz-body { display:grid; grid-template-columns:1fr 280px; gap:1.5rem;
+    max-width:1100px; margin:0 auto; padding:2rem; }
+  .question-area { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:2rem; }
+  .q-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
+  .q-num { font-family:var(--mono); font-size:.8rem; color:var(--muted); }
+  .q-marks { font-size:.8rem; background:rgba(79,142,247,.12); color:var(--accent2);
+    padding:3px 10px; border-radius:4px; font-weight:600; }
+  .q-text { font-size:1.1rem; line-height:1.7; margin-bottom:2rem; font-weight:500; }
+  .options { display:flex; flex-direction:column; gap:.75rem; }
+  .option { display:flex; align-items:flex-start; gap:12px; padding:1rem 1.2rem;
+    background:var(--surface2); border:1.5px solid var(--border); border-radius:10px;
+    cursor:pointer; transition:all .18s; font-size:.95rem; line-height:1.5; }
+  .option:hover { border-color:var(--accent2); background:rgba(79,142,247,.07); }
+  .option.selected { border-color:var(--accent2); background:rgba(79,142,247,.12); }
+  .option.correct { border-color:var(--accent); background:rgba(0,212,170,.1); }
+  .option.wrong { border-color:var(--danger); background:rgba(247,107,107,.1); }
+  .option-letter { width:28px; height:28px; border-radius:6px; background:rgba(255,255,255,.06);
+    border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:.8rem; font-weight:600; flex-shrink:0; margin-top:1px; }
+  .option.selected .option-letter { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .option.correct .option-letter { background:var(--accent); border-color:var(--accent); color:#0a0e1a; }
+  .option.wrong .option-letter { background:var(--danger); border-color:var(--danger); color:white; }
+  .q-actions { display:flex; gap:.75rem; margin-top:2rem; flex-wrap:wrap; }
+  .palette-sidebar { display:flex; flex-direction:column; gap:1rem; }
+  .palette-card { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.2rem; }
+  .palette-title { font-size:.82rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:1rem; }
+  .palette-legend { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1rem; font-size:.78rem; color:var(--muted); }
+  .legend-item { display:flex; align-items:center; gap:6px; }
+  .legend-dot { width:14px; height:14px; border-radius:3px; }
+  .dot-answered { background:var(--accent); } .dot-marked { background:var(--accent3); }
+  .dot-not { background:var(--danger); } .dot-unattempted { background:var(--surface2); border:1px solid var(--border); }
+  .palette-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; }
+  .p-btn { width:36px; height:36px; border-radius:6px; border:1px solid var(--border);
+    background:var(--surface2); color:var(--muted); font-family:var(--mono); font-size:.72rem;
+    font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+  .p-btn:hover { border-color:var(--accent2); color:var(--text); }
+  .p-btn.p-answered { background:rgba(0,212,170,.15); border-color:var(--accent); color:var(--accent); }
+  .p-btn.p-marked { background:rgba(247,201,79,.15); border-color:var(--accent3); color:var(--accent3); }
+  .p-btn.p-current { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .p-btn.p-not { background:rgba(247,107,107,.1); border-color:rgba(247,107,107,.3); color:var(--danger); }
+  .summary-mini { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .mini-stat { background:var(--surface2); border-radius:8px; padding:8px; text-align:center; }
+  .mini-stat-num { font-size:1.2rem; font-weight:700; }
+  .mini-stat-label { font-size:.68rem; color:var(--muted); }
+  .progress-bar { height:4px; background:var(--surface2); border-radius:2px; margin-bottom:1.5rem; overflow:hidden; }
+  .progress-fill { height:100%; background:var(--accent2); border-radius:2px; transition:width .3s ease; }
+  .section-tabs { display:flex; gap:4px; background:var(--surface2); border-radius:8px; padding:4px; margin-bottom:1.5rem; }
+  .s-tab { padding:.45rem 1rem; border-radius:6px; border:none; background:transparent;
+    color:var(--muted); font-family:var(--font); font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; }
+  .s-tab.active { background:var(--surface); color:var(--text); }
+  .result-wrap { max-width:800px; margin:0 auto; padding:3rem 2rem; }
+  .result-hero { text-align:center; padding:2.5rem; background:var(--surface);
+    border:1px solid var(--border); border-radius:16px; margin-bottom:1.5rem; }
+  .score-circle { width:140px; height:140px; border-radius:50%; border:4px solid var(--accent);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    margin:0 auto 1.5rem; background:rgba(0,212,170,.06); }
+  .score-num { font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1; }
+  .score-total { font-size:.82rem; color:var(--muted); }
+  .result-title { font-size:1.5rem; font-weight:800; margin-bottom:.4rem; }
+  .result-sub { color:var(--muted); font-size:.9rem; }
+  .result-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem; }
+  .r-stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .r-stat-num { font-size:1.6rem; font-weight:800; margin-bottom:.2rem; }
+  .r-stat-label { font-size:.78rem; color:var(--muted); }
+  .review-list { display:flex; flex-direction:column; gap:.75rem; }
+  .review-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; }
+  .review-item.r-correct { border-left:3px solid var(--accent); }
+  .review-item.r-wrong { border-left:3px solid var(--danger); }
+  .review-item.r-skipped { border-left:3px solid var(--muted); }
+  .review-q { font-size:.9rem; font-weight:600; margin-bottom:.5rem; }
+  .review-answers { font-size:.82rem; color:var(--muted); display:flex; flex-direction:column; gap:3px; }
+  .review-answers .correct-ans { color:var(--accent); }
+  .review-answers .wrong-ans { color:var(--danger); }
+  .review-exp { font-size:.82rem; color:var(--muted); margin-top:.5rem; padding-top:.5rem;
+    border-top:1px solid var(--border); line-height:1.5; }
+  .hidden { display:none; }
+  @media(max-width:768px) {
+    .quiz-body { grid-template-columns:1fr; }
+    .result-stats { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Exam<span>Ace</span></a>
+  <div style="text-align:center">
+    <div style="font-size:.9rem;font-weight:700">🚔 Bihar Police SI Excise Main</div>
+    <div style="font-size:.75rem;color:var(--muted)">Solved Paper — 31 Aug 2025 (1st Shift)</div>
+  </div>
+  <div id="timer" class="timer">⏱ 120:00</div>
+</nav>
+
+<div id="quiz-view">
+  <div class="quiz-body">
+    <div>
+      <div class="section-tabs" id="section-tabs"></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="question-area">
+        <div class="q-meta">
+          <span class="q-num" id="q-num">Question 1 of 80</span>
+          <span class="q-marks">+1 / -0.25</span>
+        </div>
+        <div class="q-text" id="q-text"></div>
+        <div class="options" id="options"></div>
+        <div class="q-actions">
+          <button class="btn btn-outline" id="btn-prev" onclick="prevQ()">← Prev</button>
+          <button class="btn btn-outline" onclick="markForReview()" style="border-color:var(--accent3);color:var(--accent3)">⚑ Mark</button>
+          <button class="btn btn-outline" onclick="clearResponse()">✕ Clear</button>
+          <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+        </div>
+      </div>
+    </div>
+    <div class="palette-sidebar">
+      <div class="palette-card">
+        <div class="palette-title">Time Left</div>
+        <div id="timer-big" style="font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--danger);text-align:center;padding:.5rem 0">120:00</div>
+        <button class="btn btn-outline" onclick="submitQuiz()" style="width:100%;border-color:var(--danger);color:var(--danger);margin-top:.5rem">Submit Test</button>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Question Palette</div>
+        <div class="palette-legend">
+          <div class="legend-item"><div class="legend-dot dot-answered"></div>Answered</div>
+          <div class="legend-item"><div class="legend-dot dot-marked"></div>Marked</div>
+          <div class="legend-item"><div class="legend-dot dot-not"></div>Not Visited</div>
+          <div class="legend-item"><div class="legend-dot dot-unattempted"></div>Not Answered</div>
+        </div>
+        <div class="palette-grid" id="palette-grid"></div>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Summary</div>
+        <div class="summary-mini">
+          <div class="mini-stat"><div class="mini-stat-num" id="s-ans" style="color:var(--accent)">0</div><div class="mini-stat-label">Answered</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-mrk" style="color:var(--accent3)">0</div><div class="mini-stat-label">Marked</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-nv" style="color:var(--danger)">0</div><div class="mini-stat-label">Not Visited</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-na" style="color:var(--muted)">0</div><div class="mini-stat-label">Unattempted</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="result-view" class="hidden">
+  <div class="result-wrap">
+    <div class="result-hero">
+      <div class="score-circle">
+        <div class="score-num" id="r-score">0</div>
+        <div class="score-total">out of 80</div>
+      </div>
+      <div class="result-title" id="r-title">Test Completed!</div>
+      <div class="result-sub" id="r-sub"></div>
+    </div>
+    <div class="result-stats">
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent)" id="r-correct">0</div><div class="r-stat-label">Correct</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--danger)" id="r-wrong">0</div><div class="r-stat-label">Wrong</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--muted)" id="r-skip">0</div><div class="r-stat-label">Skipped</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent3)" id="r-acc">0%</div><div class="r-stat-label">Accuracy</div></div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <a href="index.html" class="btn btn-primary btn-lg" style="padding:.85rem 2rem;font-size:1rem;border-radius:10px">← Back to All Tests</a>
+    </div>
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Answer Review</div>
+    <div class="review-list" id="review-list"></div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS=[{"section": "Current Affairs", "q": "Q1. On which date is National Science Day celebrated?", "opts": ["15 January", "28 February", "5 June", "14 November"], "ans": 1, "exp": "National Science Day is on 28 February, commemorating C.V. Raman's discovery of the Raman Effect in 1928."}, {"section": "Bihar GK", "q": "Q2. In which district of Bihar is Mandar Parvat located?", "opts": ["Nalanda", "Banka", "Gaya", "Madhubani"], "ans": 1, "exp": "Mandar Parvat is located in Banka district of Bihar."}, {"section": "Science", "q": "Q3. Conducting/vascular tissue in plants is found in which organisms?", "opts": ["Only in Shaivals (Algae)", "Bryophytes and Thallophytes", "Tracheophyte and Gymnosperm", "Algae only"], "ans": 2, "exp": "Conducting (vascular) tissue is found in Tracheophytes and Gymnosperms."}, {"section": "Current Affairs", "q": "Q4. Mona Agrawal is related to which sport/field?", "opts": ["Boxing", "Para Athletics / Para Shooting", "Wrestling", "Archery"], "ans": 1, "exp": "Mona Agrawal is a Para Shooter who competed at the Paris Paralympics 2024."}, {"section": "Current Affairs", "q": "Q5. Which gallantry award was given to Abhinandan Vartaman?", "opts": ["Param Vir Chakra", "Vir Chakra", "Ashok Chakra", "Shaurya Chakra"], "ans": 1, "exp": "Wing Commander Abhinandan Vartaman was awarded the Vir Chakra for his bravery during the Balakot air strikes."}, {"section": "History & Culture", "q": "Q6. Who established Paropkari Sabha (Paropkarini Sabha)?", "opts": ["Swami Dayanand Saraswati", "Raja Ram Mohan Roy", "Swami Vivekanand", "Ishwar Chandra Vidyasagar"], "ans": 0, "exp": "Paropkarini Sabha was established by Swami Dayanand Saraswati."}, {"section": "Current Affairs", "q": "Q7. The United Nations declared which year as the International Year of Cooperatives?", "opts": ["2026", "2025", "2000", "2012"], "ans": 1, "exp": "The United Nations declared 2025 as the International Year of Cooperatives."}, {"section": "History & Culture", "q": "Q8. Which animal is NOT found on the 'Pashupati' seal from Mohenjodaro?", "opts": ["Elephant", "Tiger", "Rhinoceros", "Buffalo"], "ans": 1, "exp": "The Pashupati seal shows animals including elephant, rhinoceros, buffalo, and deer. Tiger is debated per the answer key."}, {"section": "Polity", "q": "Q9. Who is the highest permanent official of state administration?", "opts": ["Governor", "Chief Minister", "Chief Secretary", "Cabinet Secretary"], "ans": 2, "exp": "The Chief Secretary is the highest permanent (career) official of the state administration."}, {"section": "Polity", "q": "Q10. Formation of Legislative Councils in states is provided for in which article?", "opts": ["Article 168", "Article 169", "Article 171", "Article 170"], "ans": 1, "exp": "Article 169 of the Indian Constitution deals with the abolition or creation of Legislative Councils in States."}, {"section": "Polity", "q": "Q11. The National Commission for Scheduled Castes is mentioned in which article?", "opts": ["Article 330", "Article 338", "Article 340", "Article 342"], "ans": 1, "exp": "Article 338 deals with the National Commission for Scheduled Castes."}, {"section": "Polity", "q": "Q12. What is the correct ascending order of local self-governance?", "opts": ["Gram Panchayat → Panchayat Samiti → District Council", "Panchayat Samiti → Gram Panchayat → District Council", "District Council → Gram Panchayat → Panchayat Samiti", "District Council → Panchayat Samiti → Gram Panchayat"], "ans": 0, "exp": "Correct ascending order: Gram Panchayat → Panchayat Samiti → District Council (Zila Parishad)."}, {"section": "Science", "q": "Q13. Which hormone deficiency disease pair is correctly matched?", "opts": ["Goitre – Thyroxin", "Diabetes – STH", "Dwarfism – Adrenocortical", "Addison disease – Insulin"], "ans": 0, "exp": "Goitre is caused by deficiency or excess of Thyroxin (thyroid hormone) — correct match."}, {"section": "History & Culture", "q": "Q14. In which year did the Ahmedabad Mill Workers' Strike take place?", "opts": ["1916", "1917", "1918", "1920"], "ans": 2, "exp": "The Ahmedabad Mill Workers' Strike took place in 1918, supported by Mahatma Gandhi."}, {"section": "History & Culture", "q": "Q15. In which year did the Champaran Satyagraha take place?", "opts": ["1915", "1916", "1917", "1918"], "ans": 2, "exp": "The Champaran Satyagraha took place in 1917 — Gandhi's first major civil disobedience in India."}, {"section": "Geography", "q": "Q16. Sone river is a tributary of which major river?", "opts": ["Ganga", "Yamuna", "Kosi", "Brahmaputra"], "ans": 0, "exp": "Sone river is an important right-bank tributary of the Ganga."}, {"section": "History & Culture", "q": "Q17. In which year did Ambedkar establish a major political organisation (Independent Labour Party context)?", "opts": ["1927", "1930", "1932", "1935"], "ans": 1, "exp": "Per answer key: 1930. Ambedkar founded multiple organisations across different years."}, {"section": "Geography", "q": "Q18. Dulhasti Hydroelectric Project is located on which river?", "opts": ["Chenab", "Jhelum", "Ravi", "Beas"], "ans": 0, "exp": "The Dulhasti Hydroelectric Project is on the Chenab river in Jammu & Kashmir."}, {"section": "Computer", "q": "Q19. Which of the following is NOT an application software?", "opts": ["MS Word", "MS Excel", "Linker", "PowerPoint"], "ans": 2, "exp": "A Linker is system software. MS Word, Excel, and PowerPoint are application software."}, {"section": "Polity", "q": "Q20. Right to Education (Article 21A) was added by which Constitutional Amendment?", "opts": ["42nd Amendment 1976", "44th Amendment 1978", "86th Amendment 2002", "91st Amendment 2003"], "ans": 2, "exp": "The 86th Constitutional Amendment 2002 added the Right to Education as a Fundamental Right."}, {"section": "Geography", "q": "Q21. Which mining area-region pair is NOT correct?", "opts": ["Neyveli – Tamil Nadu", "Korba – Chhattisgarh", "Bokaro – Jharkhand", "Singrauli – Assam"], "ans": 3, "exp": "Singrauli is in Madhya Pradesh/Uttar Pradesh, NOT Assam."}, {"section": "Polity", "q": "Q22. India is called a secular state because:", "opts": ["All religions are given equal respect", "State religion is Hinduism", "State religion is Islam", "It only adopts Sanskrit culture"], "ans": 0, "exp": "India is a secular state where the government treats all religions equally."}, {"section": "Computer", "q": "Q23. Which application is used to create office presentations?", "opts": ["MS Word", "MS Excel", "MS Access", "MS PowerPoint"], "ans": 3, "exp": "MS PowerPoint is the standard application for creating presentations."}, {"section": "Bihar GK", "q": "Q24. In which year was Bharat Van Sena established?", "opts": ["1966", "1969", "1967", "1906"], "ans": 2, "exp": "Bharat Van Sena was established in 1967."}, {"section": "Bihar GK", "q": "Q25. In which districts of Bihar is tobacco production highest?", "opts": ["Bhagalpur and Gaya", "Samastipur and Vaishali", "Patna and Nalanda", "Darbhanga and Sitamarhi"], "ans": 1, "exp": "Tobacco production is highest in Samastipur and Vaishali districts of Bihar."}, {"section": "Science", "q": "Q26. What does 'hydrogen economy' mean?", "opts": ["Use of hydrogen as a commercial fuel", "Hydrogen fertilizer as fuel", "Hydrogen in steel production", "Hydrogen in agriculture"], "ans": 0, "exp": "Hydrogen economy refers to the use of hydrogen as a clean commercial fuel for energy systems."}, {"section": "Geography", "q": "Q27. Match mountain ranges with states: Nellalamalai–AP, Garo Hills–Meghalaya, Gissar Hills–Gujarat, Satmala–Maharashtra. How many are correct?", "opts": ["a and b correct", "a, b and c correct", "a and d correct", "All a,b,c,d correct"], "ans": 3, "exp": "All four matches are correct per the answer key."}, {"section": "History & Culture", "q": "Q28. Akbar's Panch Mahal at Fatehpur Sikri is architecturally similar to which?", "opts": ["Sanchi Stupa", "Buddhist Vihara (generic)", "Ajanta Caves", "Nalanda Buddhist Vihara"], "ans": 3, "exp": "Akbar's Panch Mahal is architecturally similar to Nalanda Buddhist Vihara."}, {"section": "Bihar GK", "q": "Q29. Where is Ashoka's lion/elephant pillar found in Bihar?", "opts": ["Rajgir", "Sasaram", "Gaya", "Patna"], "ans": 1, "exp": "Per answer key: B (Sasaram/Gaya region in Bihar context)."}, {"section": "Geography", "q": "Q30. National Waterway-40 is on which river?", "opts": ["Ganga", "Kosi", "Ghaghra", "Gandak"], "ans": 2, "exp": "Per answer key: C — Ghaghra river. (National Waterways vary by source.)"}, {"section": "Bihar GK", "q": "Q31. Which district of Bihar has the highest and lowest population density?", "opts": ["Sheohar, Kaimur", "Patna, Gaya", "Nalanda, Kaimur", "Madhubani, Arwal"], "ans": 0, "exp": "Sheohar has the highest population density and Kaimur has the lowest in Bihar."}, {"section": "Bihar GK", "q": "Q32. What is Bihar's literacy rate as per Census 2011?", "opts": ["54.5%", "58.2%", "61.8%", "66.7%"], "ans": 2, "exp": "As per Census 2011, Bihar's literacy rate is 61.8%."}, {"section": "Polity", "q": "Q33. Which has the widest jurisdiction in India?", "opts": ["Original jurisdiction", "Appellate jurisdiction", "Advisory jurisdiction", "All of these"], "ans": 3, "exp": "All types of jurisdiction together form the widest scope of judicial power."}, {"section": "Polity", "q": "Q34. The key difference between federal and unitary systems in India is:", "opts": ["No independent central government", "Independent judiciary", "Bicameral legislature", "Fundamental rights"], "ans": 1, "exp": "An independent judiciary that adjudicates disputes between centre and states is a key feature of Indian federalism."}, {"section": "Polity", "q": "Q35. Which of the following is NOT included in the Indian Union/federation?", "opts": ["Division of powers", "Pan-nationality (complete sovereignty)", "Independent judiciary", "Written constitution"], "ans": 1, "exp": "Pan-nationality (complete national sovereignty over states) is a feature of unitary systems, not Indian federalism."}, {"section": "Science", "q": "Q36. The equation S = ut + ½at² is derived from which law?", "opts": ["First law of motion", "Second law of motion", "Third law of motion", "Newton's law of gravitation"], "ans": 1, "exp": "S = ut + ½at² is one of the equations of motion derived from Newton's Second Law."}, {"section": "History & Culture", "q": "Q37. Rekhachitra Janajati is mainly found in which state?", "opts": ["Gujarat", "Rajasthan", "Madhya Pradesh", "Chhattisgarh"], "ans": 1, "exp": "Rekhachitra tribe is mainly found in Rajasthan per the answer key."}, {"section": "History & Culture", "q": "Q38. Babur defeated the Afghans in Bihar in which battle?", "opts": ["Battle of Khanwa 1527", "Battle of Chanderi 1528", "Battle of Ghaghra 1529", "Battle of Panipat 1526"], "ans": 2, "exp": "Babur defeated the Afghans at the Battle of Ghaghra in 1529, which took place in Bihar."}, {"section": "Bihar GK", "q": "Q39. After the death of Kunwar Singh, who organised the revolt of 1857 in Bihar?", "opts": ["Nana Saheb", "Amar Singh", "Tantya Tope", "Begum Hazrat Mahal"], "ans": 1, "exp": "After Kunwar Singh's death, his brother Amar Singh continued organising the 1857 revolt in Bihar."}, {"section": "Bihar GK", "q": "Q40. In which district of Bihar is Gogabil Lake located?", "opts": ["Bhagalpur", "Katihar", "Purnia", "Kishanganj"], "ans": 1, "exp": "Gogabil Lake (a bird sanctuary) is located in Katihar district of Bihar."}, {"section": "History & Culture", "q": "Q41. When was the Indian Language Scientific Society established?", "opts": ["1928", "1930", "1942", "1958"], "ans": 0, "exp": "The Indian Language Scientific Society was established in 1928."}, {"section": "History & Culture", "q": "Q42. Who wrote 'Tarikh-e-Rashidi'?", "opts": ["Abul Fazal", "Mirza Mohammad Haidar", "Badayuni", "Firishta"], "ans": 1, "exp": "Tarikh-e-Rashidi was written by Mirza Mohammad Haidar Dughlat."}, {"section": "Current Affairs", "q": "Q43. Rafael Nadal is a famous player from which country?", "opts": ["Argentina", "Spain", "France", "Italy"], "ans": 1, "exp": "Rafael Nadal is from Spain — a 22-time Grand Slam champion in tennis."}, {"section": "Science", "q": "Q44. Which eye condition pairs are correctly matched? (i) Long-sightedness–Myopia (ii) Unclear vision–Hypermetropia", "opts": ["Only (i) correct", "Only (ii) correct", "Both correct", "Neither correct"], "ans": 3, "exp": "Both are wrong. Long-sightedness is Hypermetropia (not Myopia). Myopia is short-sightedness."}, {"section": "Polity", "q": "Q45. Which statement about Gram Sabha is NOT correct?", "opts": ["It includes all adult rural residents", "It monitors the Panchayat", "It is a permanent organisation", "It is an elected body"], "ans": 3, "exp": "Gram Sabha is NOT an elected body. It consists of all registered voters in the Gram Panchayat area. The Panchayat is elected."}, {"section": "Polity", "q": "Q46. What is the main purpose of Self Help Groups (Swayam Sahayata Samuh)?", "opts": ["Economic development only", "Financial inclusion and promotion of self-employment", "Social development and rehabilitation", "Agricultural development"], "ans": 1, "exp": "The main purpose of SHGs is financial inclusion and promotion of self-employment among rural poor."}, {"section": "Current Affairs", "q": "Q47. Which is the most commercially profitable fruit in India?", "opts": ["Mango", "Grain", "Various fruits", "Meat"], "ans": 0, "exp": "Mango is considered the most commercially profitable fruit in India."}, {"section": "Current Affairs", "q": "Q48. On which date is Swarajya Sthapana Diwas (Independence Day) celebrated?", "opts": ["26 January", "15 August", "2 October", "22 July"], "ans": 1, "exp": "Swarajya Sthapana Diwas (Independence Day) is celebrated on 15 August."}, {"section": "Science", "q": "Q49. Carbon compounds are based on which type of bond?", "opts": ["Ionic bond", "Covalent bond", "Coordinative bond", "Hydrogen bond"], "ans": 1, "exp": "Carbon primarily forms covalent bonds with other elements and with itself."}, {"section": "Bihar GK", "q": "Q50. Bihar's population growth rate compared to India is:", "opts": ["Lowest", "Average", "High", "Regular"], "ans": 2, "exp": "Bihar has one of the highest population growth rates among Indian states."}, {"section": "Quantitative Aptitude", "q": "Q54. If length, breadth and height of a room increase by 10%, 15% and 20%, what is the % increase in volume?", "opts": ["52.8% increase", "53.8% increase", "50.8% increase", "51.8% increase"], "ans": 3, "exp": "New volume = 1.1 × 1.15 × 1.2 = 1.518. Increase = 51.8%."}, {"section": "Quantitative Aptitude", "q": "Q55. Find LCM of 21/22 and 23/24.", "opts": ["473/2", "463/2", "453/2", "483/2"], "ans": 3, "exp": "LCM of fractions = LCM(numerators)/GCD(denominators) = LCM(21,23)/GCD(22,24) = 483/2."}, {"section": "Quantitative Aptitude", "q": "Q56. Shopkeeper sold goods worth ₹27,720 at 32% profit. If sold for ₹23,205 instead, what is profit %?", "opts": ["10.5%", "12.5%", "11.5%", "9.5%"], "ans": 0, "exp": "CP = 27720/1.32 = 21000. Profit on 23205 = 23205-21000=2205. Profit% = (2205/21000)×100 = 10.5%."}, {"section": "Quantitative Aptitude", "q": "Q57. First term=125, common ratio=3/5 in a GP. What is the 4th term?", "opts": ["29", "31", "25", "27"], "ans": 3, "exp": "4th term = 125 × (3/5)³ = 125 × 27/125 = 27."}, {"section": "Quantitative Aptitude", "q": "Q58. Find curved surface area of a sphere with radius 23 cm (π=3.14).", "opts": ["6744.24", "6644.24", "6944.24", "6844.24"], "ans": 3, "exp": "CSA = 4πr² = 4×3.14×529 = 6644.24. Per answer key: D (6844.24) — slight variation in source."}, {"section": "Quantitative Aptitude", "q": "Q61. Sum of a two-digit number and its reverse = 99. Difference of digits = 7. Find the number.", "opts": ["81", "92", "19", "29"], "ans": 0, "exp": "Digits a+b=9, |a-b|=7 → a=8, b=1. Number = 81. 81+18=99 ✓."}, {"section": "Quantitative Aptitude", "q": "Q62. A bike travels 47 metres per second. Find speed in km/hr.", "opts": ["175.3", "162.5", "169.2", "162.6"], "ans": 2, "exp": "Speed = 47 m/s × 3.6 = 169.2 km/hr."}, {"section": "Quantitative Aptitude", "q": "Q63. Clock's marked price = ₹6420, 17% discount available. Amount paid by customer?", "opts": ["₹5,328.60", "₹5,248.85", "₹5,368.78", "₹5,425.25"], "ans": 0, "exp": "SP = 6420 × (1-0.17) = 6420 × 0.83 = ₹5,328.60."}, {"section": "Quantitative Aptitude", "q": "Q65. Find P such that 579P46 is divisible by 11.", "opts": ["5", "6", "8", "9"], "ans": 0, "exp": "For divisibility by 11: (5+9+4)-(7+P+6)=0. 18-(13+P)=0 → P=5."}, {"section": "Quantitative Aptitude", "q": "Q66. Largest number that divides 651 and 1110 leaving remainders 5 and 8 respectively.", "opts": ["18", "38", "19", "36"], "ans": 1, "exp": "651-5=646, 1110-8=1102. GCD(646,1102) = 38."}, {"section": "Quantitative Aptitude", "q": "Q68. Find value of: 2.35 + 0.56 – 1.89 – 2.85 + 4.26", "opts": ["2.24", "2.43", "2.04", "2.33"], "ans": 1, "exp": "2.35+0.56+4.26 = 7.17. 1.89+2.85 = 4.74. 7.17-4.74 = 2.43."}, {"section": "Reasoning", "q": "Q69. What comes next in: 55 60 59 64 63 ?", "opts": ["64", "68", "58", "54"], "ans": 1, "exp": "Pattern: +5, -1, +5, -1, +5. 63+5=68."}, {"section": "Reasoning", "q": "Q70. In code: 'watch less tv'='mb tb km' and 'tv is boring'='zb km ab'. How is 'tv' coded?", "opts": ["mb", "km", "tb", "zb"], "ans": 1, "exp": "'tv' appears in both sentences. 'km' is the common code. So tv = km."}, {"section": "Reasoning", "q": "Q71. Statements: All coats are pants. All pants are sneakers. Conclusions: I. All coats are sneakers. II. All pants are jackets.", "opts": ["Only I follows", "Only II follows", "Both I and II follow", "Neither follows"], "ans": 0, "exp": "From all coats→pants→sneakers, Conclusion I follows. Conclusion II cannot be derived. Only I."}, {"section": "Reasoning", "q": "Q73. What comes next in: 782 780 776 770 762 ?", "opts": ["752", "754", "756", "750"], "ans": 0, "exp": "Differences: -2, -4, -6, -8, -10. 762-10=752."}, {"section": "Quantitative Aptitude", "q": "Q76. If A:B=3:4 and A:C=9:8, then A:B:C=?", "opts": ["9:8:8", "9:8:12", "3:4:6", "9:12:8"], "ans": 3, "exp": "A:B=3:4=9:12. A:C=9:8. So A:B:C = 9:12:8."}, {"section": "Quantitative Aptitude", "q": "Q77. Average weight of 17 boys=63 kg, 36 girls=54 kg. Combined average weight?", "opts": ["59", "62", "52", "57"], "ans": 3, "exp": "Total = 17×63+36×54 = 1071+1944=3015. Total persons=53. Avg=3015/53≈56.9≈57."}, {"section": "Quantitative Aptitude", "q": "Q78. GCD of 625, 15625, 3125 (finding largest number dividing 627, 15630, 3128 with remainders 2, 5, 3)?", "opts": ["775", "625", "1225", "650"], "ans": 1, "exp": "627-2=625, 15630-5=15625, 3128-3=3125. GCD(625,15625,3125)=625."}, {"section": "Quantitative Aptitude", "q": "Q81. A number increased by 50% becomes 3900. What is the number?", "opts": ["7800", "2600", "1300", "5200"], "ans": 1, "exp": "x × 1.5 = 3900 → x = 2600."}, {"section": "Quantitative Aptitude", "q": "Q82. Which algebraic identities are correct? (i) 4ab=(a+b)²-(a-b)² (ii) (a-b)²=(a+b)²-4ab (iii) (a-b)³=a³-b³-3ab(a+b)", "opts": ["(i) and (ii) both correct", "(i) and (iii) both correct", "(i) only correct", "All (i),(ii),(iii) correct"], "ans": 0, "exp": "(i) ✓. (ii) ✓. (iii) should be (a-b)³=a³-b³-3ab(a-b), so (iii) ✗. (i) and (ii) are correct."}, {"section": "Quantitative Aptitude", "q": "Q83. Sum of exterior angles of pentagon = 360°. Sum of interior angles = 540°. Which are correct?", "opts": ["Both correct", "Only (i) correct", "Only (ii) correct", "Both wrong"], "ans": 0, "exp": "Sum of exterior angles of any polygon = 360° ✓. Interior angles of pentagon = (5-2)×180 = 540° ✓. Both correct."}, {"section": "Quantitative Aptitude", "q": "Q85. Bristy is ranked 12th from top and 31st from bottom. How many students are in the class?", "opts": ["42", "44", "41", "43"], "ans": 0, "exp": "Total = 12+31-1 = 42."}, {"section": "Reasoning", "q": "Q86. Statements: All engines are balls. All mangoes are balls. Conclusions: I. Some mangoes are engines. II. All engines are mangoes.", "opts": ["Both I and II follow", "Neither I nor II follows", "Only II follows", "Only I follows"], "ans": 1, "exp": "From the statements, we cannot conclude that mangoes are engines or vice versa. Neither conclusion follows."}, {"section": "Quantitative Aptitude", "q": "Q87. P(A's statement false)=3/5. P(B's statement true)=1/6. Probability both are false?", "opts": ["1/10", "1/15", "5/6", "1/2"], "ans": 0, "exp": "P(A false)=3/5. P(B false)=1-1/6=5/6. But per answer key: P(B false)=1/6. P(both false)=3/5×1/6=3/30=1/10."}, {"section": "Reasoning", "q": "Q88. 'BEST'=4781, 'BEDS'=8157 in a code. What is the code for 'D'?", "opts": ["5", "7", "1", "8"], "ans": 0, "exp": "BEDS=8157: B=8, E=1, D=5, S=7. So D=5. (Note: BEST=4781 gives a different mapping; BEDS mapping gives D=5.)"}, {"section": "Quantitative Aptitude", "q": "Q90. What comes next in: 2005, 1805, 1625, 1463, 1317, ?", "opts": ["1216", "1187", "1185", "1186"], "ans": 1, "exp": "Differences: 200,180,162,146,130. Next difference=130. 1317-130=1187."}, {"section": "Quantitative Aptitude", "q": "Q92. Marked price of Ajrakh saree=₹3600, sold at ₹3150. Find discount percentage.", "opts": ["11%", "10%", "12.5%", "13.5%"], "ans": 2, "exp": "Discount = 3600-3150=450. Discount% = (450/3600)×100 = 12.5%."}, {"section": "Quantitative Aptitude", "q": "Q94. What is the remainder when 97¹³ − 1 is divided by 96?", "opts": ["0", "3", "1", "2"], "ans": 0, "exp": "97 ≡ 1 (mod 96). So 97¹³ ≡ 1 (mod 96). 97¹³ − 1 ≡ 0 (mod 96). Remainder = 0."}, {"section": "Quantitative Aptitude", "q": "Q96. Q: Relationship between C and A in a family. St I: A,B are nephew/niece of C's father, A not C's sibling. St II: C, B's father is nephew/niece. Which is sufficient?", "opts": ["Only Statement I sufficient", "Both I and II needed", "Only Statement II sufficient", "Neither sufficient"], "ans": 2, "exp": "Per answer key: Only Statement II is sufficient to determine the relationship."}, {"section": "Quantitative Aptitude", "q": "Q97. Bags A,B,C,D — which is lightest? I: B>A. II: A,C,D lighter than B. Which is sufficient?", "opts": ["Only I sufficient", "Both I and II needed", "I and II together not sufficient", "Only II sufficient"], "ans": 1, "exp": "Both statements needed to determine the lightest bag among A, C, D."}];
+const SECTIONS=["Bihar GK", "Computer", "Current Affairs", "Geography", "History & Culture", "Polity", "Quantitative Aptitude", "Reasoning", "Science"];
+const TOTAL=80;const MINS=120;const NEG=0.25;const MARKS=1;
+let answers=Array(TOTAL).fill(null),marked=Array(TOTAL).fill(false),visited=Array(TOTAL).fill(false);
+let currentQ=0,timeLeft=MINS*60,timerInt=null;
+visited[0]=true;
+function buildPalette(){const g=document.getElementById('palette-grid');g.innerHTML='';for(let i=0;i<TOTAL;i++)g.innerHTML+=`<button class="p-btn" id="pb-${i}" onclick="jumpQ(${i})">${i+1}</button>`;}
+function buildTabs(){const t=document.getElementById('section-tabs');t.innerHTML='';SECTIONS.forEach((s,i)=>{t.innerHTML+=`<button class="s-tab" id="st-${i}" onclick="jumpSection(${i})">${s}</button>`;});}
+function jumpSection(idx){const f=QUESTIONS.findIndex(q=>q.section===SECTIONS[idx]);if(f>=0){currentQ=f;visited[f]=true;render();}}
+function render(){const q=QUESTIONS[currentQ];document.getElementById('q-num').textContent=`Question ${currentQ+1} of ${TOTAL}`;document.getElementById('q-text').textContent=q.q;document.getElementById('progress-fill').style.width=((currentQ+1)/TOTAL*100)+'%';
+SECTIONS.forEach((s,i)=>{const b=document.getElementById('st-'+i);if(b)b.className='s-tab'+(q.section===s?' active':'');});
+const letters=['A','B','C','D'];const opts=document.getElementById('options');opts.innerHTML='';
+q.opts.forEach((opt,i)=>{const sel=answers[currentQ]===i;opts.innerHTML+=`<div class="option ${sel?'selected':''}" onclick="selectOpt(${i})"><div class="option-letter">${letters[i]}</div><div>${opt}</div></div>`;});
+document.getElementById('btn-prev').disabled=currentQ===0;const nb=document.getElementById('btn-next');
+if(currentQ===TOTAL-1){nb.textContent='Submit →';nb.onclick=submitQuiz;}else{nb.textContent='Next →';nb.onclick=nextQ;}
+updatePalette();updateSummary();}
+function selectOpt(i){answers[currentQ]=i;render();}
+function clearResponse(){answers[currentQ]=null;render();}
+function markForReview(){marked[currentQ]=!marked[currentQ];updatePalette();}
+function prevQ(){if(currentQ>0){currentQ--;visited[currentQ]=true;render();}}
+function nextQ(){if(currentQ<TOTAL-1){currentQ++;visited[currentQ]=true;render();}}
+function jumpQ(i){currentQ=i;visited[i]=true;render();}
+function updatePalette(){for(let i=0;i<TOTAL;i++){const b=document.getElementById('pb-'+i);if(!b)continue;b.className='p-btn';if(i===currentQ)b.classList.add('p-current');else if(marked[i])b.classList.add('p-marked');else if(answers[i]!==null)b.classList.add('p-answered');else if(!visited[i])b.classList.add('p-not');}}
+function updateSummary(){document.getElementById('s-ans').textContent=answers.filter(a=>a!==null).length;document.getElementById('s-mrk').textContent=marked.filter(Boolean).length;document.getElementById('s-nv').textContent=visited.filter(v=>!v).length;document.getElementById('s-na').textContent=visited.filter((v,i)=>v&&answers[i]===null).length;}
+function startTimer(){timerInt=setInterval(()=>{timeLeft--;const m=Math.floor(timeLeft/60),s=timeLeft%60;const str=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');document.getElementById('timer').innerHTML='⏱ '+str;document.getElementById('timer-big').textContent=str;const w=timeLeft<300;document.getElementById('timer').className='timer'+(w?' warning':'');document.getElementById('timer-big').style.color=w?'var(--accent3)':'var(--danger)';if(timeLeft<=0){clearInterval(timerInt);submitQuiz();}},1000);}
+function submitQuiz(){if(timerInt)clearInterval(timerInt);let correct=0,wrong=0,skip=0;QUESTIONS.forEach((q,i)=>{if(answers[i]===null)skip++;else if(answers[i]===q.ans)correct++;else wrong++;});const score=(correct*MARKS-wrong*NEG).toFixed(2);const acc=(correct+wrong)>0?Math.round(correct/(correct+wrong)*100):0;const used=MINS*60-timeLeft;const um=Math.floor(used/60),us=used%60;document.getElementById('r-score').textContent=score;document.getElementById('r-correct').textContent=correct;document.getElementById('r-wrong').textContent=wrong;document.getElementById('r-skip').textContent=skip;document.getElementById('r-acc').textContent=acc+'%';let grade=acc>=80?'🏆 Excellent Performance!':acc>=60?'👍 Good Job! Keep practicing.':'📚 Keep Practicing!';document.getElementById('r-title').textContent=grade;document.getElementById('r-sub').textContent=`Score: ${score} | Accuracy: ${acc}% | Time: ${um}m ${us}s`;const letters=['A','B','C','D'];const list=document.getElementById('review-list');list.innerHTML='';QUESTIONS.forEach((q,i)=>{const status=answers[i]===null?'skipped':answers[i]===q.ans?'correct':'wrong';const your=answers[i]!==null?letters[answers[i]]+'. '+q.opts[answers[i]]:'Not Attempted';list.innerHTML+=`<div class="review-item r-${status}"><div class="review-q">Q${i+1}. ${q.q}</div><div class="review-answers"><div class="${status==='wrong'?'wrong-ans':''}">Your answer: ${your}</div><div class="correct-ans">Correct: ${letters[q.ans]}. ${q.opts[q.ans]}</div></div><div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div></div>`;});document.getElementById('quiz-view').classList.add('hidden');document.getElementById('result-view').classList.remove('hidden');window.scrollTo(0,0);}
+buildTabs();buildPalette();render();startTimer();
+</script>
+</body>
+</html>

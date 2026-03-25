@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bihar Police ESI Prelims — Solved Paper — 07 Sep 2025 (1st Shift) | ExamAce</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --border: #1e2d45;
+    --accent: #00d4aa; --accent2: #4f8ef7; --accent3: #f7c94f;
+    --text: #e8edf5; --muted: #7a8ba3; --danger: #f76b6b;
+    --radius: 12px; --font: 'Sora', sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem;
+    background:rgba(10,14,26,0.95); border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:100; backdrop-filter:blur(12px); }
+  .logo { font-size:1.3rem; font-weight:800; color:var(--text); text-decoration:none; }
+  .logo span { color:var(--accent); }
+  .btn { padding:.55rem 1.3rem; border-radius:8px; font-family:var(--font); font-size:.88rem;
+    font-weight:600; cursor:pointer; border:none; transition:all .2s; text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px; }
+  .btn-primary { background:var(--accent); color:#0a0e1a; }
+  .btn-primary:hover { background:#00e8bc; transform:translateY(-1px); }
+  .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+  .btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+  .quiz-nav { display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2rem; background:var(--surface); border-bottom:1px solid var(--border); flex-wrap:wrap; gap:.5rem; }
+  .quiz-title { font-weight:700; font-size:.95rem; }
+  .quiz-subtitle { font-size:.78rem; color:var(--muted); }
+  .timer { display:flex; align-items:center; gap:8px; background:rgba(247,107,107,.12);
+    border:1px solid rgba(247,107,107,.3); color:var(--danger); padding:.5rem 1rem;
+    border-radius:8px; font-family:var(--mono); font-size:1.1rem; font-weight:600; }
+  .timer.warning { background:rgba(247,201,79,.12); border-color:rgba(247,201,79,.3); color:var(--accent3); }
+  .quiz-body { display:grid; grid-template-columns:1fr 280px; gap:1.5rem;
+    max-width:1100px; margin:0 auto; padding:2rem; }
+  .question-area { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:2rem; }
+  .q-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
+  .q-num { font-family:var(--mono); font-size:.8rem; color:var(--muted); }
+  .q-marks { font-size:.8rem; background:rgba(79,142,247,.12); color:var(--accent2);
+    padding:3px 10px; border-radius:4px; font-weight:600; }
+  .q-text { font-size:1.1rem; line-height:1.7; margin-bottom:2rem; font-weight:500; }
+  .options { display:flex; flex-direction:column; gap:.75rem; }
+  .option { display:flex; align-items:flex-start; gap:12px; padding:1rem 1.2rem;
+    background:var(--surface2); border:1.5px solid var(--border); border-radius:10px;
+    cursor:pointer; transition:all .18s; font-size:.95rem; line-height:1.5; }
+  .option:hover { border-color:var(--accent2); background:rgba(79,142,247,.07); }
+  .option.selected { border-color:var(--accent2); background:rgba(79,142,247,.12); }
+  .option.correct { border-color:var(--accent); background:rgba(0,212,170,.1); }
+  .option.wrong { border-color:var(--danger); background:rgba(247,107,107,.1); }
+  .option-letter { width:28px; height:28px; border-radius:6px; background:rgba(255,255,255,.06);
+    border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:.8rem; font-weight:600; flex-shrink:0; margin-top:1px; }
+  .option.selected .option-letter { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .option.correct .option-letter { background:var(--accent); border-color:var(--accent); color:#0a0e1a; }
+  .option.wrong .option-letter { background:var(--danger); border-color:var(--danger); color:white; }
+  .q-actions { display:flex; gap:.75rem; margin-top:2rem; flex-wrap:wrap; }
+  .palette-sidebar { display:flex; flex-direction:column; gap:1rem; }
+  .palette-card { background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1.2rem; }
+  .palette-title { font-size:.82rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:1rem; }
+  .palette-legend { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1rem; font-size:.78rem; color:var(--muted); }
+  .legend-item { display:flex; align-items:center; gap:6px; }
+  .legend-dot { width:14px; height:14px; border-radius:3px; }
+  .dot-answered { background:var(--accent); } .dot-marked { background:var(--accent3); }
+  .dot-not { background:var(--danger); } .dot-unattempted { background:var(--surface2); border:1px solid var(--border); }
+  .palette-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; }
+  .p-btn { width:36px; height:36px; border-radius:6px; border:1px solid var(--border);
+    background:var(--surface2); color:var(--muted); font-family:var(--mono); font-size:.72rem;
+    font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+  .p-btn:hover { border-color:var(--accent2); color:var(--text); }
+  .p-btn.p-answered { background:rgba(0,212,170,.15); border-color:var(--accent); color:var(--accent); }
+  .p-btn.p-marked { background:rgba(247,201,79,.15); border-color:var(--accent3); color:var(--accent3); }
+  .p-btn.p-current { background:var(--accent2); border-color:var(--accent2); color:white; }
+  .p-btn.p-not { background:rgba(247,107,107,.1); border-color:rgba(247,107,107,.3); color:var(--danger); }
+  .summary-mini { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .mini-stat { background:var(--surface2); border-radius:8px; padding:8px; text-align:center; }
+  .mini-stat-num { font-size:1.2rem; font-weight:700; }
+  .mini-stat-label { font-size:.68rem; color:var(--muted); }
+  .progress-bar { height:4px; background:var(--surface2); border-radius:2px; margin-bottom:1.5rem; overflow:hidden; }
+  .progress-fill { height:100%; background:var(--accent2); border-radius:2px; transition:width .3s ease; }
+  .section-tabs { display:flex; gap:4px; background:var(--surface2); border-radius:8px; padding:4px; margin-bottom:1.5rem; }
+  .s-tab { padding:.45rem 1rem; border-radius:6px; border:none; background:transparent;
+    color:var(--muted); font-family:var(--font); font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; }
+  .s-tab.active { background:var(--surface); color:var(--text); }
+  .result-wrap { max-width:800px; margin:0 auto; padding:3rem 2rem; }
+  .result-hero { text-align:center; padding:2.5rem; background:var(--surface);
+    border:1px solid var(--border); border-radius:16px; margin-bottom:1.5rem; }
+  .score-circle { width:140px; height:140px; border-radius:50%; border:4px solid var(--accent);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    margin:0 auto 1.5rem; background:rgba(0,212,170,.06); }
+  .score-num { font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1; }
+  .score-total { font-size:.82rem; color:var(--muted); }
+  .result-title { font-size:1.5rem; font-weight:800; margin-bottom:.4rem; }
+  .result-sub { color:var(--muted); font-size:.9rem; }
+  .result-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem; }
+  .r-stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .r-stat-num { font-size:1.6rem; font-weight:800; margin-bottom:.2rem; }
+  .r-stat-label { font-size:.78rem; color:var(--muted); }
+  .review-list { display:flex; flex-direction:column; gap:.75rem; }
+  .review-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1.2rem; }
+  .review-item.r-correct { border-left:3px solid var(--accent); }
+  .review-item.r-wrong { border-left:3px solid var(--danger); }
+  .review-item.r-skipped { border-left:3px solid var(--muted); }
+  .review-q { font-size:.9rem; font-weight:600; margin-bottom:.5rem; }
+  .review-answers { font-size:.82rem; color:var(--muted); display:flex; flex-direction:column; gap:3px; }
+  .review-answers .correct-ans { color:var(--accent); }
+  .review-answers .wrong-ans { color:var(--danger); }
+  .review-exp { font-size:.82rem; color:var(--muted); margin-top:.5rem; padding-top:.5rem;
+    border-top:1px solid var(--border); line-height:1.5; }
+  .hidden { display:none; }
+  @media(max-width:768px) {
+    .quiz-body { grid-template-columns:1fr; }
+    .result-stats { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">Exam<span>Ace</span></a>
+  <div style="text-align:center">
+    <div style="font-size:.9rem;font-weight:700">🚔 Bihar Police ESI Prelims</div>
+    <div style="font-size:.75rem;color:var(--muted)">Solved Paper — 07 Sep 2025 (1st Shift)</div>
+  </div>
+  <div id="timer" class="timer">⏱ 120:00</div>
+</nav>
+
+<div id="quiz-view">
+  <div class="quiz-body">
+    <div>
+      <div class="section-tabs" id="section-tabs"></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="question-area">
+        <div class="q-meta">
+          <span class="q-num" id="q-num">Question 1 of 83</span>
+          <span class="q-marks">+1 / -0.25</span>
+        </div>
+        <div class="q-text" id="q-text"></div>
+        <div class="options" id="options"></div>
+        <div class="q-actions">
+          <button class="btn btn-outline" id="btn-prev" onclick="prevQ()">← Prev</button>
+          <button class="btn btn-outline" onclick="markForReview()" style="border-color:var(--accent3);color:var(--accent3)">⚑ Mark</button>
+          <button class="btn btn-outline" onclick="clearResponse()">✕ Clear</button>
+          <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+        </div>
+      </div>
+    </div>
+    <div class="palette-sidebar">
+      <div class="palette-card">
+        <div class="palette-title">Time Left</div>
+        <div id="timer-big" style="font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--danger);text-align:center;padding:.5rem 0">120:00</div>
+        <button class="btn btn-outline" onclick="submitQuiz()" style="width:100%;border-color:var(--danger);color:var(--danger);margin-top:.5rem">Submit Test</button>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Question Palette</div>
+        <div class="palette-legend">
+          <div class="legend-item"><div class="legend-dot dot-answered"></div>Answered</div>
+          <div class="legend-item"><div class="legend-dot dot-marked"></div>Marked</div>
+          <div class="legend-item"><div class="legend-dot dot-not"></div>Not Visited</div>
+          <div class="legend-item"><div class="legend-dot dot-unattempted"></div>Not Answered</div>
+        </div>
+        <div class="palette-grid" id="palette-grid"></div>
+      </div>
+      <div class="palette-card">
+        <div class="palette-title">Summary</div>
+        <div class="summary-mini">
+          <div class="mini-stat"><div class="mini-stat-num" id="s-ans" style="color:var(--accent)">0</div><div class="mini-stat-label">Answered</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-mrk" style="color:var(--accent3)">0</div><div class="mini-stat-label">Marked</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-nv" style="color:var(--danger)">0</div><div class="mini-stat-label">Not Visited</div></div>
+          <div class="mini-stat"><div class="mini-stat-num" id="s-na" style="color:var(--muted)">0</div><div class="mini-stat-label">Unattempted</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="result-view" class="hidden">
+  <div class="result-wrap">
+    <div class="result-hero">
+      <div class="score-circle">
+        <div class="score-num" id="r-score">0</div>
+        <div class="score-total">out of 83</div>
+      </div>
+      <div class="result-title" id="r-title">Test Completed!</div>
+      <div class="result-sub" id="r-sub"></div>
+    </div>
+    <div class="result-stats">
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent)" id="r-correct">0</div><div class="r-stat-label">Correct</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--danger)" id="r-wrong">0</div><div class="r-stat-label">Wrong</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--muted)" id="r-skip">0</div><div class="r-stat-label">Skipped</div></div>
+      <div class="r-stat"><div class="r-stat-num" style="color:var(--accent3)" id="r-acc">0%</div><div class="r-stat-label">Accuracy</div></div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <a href="index.html" class="btn btn-primary btn-lg" style="padding:.85rem 2rem;font-size:1rem;border-radius:10px">← Back to All Tests</a>
+    </div>
+    <div style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">Answer Review</div>
+    <div class="review-list" id="review-list"></div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS=[{"section": "Current Affairs", "q": "Q1. Rajendra Vishwanath Arlekar was appointed as the 23rd Governor of which state?", "opts": ["Kerala", "Bihar", "Goa", "Haryana"], "ans": 0, "exp": "Rajendra Vishwanath Arlekar was appointed as the Governor of Kerala."}, {"section": "Current Affairs", "q": "Q2. In February 2025, which city hosted the AI Action Summit?", "opts": ["India", "Paris", "Haryana", "China"], "ans": 1, "exp": "The AI Action Summit was held in Paris in February 2025."}, {"section": "Current Affairs", "q": "Q3. Who was appointed as the new head of BARC in November 2024?", "opts": ["Dr. Vinay Agarwal", "Dr. Mrunal Neti", "Dr. Jyoti Raghavendra Joshi", "Dr. Riyaz Sayed"], "ans": 2, "exp": "Dr. Jyoti Raghavendra Joshi was appointed as the new Director of BARC in November 2024."}, {"section": "Current Affairs", "q": "Q4. Who became the 49th Vice President of USA?", "opts": ["Kamala Harris", "Jefferson", "Joe Biden", "Jim O'Brien"], "ans": 0, "exp": "Kamala Harris became the 49th Vice President of the United States."}, {"section": "Current Affairs", "q": "Q5. Which of the following is a FALSE statement? ASEAN 2024–Laos; COP-16–Colombia; SCO-2024–Pakistan; G20-2024–Indonesia", "opts": ["ASEAN 2024–Laos", "COP-16–Colombia", "SCO-2024–Pakistan", "G20-2024–Indonesia"], "ans": 3, "exp": "G20 2024 was held in Brazil (Rio de Janeiro), NOT Indonesia."}, {"section": "Current Affairs", "q": "Q6. In which state was the Gross State Value Added (GSVA) highest in 2023-24?", "opts": ["Tamil Nadu", "Gujarat", "Maharashtra", "Karnataka"], "ans": 2, "exp": "Maharashtra had the highest Gross State Value Added (GSVA) at fixed prices in 2023-24."}, {"section": "Current Affairs", "q": "Q7. Where was the 7th Helicopter and Light Aircraft Summit 2025 organized?", "opts": ["Rajasthan", "Pune", "Panaji (Goa)", "Karnataka"], "ans": 2, "exp": "The 7th Helicopter and Light Aircraft Summit 2025 was organized in Panaji, Goa."}, {"section": "Current Affairs", "q": "Q8. Under which mission did Shubhanshu Shukla go to space?", "opts": ["GOE-U", "Axiom-4", "Europa Kliper", "Artemis"], "ans": 1, "exp": "Group Captain Shubhanshu Shukla went to space under Axiom Mission 4 (Axiom-4)."}, {"section": "Current Affairs", "q": "Q9. What is the name of the AI dataset platform launched in India?", "opts": ["AI India", "AI Kosh (Aijankosh)", "SmartAI", "Diogenes OAI"], "ans": 1, "exp": "The AI dataset platform launched by the Indian government is called 'AI Kosh' (AI Aijankosh)."}, {"section": "Current Affairs", "q": "Q10. Where was the First India Marine Heritage Conference 2024 held?", "opts": ["Vishakhapatnam", "Mangaluru", "Kochi", "New Delhi"], "ans": 2, "exp": "The First India Marine Heritage Conference 2024 was held in Kochi, Kerala."}, {"section": "Current Affairs", "q": "Q11. How many metres did Neeraj Chopra throw the javelin at the Paris Olympics 2024?", "opts": ["87.81", "87.18", "88.16", "88.61"], "ans": 1, "exp": "Neeraj Chopra threw 87.18 metres at the Paris Olympics 2024, winning a Silver medal."}, {"section": "Current Affairs", "q": "Q12. Which team won the Women's T20 World Cup 2024?", "opts": ["England", "South Africa", "Australia", "New Zealand"], "ans": 3, "exp": "New Zealand won the Women's T20 World Cup 2024, defeating South Africa in the final."}, {"section": "Current Affairs", "q": "Q13. Which statement about Ayushman Bharat is WRONG?", "opts": ["It provides health cover to 55 crore beneficiaries", "Health cover of ₹5 lakh per person per year", "Its aim is universal health under NHP 2017", "It is fully implemented by Central Government alone"], "ans": 3, "exp": "Ayushman Bharat is implemented jointly by Central and State governments, not by the Central Government alone."}, {"section": "Current Affairs", "q": "Q14. At the August 2025 Asia Pacific Bodybuilding Board Meeting in Phuket, which country was elected chairperson?", "opts": ["Indonesia", "Thailand", "China", "India"], "ans": 3, "exp": "India was elected as the Chairperson at the Asia Pacific Bodybuilding Board Annual Meeting in Phuket, August 2025."}, {"section": "Current Affairs", "q": "Q15. Where was the International Astrophysics Olympiad 2025 organized?", "opts": ["New Delhi", "Hyderabad", "Mumbai", "Bengaluru"], "ans": 1, "exp": "The International Astrophysics Olympiad 2025 was organized in Hyderabad."}, {"section": "Current Affairs", "q": "Q16. When was the Astra-5 Nuclear Missile tested in 2025?", "opts": ["20 August 2025", "25 August 2025", "21 August 2025", "22 August 2025"], "ans": 1, "exp": "Astra-5 was tested on 25 August 2025."}, {"section": "Current Affairs", "q": "Q17. When did the Air India plane crash occur near Ahmedabad Airport?", "opts": ["21 June 2025", "25 June 2025", "11 June 2025", "12 June 2025"], "ans": 3, "exp": "The Air India crash near Ahmedabad Airport occurred on 12 June 2025."}, {"section": "Current Affairs", "q": "Q18. AI Saksham e-Pragati Scheme was started by which ministry?", "opts": ["Ministry of Electronics and IT", "Ministry of Communication and IT", "Ministry of Science and Technology", "Ministry of Defence"], "ans": 0, "exp": "AI Saksham e-Pragati was launched by the Ministry of Electronics and Information Technology (MeitY)."}, {"section": "Current Affairs", "q": "Q19. India's largest export-grade titanium production started on which date?", "opts": ["11 May 2025", "21 May 2025", "11 June 2025", "21 June 2025"], "ans": 1, "exp": "Per answer key: B — 21 May 2025."}, {"section": "Current Affairs", "q": "Q20. Where was QUAD Summit 2024 organized?", "opts": ["Delaware (Wilmington)", "New York", "Washington D.C.", "California"], "ans": 0, "exp": "QUAD Summit 2024 was organized in Wilmington, Delaware, USA."}, {"section": "Bihar GK", "q": "Q21. Where was Bihar Mahotsav 2025 held?", "opts": ["New Delhi", "Nalanda", "Dubai", "Patna"], "ans": 0, "exp": "Bihar Mahotsav 2025 was held in New Delhi."}, {"section": "Geography", "q": "Q22. Which statement about coffee production in India is NOT correct?", "opts": ["India produces mainly on eastern and western slopes", "Karnataka alone produces more than 2/3 of India's coffee", "India produces about 4% of world's coffee", "India mainly produces highest quality Arabica coffee"], "ans": 3, "exp": "India produces both Arabica and Robusta coffee, but is not specifically known for producing the 'highest quality' Arabica."}, {"section": "Current Affairs", "q": "Q23. Which country launched the world's first wooden artificial satellite?", "opts": ["Japan", "Germany", "India", "China"], "ans": 0, "exp": "Japan launched the world's first wooden satellite, LignoSat, in 2024."}, {"section": "Science", "q": "Q24. Statement A: Atomic nucleus is a pool of protons and neutrons. Reason R: Valence rule determines charge layers. Which is correct?", "opts": ["A correct, R wrong", "A and R correct, R explains A", "A wrong, R correct", "A and R correct, R does not explain A"], "ans": 3, "exp": "A is correct. R does not correctly explain A. So D."}, {"section": "Science", "q": "Q25. Main observations when Magnesium ribbon burns: (i) Burns with white flame (ii) Forms white powder (iii) Magnesium solidifies (iv) White powder turns red litmus blue", "opts": ["(i),(ii),(iii)", "(i),(ii),(iv)", "(i),(iii),(iv)", "(ii),(iii),(iv)"], "ans": 1, "exp": "Mg burns with bright white flame (i), forms MgO white powder (ii), MgO is basic turning red litmus blue (iv). (iii) is wrong."}, {"section": "Science", "q": "Q26. Statement A: Convex lens always has positive power. Reason R: Power = 1/f, convex lens has positive focal length. Which is correct?", "opts": ["A correct, R wrong", "A and R correct, R correctly explains A", "A and R correct, R does not explain A", "A wrong, R correct"], "ans": 1, "exp": "A convex lens has positive focal length → positive power. R correctly explains A."}, {"section": "Science", "q": "Q27. Statement A: Mendel's F2 generation shows 3:1 ratio. Reason R: Law of independent assortment states characteristics expressed separately in self-fertilisation. Which is correct?", "opts": ["A and R correct, R explains A", "A and R correct, R does not explain A", "A correct, R wrong", "A wrong, R correct"], "ans": 0, "exp": "Both A and R are correct, and R (law of segregation/independent assortment) correctly explains the 3:1 ratio."}, {"section": "Science", "q": "Q28. During photosynthesis, light is absorbed by which substance in which part of the cell?", "opts": ["Red light through nucleus", "Chlorophyll through chloroplasts", "Full green through cell wall", "Mitochondria"], "ans": 1, "exp": "Light is absorbed by chlorophyll pigment located in the chloroplasts."}, {"section": "Science", "q": "Q29. Which of the following is NOT a double-membrane cell organelle?", "opts": ["Nucleus", "Chloroplast", "Lysosome", "Mitochondria"], "ans": 2, "exp": "Lysosome is a single-membrane organelle. Nucleus, Chloroplast, and Mitochondria are all double-membrane organelles."}, {"section": "History & Culture", "q": "Q30. Which famous sage was associated with the court of Raja Janak?", "opts": ["Panini", "Yajnavalkya", "Valmiki", "Vishwamitra"], "ans": 1, "exp": "Yajnavalkya was the famous sage at King Janaka's court, known for his philosophical debates in the Brihadaranyaka Upanishad."}, {"section": "Science", "q": "Q31. Match: Velocity–(a) Rate of change of velocity; Acceleration–(b) Total path length; Distance–(c) Rate of change of position with direction; Speed–(d) Rate of change of position. Correct match?", "opts": ["Velocity-c, Acceleration-a, Distance-b, Speed-d", "Velocity-a, Acceleration-c, Distance-d, Speed-b", "Velocity-d, Acceleration-b, Distance-a, Speed-c", "Velocity-b, Acceleration-d, Distance-c, Speed-a"], "ans": 0, "exp": "Velocity = rate of change of position with direction (c); Acceleration = rate of change of velocity (a); Distance = total path length (b); Speed = rate of change of position (d)."}, {"section": "Science", "q": "Q32. Resistance of a conductor is directly proportional to which property?", "opts": ["Cross-section area", "Length", "Specific resistance (resistivity)", "Volume"], "ans": 2, "exp": "R = ρL/A. Resistance is directly proportional to specific resistance (resistivity ρ) and length, and inversely to area."}, {"section": "Science", "q": "Q33. On a velocity-time graph of a car, a horizontal straight line indicates what?", "opts": ["Car is accelerating", "Car is moving at constant velocity", "Car is at rest", "Car is moving with unequal acceleration"], "ans": 1, "exp": "A horizontal line on a velocity-time graph indicates constant velocity (zero acceleration)."}, {"section": "Current Affairs", "q": "Q34. Pankaj Advani is related to which sport?", "opts": ["Snooker/Billiards", "Table Tennis", "Boxing", "Cricket"], "ans": 0, "exp": "Pankaj Advani is a multiple world champion in Snooker and Billiards."}, {"section": "Hindi/Language", "q": "Q35. The correct Hindi word for 'Corrigendum' is:", "opts": ["Sanshodhan", "Shuddhi Patra", "Shapat Patra", "Rin Patra"], "ans": 1, "exp": "Corrigendum = Shuddhi Patra (a document issued to correct errors in a previously published document)."}, {"section": "Hindi/Language", "q": "Q36. The correct Hindi word for 'Endorsement' is:", "opts": ["Adhikaran", "Prabandhak", "Prishthakan", "Namankhan"], "ans": 2, "exp": "Endorsement = Prishthakan in Hindi official/administrative usage."}, {"section": "Hindi/Language", "q": "Q37. The correct Hindi translation for 'Tender' is:", "opts": ["Paryas", "Abhisucha", "Nivedan", "Nirdesika"], "ans": 1, "exp": "Tender (as in a government notice inviting bids) = Abhisucha in Hindi official usage."}, {"section": "Polity", "q": "Q38. Which statements about Zonal Councils (Kshetriya Parishad) are correct? (i) Established by State Reorganisation Act 1956. (ii) Chairman is the state's Chief Minister. (iii) Each zone's CM performs functions.", "opts": ["(i) and (iii) correct", "(ii) and (iii) correct", "(i) and (ii) correct", "Only (iii) correct"], "ans": 0, "exp": "Statements (i) and (iii) are correct about Zonal Councils. The Chairman is actually the Union Home Minister, not the CM."}, {"section": "Bihar GK", "q": "Q39. What is the main purpose of Bihar Vidhan Mandal formed in 1950?", "opts": ["Moral governance and public service", "Focus on Bihar development", "Technological direction", "To present and pass laws before the two Houses"], "ans": 3, "exp": "The main purpose of Bihar Vidhan Mandal is to legislate — present and pass laws before the two Houses of the state legislature."}, {"section": "Science", "q": "Q40. Metal M displaces iron from FeSO₄ solution but aluminium sulphate dissolves when aluminium reacts. M is which metal?", "opts": ["Magnesium", "Copper", "Lead", "Zinc"], "ans": 3, "exp": "Zinc displaces iron from FeSO₄ (more reactive than Fe) but cannot displace aluminium (less reactive than Al). Answer: Zinc."}, {"section": "History & Culture", "q": "Q41. Which cells are considered unipotent in humans?", "opts": ["Blastocyst, muscle cell, stem cells", "Blastocyst and undifferentiated mother cell", "Undifferentiated mother cell and stem cells", "Blastocyst and undifferentiated mother cell"], "ans": 1, "exp": "Per answer key: B — Blastocyst and mother undifferentiated cells."}, {"section": "History & Culture", "q": "Q42. Assertion: Boston Tea Party occurred in 1773. Reason: British government imposed heavy taxes on American colonies. Which is correct?", "opts": ["A and R correct, R explains A", "A and R correct, R does not explain A", "A correct, R wrong", "A wrong, R correct"], "ans": 0, "exp": "Both A and R are correct, and R (heavy British taxation) correctly explains why the Boston Tea Party occurred."}, {"section": "Geography", "q": "Q43. Match mountain peaks with ranges: Dhupgadh–Satpura, Doddabeta–Nilgiri, Amarkantak–Vindhya, Nanga Parvat–Himalayan. Correct match?", "opts": ["a-Satpura, b-Nilgiri, c-Vindhya, d-Himalayan", "a-Nilgiri, b-Satpura, c-Himalayan, d-Vindhya", "a-Satpura, b-Vindhya, c-Nilgiri, d-Satpura", "a-Vindhya, b-Himalayan, c-Satpura, d-Nilgiri"], "ans": 0, "exp": "Dhupgadh – Satpura; Doddabeta – Nilgiri; Amarkantak – Vindhya; Nanga Parvat – Himalayan."}, {"section": "Current Affairs", "q": "Q44. Which day-date pair is NOT correctly matched?", "opts": ["Teachers' Day – 5 September", "Pulse Day – 1 April", "Youth Day – 10 March", "Women's Day – 5 March"], "ans": 2, "exp": "National Youth Day is on 12 January (Swami Vivekananda's birthday), not 10 March. Also, Women's Day is 8 March, not 5 March."}, {"section": "Polity", "q": "Q45. Which article empowers the Centre to make laws on Seventh Schedule subjects for any state?", "opts": ["Article 245", "Article 246", "Article 247", "Article 248"], "ans": 1, "exp": "Article 246 of the Indian Constitution deals with the distribution of legislative powers (Union List, State List, Concurrent List)."}, {"section": "Geography", "q": "Q46. Which of the following is NOT correctly matched?", "opts": ["Sunderbans – Bihar", "Neelagiri – Tamil Nadu", "Manas – Assam", "Panchakki – Madhya Pradesh"], "ans": 0, "exp": "Sunderbans is in West Bengal (and Bangladesh), NOT Bihar."}, {"section": "Polity", "q": "Q47. Match Constitutional Amendments with provisions: 42nd–'Secular/Socialist' added; 44th–Property right removed; 61st–Voting age reduced to 18; 73rd–Panchayati Raj status. Correct?", "opts": ["a-iii, b-i, c-ii, d-iv", "a-i, b-iv, c-ii, d-iii", "a-iii, b-ii, c-iv, d-i", "a-iv, b-ii, c-iii, d-i"], "ans": 0, "exp": "42nd – Secular/Socialist added to Preamble; 44th – Property right removed; 61st – Voting age to 18; 73rd – Panchayati Raj constitutional status."}, {"section": "Polity", "q": "Q48. Which article provides for an Independent Election Commission?", "opts": ["Article 315", "Article 321", "Article 330", "Article 324"], "ans": 3, "exp": "Article 324 vests superintendence, direction and control of elections in the Election Commission of India."}, {"section": "Polity", "q": "Q49. Match economic and social indicators: Income level, Consumption level are economic; Nutrition, Clean water access, Lack of cleanliness are social. Which is correct?", "opts": ["Economic: income+consumption; Social: nutrition+water+cleanliness", "Economic: income+nutrition+water; Social: consumption+cleanliness", "Economic: consumption+nutrition; Social: income+cleanliness+water", "Economic: nutrition+consumption; Social: income+both others"], "ans": 0, "exp": "Economic indicators: income level, consumption level. Social indicators: nutrition, access to clean water, lack of cleanliness."}, {"section": "Bihar GK", "q": "Q50. When was the Kisan Sabha formed in Munger, Bihar under Shrikrishna Singh and Shah Mohammad Zubair?", "opts": ["1919", "1920", "1922", "1926"], "ans": 1, "exp": "The Kisan Sabha was formed in Munger, Bihar in 1920 under the leadership of Shri Krishna Singh and Shah Mohammad Zubair."}, {"section": "History & Culture", "q": "Q51. Raja Ajatashatru belonged to which dynasty?", "opts": ["Shishunaga", "Maurya", "Haryaka", "Nanda"], "ans": 2, "exp": "Ajatashatru belonged to the Haryaka dynasty of Magadha. He was the son of Bimbisara."}, {"section": "History & Culture", "q": "Q52. At which Indus Valley Civilisation site was a large reservoir found?", "opts": ["Lothal", "Ajanta", "Dholavira", "Kalibanga"], "ans": 2, "exp": "A large reservoir/water management system was discovered at Dholavira in Gujarat."}, {"section": "History & Culture", "q": "Q53. The First Buddhist Council at Rajgir was organised under whose chairmanship?", "opts": ["Ashoka", "Mahakashyap (Mahakassapa)", "Ananda", "Upali"], "ans": 1, "exp": "The First Buddhist Council at Rajgir was chaired by Mahakashyap (Mahakassapa) after the Buddha's death."}, {"section": "Polity", "q": "Q54. Article 20(3) states the accused cannot be forced to be a witness against themselves. What does this mean?", "opts": ["Accused need not appear in court", "Accused cannot be forced to answer self-incriminating questions", "Accused can refuse to give evidence", "Only police can interrogate accused"], "ans": 1, "exp": "Article 20(3) provides right against self-incrimination — no person accused of an offence shall be compelled to be a witness against himself."}, {"section": "History & Culture", "q": "Q55. When was the Treaty of Purandar signed?", "opts": ["1665", "1666", "1667", "1668"], "ans": 0, "exp": "The Treaty of Purandar was signed in 1665 between Shivaji and Jai Singh I (on behalf of Aurangzeb)."}, {"section": "History & Culture", "q": "Q56. Sir Thomas Roe met which Mughal ruler at court?", "opts": ["Akbar", "Jahangir", "Shahjahan", "Aurangzeb"], "ans": 1, "exp": "Sir Thomas Roe met Mughal Emperor Jahangir in 1615 to obtain trade rights for the British East India Company."}, {"section": "History & Culture", "q": "Q62. Which musician received the Bharat Ratna first?", "opts": ["Bhimsen Joshi", "Lata Mangeshkar", "M.S. Subbulakshmi", "Bhupinder Hazarika"], "ans": 2, "exp": "M.S. Subbulakshmi was the first musician to receive the Bharat Ratna (1998)."}, {"section": "History & Culture", "q": "Q63. Which author-book pair is NOT correctly matched?", "opts": ["Rag Darbari – Banabhatta", "Tamas – Bhishm Sahni", "Pinjar – Amrita Pritam", "Nirmala – Munshi Premchand"], "ans": 0, "exp": "Rag Darbari was written by Shrilal Shukla, NOT Banabhatta."}, {"section": "Bihar GK", "q": "Q64. In Bihar's culture, what is 'Tilkut'?", "opts": ["Sweet made from sesame and jaggery", "Folk dance", "Traditional dish", "Harvest festival"], "ans": 0, "exp": "Tilkut is a famous traditional sweet of Bihar made from sesame seeds (til) and jaggery/sugar, especially popular in Gaya."}, {"section": "Bihar GK", "q": "Q66. Match folk dances with their speciality: Karma–no fixed time; Kajri–Jhulaaha community; Jhumur–pre-monsoon; Jharna–monsoon. Correct order?", "opts": ["a-no fixed time, b-Jhulaaha, c-pre-monsoon, d-monsoon", "a-pre-monsoon, b-Jhulaaha, c-no fixed time, d-monsoon", "a-no fixed time, b-monsoon, c-pre-monsoon, d-Jhulaaha", "a-monsoon, b-pre-monsoon, c-Jhulaaha, d-no fixed time"], "ans": 0, "exp": "Karma – no fixed time; Kajri – Jhulaaha community; Jhumur – pre-monsoon; Jharna – monsoon season."}, {"section": "Current Affairs", "q": "Q67. Which standardization mark identifies quality of industrial products in India?", "opts": ["ISI", "Eggmark", "Hallmark", "None of these"], "ans": 0, "exp": "ISI (Indian Standards Institution) mark certifies the quality of industrial products in India."}, {"section": "Polity", "q": "Q69. In India, which indexes are generally used to measure inflation?", "opts": ["GDP deflator and IIP", "Consumer Price Index (CPI) and Wholesale Price Index (WPI)", "Producer price index and WPI", "IIP and foreign exchange rate"], "ans": 1, "exp": "Inflation in India is measured using CPI (Consumer Price Index) and WPI (Wholesale Price Index)."}, {"section": "Quantitative Aptitude", "q": "Q70. P(A's statement false)=3/5, P(B's statement true)=1/6. Probability both are false?", "opts": ["1/10", "1/15", "5/6", "1/2"], "ans": 3, "exp": "P(A false)=3/5, P(B false)=1-1/6=5/6. P(both false)=3/5×5/6=15/30=1/2."}, {"section": "History & Culture", "q": "Q71. Which Mughal painter was famous for depicting animals and birds during Jahangir's reign?", "opts": ["Bichitra", "Abdussamad", "Mansur", "Mirikan"], "ans": 2, "exp": "Ustad Mansur was famous for his exquisite paintings of animals and birds during Emperor Jahangir's reign."}, {"section": "History & Culture", "q": "Q75. Where is Hampi Monument located?", "opts": ["Kerala", "Karnataka", "Telangana", "Maharashtra"], "ans": 1, "exp": "Hampi is located in Karnataka — it was the capital of the Vijayanagara Empire and is a UNESCO World Heritage Site."}, {"section": "Current Affairs", "q": "Q76. What does CSIR stand for?", "opts": ["Council of Scientific and Industrial Research", "Council of Social and Industrial Research", "Committee for Scientific and Industrial Research", "Council of Society and Industrial Research"], "ans": 0, "exp": "CSIR = Council of Scientific and Industrial Research."}, {"section": "Computer", "q": "Q79. What is the smallest unit of data storage in a computer?", "opts": ["Byte", "Terabyte", "Bit", "Kilobyte"], "ans": 2, "exp": "The smallest unit of data storage in a computer is a Bit (binary digit — 0 or 1)."}, {"section": "Quantitative Aptitude", "q": "Q81. At what annual CI rate will ₹16,000 double? (Answer as years needed, related to 4% SI context)", "opts": ["4 years", "5 years", "6 years", "8 years"], "ans": 0, "exp": "Per answer key: A — 4 years."}, {"section": "History & Culture", "q": "Q82. Which author-book pair is correctly matched?", "opts": ["Akbar – Taqwat-e-Akbari", "Shershah – Tarikh-e-Shershah", "Humayun – Humayun-nama", "Babur – Tuzuk-e-Babri (Baburnama)"], "ans": 3, "exp": "Babur wrote Baburnama (also called Tuzuk-e-Babri). The other pairs are incorrectly named or attributed."}, {"section": "Computer", "q": "Q83. What is the possible risk of deepfake private injection?", "opts": ["Data leak and wrong information spread", "Fast processing of chatbot", "Improvement of AI accuracy", "Better usability experience"], "ans": 0, "exp": "Deepfakes pose risks of data leaks and spread of misinformation/disinformation."}, {"section": "Polity", "q": "Q85. According to 2011 census, what is the correct ASCENDING order of population of states?", "opts": ["Bihar→AP→Karnataka→Kerala", "Bihar→AP→Kerala→Karnataka", "AP→Bihar→Karnataka→Kerala", "AP→Bihar→Kerala→Karnataka"], "ans": 3, "exp": "Ascending order (2011 census): Andhra Pradesh < Bihar < Kerala < Karnataka."}, {"section": "Science", "q": "Q87. Statements: (i) Volume of sphere with r=12 cm = 2304π cm³. (ii) CSA of one hemisphere = 888π cm². (iii) Total surface of one hemisphere = 432π cm². Which are correct?", "opts": ["(i) and (ii) correct", "Only (i) correct", "Only (iii) correct", "Only (ii) correct"], "ans": 2, "exp": "Volume = (4/3)π×1728=2304π ✓. CSA = 2πr²=288π (not 888π) ✗. Total SA = 3πr²=3×π×144=432π ✓. (i) and (iii) correct — per answer key C."}, {"section": "Geography", "q": "Q88. Which steel plant–state pair is correctly matched?", "opts": ["Raurkela – Kerala", "Bokaro – Jharkhand", "Bhilai – Chhattisgarh", "Salem – Tamil Nadu"], "ans": 2, "exp": "Bhilai Steel Plant is in Chhattisgarh ✓. Raurkela is in Odisha (not Kerala). All others are correct too."}, {"section": "Geography", "q": "Q89. Which of the following is NOT correctly matched for nuclear plants?", "opts": ["Tarapur – Delhi (wrong: Tarapur is in Maharashtra)", "Tarapur – Maharashtra", "Kalpakkam – Tamil Nadu", "Kaiga – Karnataka"], "ans": 0, "exp": "Tarapur Nuclear Plant is in Maharashtra, NOT Delhi. Option A states Delhi which is incorrect."}, {"section": "History & Culture", "q": "Q91. Where is Sufi Saint Sheikh Nizamuddin Auliya's Dargah located?", "opts": ["Lahore", "Giyaspur (Delhi — Nizamuddin area)", "Mahrauli", "Saidabad"], "ans": 1, "exp": "Sheikh Nizamuddin Auliya's Dargah is located in Nizamuddin, Delhi (historically called Giyaspur)."}, {"section": "Bihar GK", "q": "Q92. In 1952, where in Bihar did the Bhoodan Movement begin?", "opts": ["Gaya", "Ranchi", "Patna", "Ara"], "ans": 0, "exp": "The Bhoodan Movement by Vinoba Bhave in Bihar began in Gaya in 1952."}, {"section": "Science", "q": "Q93. What force acts on an object submerged in a liquid?", "opts": ["Gravitational force", "Buoyant force", "Friction force", "Magnetic force"], "ans": 1, "exp": "When an object is submerged in a liquid, an upward buoyant force (Archimedes' Principle) acts on it."}, {"section": "Science", "q": "Q94. Where is the Thymus gland located in humans?", "opts": ["Abdomen", "Neck", "Chest (thorax)", "Brain"], "ans": 2, "exp": "The Thymus gland is located in the chest (thorax), behind the sternum. It is important for immune system development."}, {"section": "Polity", "q": "Q96. Assertion: Government builds buffer stock to protect poor farmers from price fall. Reason: Buffer stock provides food grain to poor at low prices. Which is correct?", "opts": ["A and R correct, R explains A", "A and R correct, R does not explain A", "A correct, R wrong", "A wrong, R correct"], "ans": 1, "exp": "A is correct. R is also correct but the reason doesn't explain why buffer stock protects farmers from price falls — it's a separate purpose. So B."}, {"section": "Polity", "q": "Q97. Which of the following is NOT incorrect about judiciary?", "opts": ["Judiciary can nullify unconstitutional laws", "Judiciary cannot resolve disputes between two states (INCORRECT statement)", "Judiciary and executive cannot interfere with each other", "Judiciary protects fundamental rights of citizens"], "ans": 1, "exp": "Statement B is actually INCORRECT — the Supreme Court does resolve disputes between states (original jurisdiction). So B is the false/incorrect statement."}, {"section": "Polity", "q": "Q98. Which of the following is NOT a monetary measure to control inflation?", "opts": ["Control of currency supply", "Budget cuts (fiscal measure)", "Increase in bank rate", "Selling goods in open market"], "ans": 1, "exp": "Budget cuts are a fiscal (not monetary) measure. Monetary measures include controlling money supply, bank rate changes, and open market operations."}, {"section": "Bihar GK", "q": "Q99. When was Patna High Court established?", "opts": ["1910", "1912", "1916", "1925"], "ans": 2, "exp": "Patna High Court was established in 1916 under the Government of India Act 1915."}, {"section": "History & Culture", "q": "Q100. Which of the following books was NOT written by A.P.J. Abdul Kalam?", "opts": ["Wings of Fire", "Ignited Minds", "India 2020", "Discovery of India"], "ans": 3, "exp": "'Discovery of India' was written by Jawaharlal Nehru, NOT A.P.J. Abdul Kalam. Kalam's books include Wings of Fire, Ignited Minds, and India 2020."}];
+const SECTIONS=["Bihar GK", "Computer", "Current Affairs", "Geography", "Hindi/Language", "History & Culture", "Polity", "Quantitative Aptitude", "Science"];
+const TOTAL=83;const MINS=120;const NEG=0.25;const MARKS=1;
+let answers=Array(TOTAL).fill(null),marked=Array(TOTAL).fill(false),visited=Array(TOTAL).fill(false);
+let currentQ=0,timeLeft=MINS*60,timerInt=null;
+visited[0]=true;
+function buildPalette(){const g=document.getElementById('palette-grid');g.innerHTML='';for(let i=0;i<TOTAL;i++)g.innerHTML+=`<button class="p-btn" id="pb-${i}" onclick="jumpQ(${i})">${i+1}</button>`;}
+function buildTabs(){const t=document.getElementById('section-tabs');t.innerHTML='';SECTIONS.forEach((s,i)=>{t.innerHTML+=`<button class="s-tab" id="st-${i}" onclick="jumpSection(${i})">${s}</button>`;});}
+function jumpSection(idx){const f=QUESTIONS.findIndex(q=>q.section===SECTIONS[idx]);if(f>=0){currentQ=f;visited[f]=true;render();}}
+function render(){const q=QUESTIONS[currentQ];document.getElementById('q-num').textContent=`Question ${currentQ+1} of ${TOTAL}`;document.getElementById('q-text').textContent=q.q;document.getElementById('progress-fill').style.width=((currentQ+1)/TOTAL*100)+'%';
+SECTIONS.forEach((s,i)=>{const b=document.getElementById('st-'+i);if(b)b.className='s-tab'+(q.section===s?' active':'');});
+const letters=['A','B','C','D'];const opts=document.getElementById('options');opts.innerHTML='';
+q.opts.forEach((opt,i)=>{const sel=answers[currentQ]===i;opts.innerHTML+=`<div class="option ${sel?'selected':''}" onclick="selectOpt(${i})"><div class="option-letter">${letters[i]}</div><div>${opt}</div></div>`;});
+document.getElementById('btn-prev').disabled=currentQ===0;const nb=document.getElementById('btn-next');
+if(currentQ===TOTAL-1){nb.textContent='Submit →';nb.onclick=submitQuiz;}else{nb.textContent='Next →';nb.onclick=nextQ;}
+updatePalette();updateSummary();}
+function selectOpt(i){answers[currentQ]=i;render();}
+function clearResponse(){answers[currentQ]=null;render();}
+function markForReview(){marked[currentQ]=!marked[currentQ];updatePalette();}
+function prevQ(){if(currentQ>0){currentQ--;visited[currentQ]=true;render();}}
+function nextQ(){if(currentQ<TOTAL-1){currentQ++;visited[currentQ]=true;render();}}
+function jumpQ(i){currentQ=i;visited[i]=true;render();}
+function updatePalette(){for(let i=0;i<TOTAL;i++){const b=document.getElementById('pb-'+i);if(!b)continue;b.className='p-btn';if(i===currentQ)b.classList.add('p-current');else if(marked[i])b.classList.add('p-marked');else if(answers[i]!==null)b.classList.add('p-answered');else if(!visited[i])b.classList.add('p-not');}}
+function updateSummary(){document.getElementById('s-ans').textContent=answers.filter(a=>a!==null).length;document.getElementById('s-mrk').textContent=marked.filter(Boolean).length;document.getElementById('s-nv').textContent=visited.filter(v=>!v).length;document.getElementById('s-na').textContent=visited.filter((v,i)=>v&&answers[i]===null).length;}
+function startTimer(){timerInt=setInterval(()=>{timeLeft--;const m=Math.floor(timeLeft/60),s=timeLeft%60;const str=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');document.getElementById('timer').innerHTML='⏱ '+str;document.getElementById('timer-big').textContent=str;const w=timeLeft<300;document.getElementById('timer').className='timer'+(w?' warning':'');document.getElementById('timer-big').style.color=w?'var(--accent3)':'var(--danger)';if(timeLeft<=0){clearInterval(timerInt);submitQuiz();}},1000);}
+function submitQuiz(){if(timerInt)clearInterval(timerInt);let correct=0,wrong=0,skip=0;QUESTIONS.forEach((q,i)=>{if(answers[i]===null)skip++;else if(answers[i]===q.ans)correct++;else wrong++;});const score=(correct*MARKS-wrong*NEG).toFixed(2);const acc=(correct+wrong)>0?Math.round(correct/(correct+wrong)*100):0;const used=MINS*60-timeLeft;const um=Math.floor(used/60),us=used%60;document.getElementById('r-score').textContent=score;document.getElementById('r-correct').textContent=correct;document.getElementById('r-wrong').textContent=wrong;document.getElementById('r-skip').textContent=skip;document.getElementById('r-acc').textContent=acc+'%';let grade=acc>=80?'🏆 Excellent Performance!':acc>=60?'👍 Good Job! Keep practicing.':'📚 Keep Practicing!';document.getElementById('r-title').textContent=grade;document.getElementById('r-sub').textContent=`Score: ${score} | Accuracy: ${acc}% | Time: ${um}m ${us}s`;const letters=['A','B','C','D'];const list=document.getElementById('review-list');list.innerHTML='';QUESTIONS.forEach((q,i)=>{const status=answers[i]===null?'skipped':answers[i]===q.ans?'correct':'wrong';const your=answers[i]!==null?letters[answers[i]]+'. '+q.opts[answers[i]]:'Not Attempted';list.innerHTML+=`<div class="review-item r-${status}"><div class="review-q">Q${i+1}. ${q.q}</div><div class="review-answers"><div class="${status==='wrong'?'wrong-ans':''}">Your answer: ${your}</div><div class="correct-ans">Correct: ${letters[q.ans]}. ${q.opts[q.ans]}</div></div><div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div></div>`;});document.getElementById('quiz-view').classList.add('hidden');document.getElementById('result-view').classList.remove('hidden');window.scrollTo(0,0);}
+buildTabs();buildPalette();render();startTimer();
+</script>
+</body>
+</html>
